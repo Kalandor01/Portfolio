@@ -1,0 +1,85 @@
+
+html, body {
+    background-color: rgb(35, 35, 75);
+}
+
+main, header, nav, article, aside, footer {
+    border: solid 1px black;
+}
+
+header, article, aside, footer {
+    padding: 5px;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
+}
+
+a:hover {
+    color: black;
+}
+
+main {
+    display: grid;
+    grid-template-areas: "h h h"
+                         "n n n"
+                         "a a s"
+                         "f f f";
+    background-color: rgb(105, 47, 170);
+    margin: auto;
+    max-width: 1000px;
+}
+
+header {
+    grid-area: h;
+    text-align: center;
+    background-color: rgb(94, 29, 155);
+}
+
+nav {
+    grid-area: n;
+    background-color: rgb(72, 72, 255);
+}
+
+nav>ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+    margin: 0;
+    padding: 0;
+}
+
+nav>ul>a>li {
+    border-right: solid 2px black;
+    padding: 10px;
+    background-color: rgb(16, 16, 255);
+    color: black;
+}
+
+nav>ul>a>li:hover {
+    background-color: rgb(88, 88, 255);
+    color: white;
+}
+
+article {
+    grid-area: a;
+    text-align: justify;
+}
+
+aside {
+    grid-area: s;
+}
+
+footer {
+    grid-area: f;
+    text-align: center;
+    background-color: rgb(94, 29, 155);
+}
+
+
+@media screen and (max-width: 400px){
+    nav>ul {
+        grid-template-columns: 1fr;
+    }
+}
