@@ -27,7 +27,7 @@ main {
                          "a"
                          "s"
                          "f";
-    background-color: rgb(105, 47, 170);
+    background-color: rgb(48, 45, 237);
     width: 90%;
     margin: auto;
 }
@@ -35,7 +35,7 @@ main {
 header {
     grid-area: h;
     text-align: center;
-    background-color: rgb(94, 29, 155);
+    background-color: rgb(76, 23, 126);
 }
 
 nav {
@@ -51,6 +51,15 @@ nav>ul {
     padding: 0;
 }
 
+nav>ul>li {
+    border-right: solid 2px black;
+    background-color: rgb(19, 96, 179);
+}
+
+nav>ul>li:hover {
+    background-color: rgb(45, 138, 237);
+}
+
 nav>ul>li>a {
     color: black;
     text-decoration: none;
@@ -59,14 +68,7 @@ nav>ul>li>a {
     padding: 5px;
 }
 
-nav>ul>li {
-    border-right: solid 2px black;
-    background-color: rgb(16, 16, 255);
-    color: black;
-}
-
-nav>ul>li:hover {
-    background-color: rgb(88, 88, 255);
+nav>ul>li>a:hover {
     color: white;
 }
 
@@ -85,6 +87,7 @@ article {
     padding: 10px;
     box-shadow: 15px 15px 30px 5px #000000;
     text-align: center;
+    background-color: rgb(30, 86, 146);
 }
 
 .galery>div>img {
@@ -100,9 +103,10 @@ article {
     width: 30px;
 }
 
-.no {
-    margin: 20px;
-    box-shadow: none !important;
+.no>h2 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 aside {
@@ -110,10 +114,15 @@ aside {
     text-align: justify;
 }
 
+aside>iframe{
+    aspect-ratio: 16/9;
+    width: 100%;
+}
+
 footer {
     grid-area: f;
     text-align: center;
-    background-color: rgb(94, 29, 155);
+    background-color: rgb(127, 36, 212);
 }
 
 @media screen and (max-width:1200px) {
@@ -126,6 +135,10 @@ footer {
 }
 
 @media screen and (max-width:900px) {
+
+    main {
+        width: 100%;
+    }
 
     .galery {
         display: grid;
@@ -153,7 +166,7 @@ footer {
     
 }
 
-@media screen and (max-width:350px) {
+@media screen and (max-width:380px) {
 
     .galery {
         display: grid;
