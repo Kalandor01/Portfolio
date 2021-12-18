@@ -4,9 +4,8 @@ $(document).ready(function(){
     //append to footer
     $("footer").append("<h1>© BETA™</h1>");
     //GALERY
-    function galery(type, name, link=0)
+    function galery(type, name, link = 0, full_link = false)
     {
-        $(`.galery`).append(`<h1>yooooooo</h1>`);
         $(`.galery_${type}`).append(`<div class="${type} current"></div>`);
         //name
         $(`.galery_${type}>.current`).append(`<h1>${name}</h1>`);
@@ -17,7 +16,10 @@ $(document).ready(function(){
             link = name;
         if(type == "html")
         {
-            $(`.galery_html>.current`).append(`<a target="_blank" href="links/web/${link}/index.html"><img src="img/link.png" alt="Link"></a>`);
+            if(full_link == true)
+                $(`.galery_html>.current`).append(`<a target="_blank" href="${link}"><img src="img/link.png" alt="Link"></a>`);
+            else
+                $(`.galery_html>.current`).append(`<a target="_blank" href="links/web/${link}/index.html"><img src="img/link.png" alt="Link"></a>`);
         }
         else if(type == "py")
         {
@@ -29,10 +31,21 @@ $(document).ready(function(){
         }
         $(`.galery_${type}>.current`).removeClass(`current`)
     }
+
+    var html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
+    for (x = 0; x < html_names.length; x++)
+        galery("html", html_names[x])
+    galery("html", "Téli versek", "https://kalandor01.github.io/teli_versek/", true)
+    var py_names = ["Béka", "Black Jack", "File Explorer", "Kalandkönyv", "Kémcső"]
+    for (x = 0; x < py_names.length; x++)
+        galery("py", py_names[x])
+    var java_names = ["Amőba", "Harc", "Itt a piros, hol a piros", "Nyugta"]
+    for (x = 0; x < java_names.length; x++)
+        galery("java", java_names[x])
+    /*
     var galery_type = []
     var galery_name = []
     var galery_link = []
-    window.alert(5 + 6);
     var fs = require('fs');
     var html_files = fs.readdir('/web/');
     window.alert(5);
@@ -48,6 +61,7 @@ $(document).ready(function(){
     for (file in java_files) {
         galery("java", file);
     }
+    */
 });
 
 /*
