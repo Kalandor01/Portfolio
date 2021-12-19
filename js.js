@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
     //append to nav
     $("nav").append('<ul><li><a href="index.html">Kezdőlap</a></li><li><a href="portfolio.html">Portfólió</a></li><li><a href="projects.html">Projektek</a></li><li><a href="index.html">Kezdőlap</a></li></ul>')
@@ -46,6 +47,7 @@ $(document).ready(function(){
     var galery_type = []
     var galery_name = []
     var galery_link = []
+    window.alert(6);
     var fs = require('fs');
     var html_files = fs.readdir('/web/');
     window.alert(5);
@@ -53,11 +55,11 @@ $(document).ready(function(){
         galery("html", file);
         window.alert(file);
     }
-    var py_files = fs.readdirSync('./file/py');
+    var py_files = fs.readdirSync('/file/py/');
     for (file in py_files) {
         galery("py", file);
     }
-    var java_files = fs.readdirSync('./file/java');
+    var java_files = fs.readdirSync('/file/java/');
     for (file in java_files) {
         galery("java", file);
     }
