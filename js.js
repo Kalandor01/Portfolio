@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     //append to nav
     $("nav").append('<ul><li><a href="index.html">Kezdőlap</a></li><li><a href="portfolio.html">Portfólió</a></li><li><a href="projects.html">Projektek</a></li><li><a href="index.html">Kezdőlap</a></li></ul>')
@@ -7,7 +6,8 @@ $(document).ready(function(){
     //GALERY
     function galery(type, name, link = 0, full_link = false)
     {
-        $(`.galery_${type}`).append(`<div class="${type} current"></div>`);
+        order_num += 1;
+        $(`.galery_${type}`).append(`<div class="${type} fadeIn current" style="--order: ${order_num}"></div>`);
         //name
         $(`.galery_${type}>.current`).append(`<h1>${name}</h1>`);
         //image
@@ -24,25 +24,44 @@ $(document).ready(function(){
         }
         else if(type == "py")
         {
-            $(`.galery_py>.current`).append(`<a target="_blank" href="links/file/py/${link}.zip"><img src="img/download.png" alt="Download"></a>`);
+            if(full_link == true)
+                $(`.galery_py>.current`).append(`<a target="_blank" href="${link}"><img src="img/download.png" alt="Download"></a>`);
+            else
+                $(`.galery_py>.current`).append(`<a target="_blank" href="links/file/py/${link}.zip"><img src="img/download.png" alt="Download"></a>`);
         }
         else if(type == "java")
         {
-            $(`.galery_java>.current`).append(`<a target="_blank" href="links/file/java/${link}.zip"><img src="img/download.png" alt="Download"></a>`);
+            if(full_link == true)
+                $(`.galery_java>.current`).append(`<a target="_blank" href="${link}"><img src="img/download.png" alt="Download"></a>`);
+            else
+                $(`.galery_java>.current`).append(`<a target="_blank" href="links/file/java/${link}.zip"><img src="img/download.png" alt="Download"></a>`);
         }
         $(`.galery_${type}>.current`).removeClass(`current`)
     }
 
+    //projects
+    //html
+    var order_num = 1
+    $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>HTML</h2></div>`).insertBefore(`.galery_html`)
     var html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
     for (x = 0; x < html_names.length; x++)
         galery("html", html_names[x])
     galery("html", "Téli versek", "https://kalandor01.github.io/teli_versek/", true)
+
+    //python
+    order_num += 1
+    $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Python</h2></div>`).insertBefore(`.galery_py`)
     var py_names = ["Béka", "Black Jack", "File Explorer", "Kalandkönyv", "Kémcső"]
     for (x = 0; x < py_names.length; x++)
         galery("py", py_names[x])
-    var java_names = ["Amőba", "Harc", "Itt a piros, hol a piros", "Nyugta"]
+    
+    //java
+    order_num += 1
+    $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Java</h2></div>`).insertBefore(`.galery_java`)
+    var java_names = ["Amőba", "Harc", "Itt a piros", "Nyugta"]
     for (x = 0; x < java_names.length; x++)
         galery("java", java_names[x])
+
     /*
     var galery_type = []
     var galery_name = []

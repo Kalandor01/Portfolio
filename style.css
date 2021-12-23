@@ -5,6 +5,7 @@ header, article, aside, footer {
 
 html, body {
     background-color: rgb(35, 35, 75);
+    margin: 0;
 }
 
 main, header, nav, article, aside, footer {
@@ -79,6 +80,8 @@ article {
 
 .galery {
     display: grid;
+    align-items: center;
+    justify-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
@@ -88,6 +91,7 @@ article {
     box-shadow: 15px 15px 30px 5px #000000;
     text-align: center;
     background-color: rgb(30, 86, 146);
+    max-width: 300px;
 }
 
 .galery>div>img {
@@ -101,6 +105,17 @@ article {
 
 .galery>div>a>img {
     width: 30px;
+}
+
+.fadeIn {
+    opacity: 0%;
+    animation: dropIn 1s ease forwards;
+    animation-delay: calc(var(--order) * 100ms);
+}
+
+@keyframes dropIn {
+    from {opacity: 0%;}
+    to {opacity: 100%;}
 }
 
 .no>h2 {
