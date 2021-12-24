@@ -6,7 +6,6 @@ $(document).ready(function(){
     //GALERY
     function galery(type, name, link = 0, full_link = false)
     {
-        window.alert("galery");
         order_num += 1;
         //div
         $(`.galery_${type}`).append(`<div class="${type} fadeIn current" style="--order: ${order_num}"></div>`);
@@ -42,7 +41,6 @@ $(document).ready(function(){
                 $(`.galery_java>.current`).append(`<a target="_blank" href="links/file/java/${link}.zip"><img src="img/download.png" alt="Download"></a>`);
         }
         $(`.galery_${type}>.current`).removeClass(`current`)
-        window.alert("galery end");
     }
 
     function get_filenames(dir_type)
@@ -59,9 +57,9 @@ $(document).ready(function(){
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("get", dir_name, false);
         xmlhttp.send();
-        if (xmlhttp.status==200)
+        if (xmlhttp.status==200 && xmlhttp.readyState == 4)
             files = xmlhttp.responseText;
-        window.alert(xmlhttp.status);
+        window.alert(xmlhttp.status + ", " + xmlhttp.readyState);
         //get file names + run galery()
         window.alert("fech success");
         window.alert("Raw data:\n\n\n" + files);
