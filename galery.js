@@ -46,7 +46,7 @@ $(document).ready(function(){
         //directory name
         window.alert("getf");
         if(dir_type == "html")
-            dir_name = ".";
+            dir_name = "links";
         else
             dir_name = `links/file/${dir_type}/`;
         //get... file array?
@@ -62,7 +62,7 @@ $(document).ready(function(){
         window.alert("fech done");
         window.alert("Raw data:\n\n\n" + files);
         var files_lis = files.split(">..<")[1];
-        files_as = files_lis.split(`<span class="name">`)
+        var files_as = files_lis.split(`<span class="name">`)
         for (x = 0; x < files_as.length - 1; x++)
         {
             file = files_as[x+1].split(`</span><span class="size">`)[0].split(".zip")[0]
@@ -75,8 +75,8 @@ $(document).ready(function(){
     //html
     var order_num = 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>HTML</h2></div>`).insertBefore(`.galery_html`)
-    get_filenames("html")
     galery("html", "Téli versek", "https://kalandor01.github.io/teli_versek/", true)
+    get_filenames("html")
     /*  legacy manual method
     var html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
     for (x = 0; x < html_names.length; x++)
