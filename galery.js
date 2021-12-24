@@ -44,68 +44,76 @@ $(document).ready(function(){
     function get_filenames(dir_type)
     {
         //directory name
-        window.alert("getf");
         if(dir_type == "html")
-            dir_name = "links/web/Csapatmunka";
+            dir_name = "links/web/";
         else
             dir_name = `links/file/${dir_type}/`;
         //get... file array?
         window.alert("fech start");
         var files = null;
+        var file_error = false
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("get", dir_name, true);
-        xmlhttp.onload = function() {
-            window.alert(xmlhttp.status + ", " + xmlhttp.readyState);
-            if (xmlhttp.readyState != 4 && xmlhttp.status == 200) {
-                files = null;
-            } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        xmlhttp.onload = function()
+        {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
                 files = xmlhttp.responseText;
-            } else {
-                window.alert("(Error occurred. Reload the page or try again.)\nGithub Sucks!");
+            else if(xmlhttp.readyState == 4 && xmlhttp.status != 200)
+            {
+                window.alert("(Couldn' t load projects dynamically. Reload the page to try again.)\nGithub Sucks!\nLoading Backup content...");
+                file_error = true
             }
         }
-        xmlhttp.send();   
+        xmlhttp.send(); 
         //get file names + run galery()
-        window.alert("fech done");
-        window.alert("Raw data:\n\n\n" + files);
-        var files_lis = files.split(">..<")[1];
-        var files_as = files_lis.split(`<span class="name">`)
-        for (x = 0; x < files_as.length - 1; x++)
+        if(file_error == false)
         {
-            file = files_as[x+1].split(`</span><span class="size">`)[0].split(".zip")[0]
-            window.alert("galery entry");
-            galery(dir_type, file)
+            window.alert("fech done");
+            var files_lis = files.split(">..<")[1];
+            var files_as = files_lis.split(`<span class="name">`)
+            for (x = 0; x < files_as.length - 1; x++)
+            {
+                file = files_as[x+1].split(`</span><span class="size">`)[0].split(".zip")[0]
+                galery(dir_type, file)
+            }
         }
+        return file_error
     }
 
     //galery projects
     //html
     var order_num = 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>HTML</h2></div>`).insertBefore(`.galery_html`)
+    if(get_filenames("html"))
+    {
+        //legacy manual method
+        var html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
+        for (x = 0; x < html_names.length; x++)
+            galery("html", html_names[x])
+    }
     galery("html", "Téli versek", "https://kalandor01.github.io/teli_versek/", true)
-    get_filenames("html")
-    /*  legacy manual method
-    var html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
-    for (x = 0; x < html_names.length; x++)
-        galery("html", html_names[x])*/
 
     //python
     order_num += 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Python</h2></div>`).insertBefore(`.galery_py`)
-    get_filenames("py")
-    /*  legacy manual method
-    var py_names = ["Béka", "Black Jack", "File Explorer", "Kalandkönyv", "Kémcső"]
-    for (x = 0; x < py_names.length; x++)
-        galery("py", py_names[x])*/
+    if(get_filenames("py"))
+    {
+        //legacy manual method
+        var py_names = ["Béka", "Black Jack", "File Explorer", "Kalandkönyv", "Kémcső"]
+        for (x = 0; x < py_names.length; x++)
+            galery("py", py_names[x])
+    }
     
     //java
     order_num += 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Java</h2></div>`).insertBefore(`.galery_java`)
-    get_filenames("java")
-    /*  legacy manual method
-    var java_names = ["Amőba", "Harc", "Itt a piros", "Nyugta"]
-    for (x = 0; x < java_names.length; x++)
-        galery("java", java_names[x])*/
+    if(get_filenames("java"))
+    {
+        //legacy manual method
+        var java_names = ["Amőba", "Harc"]
+        for (x = 0; x < java_names.length; x++)
+            galery("java", java_names[x])
+    }
 
     
     /*  nodejs try
