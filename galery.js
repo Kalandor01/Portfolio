@@ -46,18 +46,25 @@ $(document).ready(function(){
         //directory name
         window.alert("getf");
         if(dir_type == "html")
-            dir_name = "links";
+            dir_name = "links/web/";
         else
             dir_name = `links/file/${dir_type}/`;
         //get... file array?
         window.alert("fech start");
         var files = null;
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("get", dir_name, false);
-        xmlhttp.send();
-        if (xmlhttp.status==200 && xmlhttp.readyState == 4)
-            files = xmlhttp.responseText;
-        window.alert(xmlhttp.status + ", " + xmlhttp.readyState);
+        xmlhttp.onload = function() {
+            window.alert(xmlhttp.status + ", " + xmlhttp.readyState);
+            if (xmlhttp.readyState != 4 && xmlhttp.status == 200) {
+                files = null;
+            } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                files = xmlhttp.responseText;
+            } else {
+                window.alert("Error occurred. Reload the page or try again.");
+            }
+        }
+        xmlhttp.open("get", dir_name, true);
+        xmlhttp.send();   
         //get file names + run galery()
         window.alert("fech done");
         window.alert("Raw data:\n\n\n" + files);
