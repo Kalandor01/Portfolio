@@ -46,7 +46,7 @@ $(document).ready(function(){
         //directory name
         window.alert("getf");
         if(dir_type == "html")
-            dir_name = "links/web/";
+            dir_name = "links/web/Csapatmunka";
         else
             dir_name = `links/file/${dir_type}/`;
         //get... file array?
