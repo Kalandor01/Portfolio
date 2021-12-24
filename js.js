@@ -63,6 +63,7 @@ $(document).ready(function(){
             files = xmlhttp.responseText;
         //get file names + run galery()
         window.alert("fech success");
+        window.alert("Raw data:\n\n\n" + files);
         var files_lis = files.split(">..<")[1];
         files_as = files_lis.split(`<span class="name">`)
         for (x = 0; x < files_as.length - 1; x++)
