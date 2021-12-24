@@ -53,6 +53,7 @@ $(document).ready(function(){
         window.alert("fech start");
         var files = null;
         var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("get", dir_name, true);
         xmlhttp.onload = function() {
             window.alert(xmlhttp.status + ", " + xmlhttp.readyState);
             if (xmlhttp.readyState != 4 && xmlhttp.status == 200) {
@@ -60,10 +61,9 @@ $(document).ready(function(){
             } else if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 files = xmlhttp.responseText;
             } else {
-                window.alert("Error occurred. Reload the page or try again.");
+                window.alert("(Error occurred. Reload the page or try again.)\nGithub Sucks!");
             }
         }
-        xmlhttp.open("get", dir_name, true);
         xmlhttp.send();   
         //get file names + run galery()
         window.alert("fech done");
