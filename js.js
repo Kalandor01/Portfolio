@@ -7,6 +7,7 @@ $(document).ready(function(){
     function galery(type, name, link = 0, full_link = false)
     {
         order_num += 1;
+        //div
         $(`.galery_${type}`).append(`<div class="${type} fadeIn current" style="--order: ${order_num}"></div>`);
         //name
         $(`.galery_${type}>.current`).append(`<h1>${name}</h1>`);
@@ -15,6 +16,7 @@ $(document).ready(function(){
         //link
         if(link == 0)
             link = name;
+        //html
         if(type == "html")
         {
             if(full_link == true)
@@ -22,6 +24,7 @@ $(document).ready(function(){
             else
                 $(`.galery_html>.current`).append(`<a target="_blank" href="links/web/${link}/index.html"><img src="img/link.png" alt="Link"></a>`);
         }
+        //python
         else if(type == "py")
         {
             if(full_link == true)
@@ -29,6 +32,7 @@ $(document).ready(function(){
             else
                 $(`.galery_py>.current`).append(`<a target="_blank" href="links/file/py/${link}.zip"><img src="img/download.png" alt="Download"></a>`);
         }
+        //java
         else if(type == "java")
         {
             if(full_link == true)
@@ -39,30 +43,61 @@ $(document).ready(function(){
         $(`.galery_${type}>.current`).removeClass(`current`)
     }
 
-    //projects
+    function get_filenames(dir_type)
+    {
+        //directory name
+        if(dir_type == "html")
+            dir_name = "links/web/";
+        else
+            dir_name = `links/file/${dir_type}/`;
+        //get... file array?
+        var files = null;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("get", dir_name, false);
+        xmlhttp.send();
+        if (xmlhttp.status==200)
+            files = xmlhttp.responseText;
+        //get file names + run galery()
+        var files_lis = files.split(">..<")[1];
+        files_as = files_lis.split(`<span class="name">`)
+        for (x = 0; x < files_as.length - 1; x++)
+        {
+            file = files_as[x+1].split(`</span><span class="size">`)[0].split(".zip")[0]
+            galery(dir_type, file)
+        }
+    }
+
+    //galery projects
     //html
     var order_num = 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>HTML</h2></div>`).insertBefore(`.galery_html`)
+    get_filenames("html")
+    galery("html", "Téli versek", "https://kalandor01.github.io/teli_versek/", true)
+    /*  legacy manual method
     var html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
     for (x = 0; x < html_names.length; x++)
-        galery("html", html_names[x])
-    galery("html", "Téli versek", "https://kalandor01.github.io/teli_versek/", true)
+        galery("html", html_names[x])*/
 
     //python
     order_num += 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Python</h2></div>`).insertBefore(`.galery_py`)
+    get_filenames("py")
+    /*  legacy manual method
     var py_names = ["Béka", "Black Jack", "File Explorer", "Kalandkönyv", "Kémcső"]
     for (x = 0; x < py_names.length; x++)
-        galery("py", py_names[x])
+        galery("py", py_names[x])*/
     
     //java
     order_num += 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Java</h2></div>`).insertBefore(`.galery_java`)
+    get_filenames("java")
+    /*  legacy manual method
     var java_names = ["Amőba", "Harc", "Itt a piros", "Nyugta"]
     for (x = 0; x < java_names.length; x++)
-        galery("java", java_names[x])
+        galery("java", java_names[x])*/
 
-    /*
+    
+    /*  nodejs try
     var galery_type = []
     var galery_name = []
     var galery_link = []
@@ -85,7 +120,7 @@ $(document).ready(function(){
     */
 });
 
-/*
+/*      nav unpacked
             <ul>
                 <li>
                     <a href="index.html">Kezdőlap</a>
