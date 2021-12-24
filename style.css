@@ -124,6 +124,12 @@ article {
     text-align: center;
 }
 
+.no>h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
 aside {
     grid-area: s;
     text-align: justify;

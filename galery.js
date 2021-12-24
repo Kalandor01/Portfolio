@@ -45,11 +45,10 @@ $(document).ready(function(){
     {
         //directory name
         if(dir_type == "html")
-            dir_name = "links/web/";
+            dir_name = "links/wb/";
         else
-            dir_name = `links/file/${dir_type}/`;
+            dir_name = `links/fle/${dir_type}/`;
         //get... file array?
-        window.alert("fech start");
         var files = null;
         var file_error = false
         var xmlhttp = new XMLHttpRequest();
@@ -57,63 +56,69 @@ $(document).ready(function(){
         xmlhttp.onload = function()
         {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+            {
+                //get file names + run galery()
                 files = xmlhttp.responseText;
+                var files_lis = files.split(">..<")[1];
+                var files_as = files_lis.split(`<span class="name">`)
+                for (x = 0; x < files_as.length - 1; x++)
+                {
+                    file = files_as[x+1].split(`</span><span class="size">`)[0].split(".zip")[0]
+                    galery(dir_type, file)
+                }
+            }
+            //(github) error backup
             else if(xmlhttp.readyState == 4 && xmlhttp.status != 200)
             {
-                window.alert("(Couldn' t load projects dynamically. Reload the page to try again.)\nGithub Sucks!\nLoading Backup content...");
                 file_error = true
+                if(dir_type == "html")
+                {
+                    var html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
+                    for (x = 0; x < html_names.length; x++)
+                        galery("html", html_names[x])
+                    window.alert("(Couldn' t load HTML projects dynamically. Reload the page to try again.)\nGithub Sucks!\nLoading Backup content...");
+                    $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_html`)
+                }
+                else if(dir_type == "py")
+                {
+                    //legacy manual method
+                    var py_names = ["Béka", "Black Jack", "File Explorer", "Kalandkönyv", "Kémcső"]
+                    for (x = 0; x < py_names.length; x++)
+                        galery("py", py_names[x])
+                    window.alert("(Couldn' t load Python projects dynamically. Reload the page to try again.)\nGithub Sucks!\nLoading Backup content...");
+                    $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_py`)
+                }
+                else if(dir_type == "java")
+                {
+                    var java_names = ["Amőba", "Harc", "Itt a piros", "Nyugta"]
+                    for (x = 0; x < java_names.length; x++)
+                        galery("java", java_names[x])
+                    window.alert("(Couldn' t load Java projects dynamically. Reload the page to try again.)\nGithub Sucks!\nLoading Backup content...");
+                    $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_java`)
+                }
             }
         }
         xmlhttp.send(); 
-        //get file names + run galery()
-        if(file_error == false)
-        {
-            window.alert("fech done");
-            var files_lis = files.split(">..<")[1];
-            var files_as = files_lis.split(`<span class="name">`)
-            for (x = 0; x < files_as.length - 1; x++)
-            {
-                file = files_as[x+1].split(`</span><span class="size">`)[0].split(".zip")[0]
-                galery(dir_type, file)
-            }
-        }
         return file_error
     }
 
     //galery projects
+
     //html
     var order_num = 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>HTML</h2></div>`).insertBefore(`.galery_html`)
-    if(get_filenames("html"))
-    {
-        //legacy manual method
-        var html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
-        for (x = 0; x < html_names.length; x++)
-            galery("html", html_names[x])
-    }
+    get_filenames("html");
     galery("html", "Téli versek", "https://kalandor01.github.io/teli_versek/", true)
 
     //python
     order_num += 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Python</h2></div>`).insertBefore(`.galery_py`)
-    if(get_filenames("py"))
-    {
-        //legacy manual method
-        var py_names = ["Béka", "Black Jack", "File Explorer", "Kalandkönyv", "Kémcső"]
-        for (x = 0; x < py_names.length; x++)
-            galery("py", py_names[x])
-    }
+    get_filenames("py");
     
     //java
     order_num += 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Java</h2></div>`).insertBefore(`.galery_java`)
-    if(get_filenames("java"))
-    {
-        //legacy manual method
-        var java_names = ["Amőba", "Harc"]
-        for (x = 0; x < java_names.length; x++)
-            galery("java", java_names[x])
-    }
+    get_filenames("java");
 
     
     /*  nodejs try
