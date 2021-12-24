@@ -6,6 +6,7 @@ $(document).ready(function(){
     //GALERY
     function galery(type, name, link = 0, full_link = false)
     {
+        window.alert("galery");
         order_num += 1;
         //div
         $(`.galery_${type}`).append(`<div class="${type} fadeIn current" style="--order: ${order_num}"></div>`);
@@ -41,16 +42,19 @@ $(document).ready(function(){
                 $(`.galery_java>.current`).append(`<a target="_blank" href="links/file/java/${link}.zip"><img src="img/download.png" alt="Download"></a>`);
         }
         $(`.galery_${type}>.current`).removeClass(`current`)
+        window.alert("galery end");
     }
 
     function get_filenames(dir_type)
     {
         //directory name
+        window.alert("getf");
         if(dir_type == "html")
             dir_name = "links/web/";
         else
             dir_name = `links/file/${dir_type}/`;
         //get... file array?
+        window.alert("fech start");
         var files = null;
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("get", dir_name, false);
@@ -58,11 +62,13 @@ $(document).ready(function(){
         if (xmlhttp.status==200)
             files = xmlhttp.responseText;
         //get file names + run galery()
+        window.alert("fech success");
         var files_lis = files.split(">..<")[1];
         files_as = files_lis.split(`<span class="name">`)
         for (x = 0; x < files_as.length - 1; x++)
         {
             file = files_as[x+1].split(`</span><span class="size">`)[0].split(".zip")[0]
+            window.alert("galery entry");
             galery(dir_type, file)
         }
     }
