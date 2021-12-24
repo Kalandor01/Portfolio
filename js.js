@@ -61,6 +61,7 @@ $(document).ready(function(){
         xmlhttp.send();
         if (xmlhttp.status==200)
             files = xmlhttp.responseText;
+        window.alert(xmlhttp.status);
         //get file names + run galery()
         window.alert("fech success");
         window.alert("Raw data:\n\n\n" + files);
