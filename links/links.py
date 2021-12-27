@@ -3,7 +3,7 @@ import os
 
 # html
 f = open("html.txt", "w")
-root = "./links/web"
+root = "./web"
 for name in os.listdir(root):
     if not os.path.isfile(os.path.join(root, name)):
         f.write(name + "\n")
