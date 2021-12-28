@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
     //GALERY
-    function galery(type, name, link = 0, full_link = false)
+    function galery(type = "html", name = "null", link = 0, full_link = false, git = false)
     {
         order_num += 1;
         //div
@@ -21,7 +21,12 @@ $(document).ready(function(){
         if(type == "html")
         {
             if(full_link == true)
-                $(`.galery_html>.current`).append(`<a target="_blank" href="${link}"><img src="img/link.png" alt="Link"></a>`);
+            {
+                if(git)
+                    $(`.galery_html>.current`).append(`<a target="_blank" href="${link}"><img src="img/git.png" alt="GitHub"></a>`);
+                else
+                    $(`.galery_html>.current`).append(`<a target="_blank" href="${link}"><img src="img/link.png" alt="Link"></a>`);
+            }
             else
                 $(`.galery_html>.current`).append(`<a target="_blank" href="links/web/${link}/index.html"><img src="img/link.png" alt="Link"></a>`);
         }
@@ -29,7 +34,12 @@ $(document).ready(function(){
         else if(type == "py")
         {
             if(full_link == true)
-                $(`.galery_py>.current`).append(`<a target="_blank" href="${link}"><img src="img/download.png" alt="Download"></a>`);
+            {
+                if(git)
+                    $(`.galery_py>.current`).append(`<a target="_blank" href="${link}"><img src="img/git.png" alt="GitHub"></a>`);
+                else
+                    $(`.galery_py>.current`).append(`<a target="_blank" href="${link}"><img src="img/download.png" alt="Download"></a>`);
+            }
             else
                 $(`.galery_py>.current`).append(`<a target="_blank" href="links/file/py/${link}"><img src="img/download.png" alt="Download"></a>`);
         }
@@ -37,7 +47,12 @@ $(document).ready(function(){
         else if(type == "java")
         {
             if(full_link == true)
-                $(`.galery_java>.current`).append(`<a target="_blank" href="${link}"><img src="img/download.png" alt="Download"></a>`);
+            {
+                if(git)
+                    $(`.galery_java>.current`).append(`<a target="_blank" href="${link}"><img src="img/git.png" alt="GitHub"></a>`);
+                else
+                    $(`.galery_java>.current`).append(`<a target="_blank" href="${link}"><img src="img/download.png" alt="Download"></a>`);
+            }
             else
                 $(`.galery_java>.current`).append(`<a target="_blank" href="links/file/java/${link}"><img src="img/download.png" alt="Download"></a>`);
         }
@@ -74,7 +89,7 @@ $(document).ready(function(){
             {
                 if(file_error == false)
                 {
-                    $("header").append("<h4>(GitHub version)</h4>");
+                    $("header").append("<h4>(GitHub verzió)</h4>");
                     file_error = true;
                 }
                 //backup directory name
@@ -104,7 +119,7 @@ $(document).ready(function(){
                             for (x = 0; x < html_names.length; x++)
                                 galery("html", html_names[x])
                             window.alert("Nem lehetett a HTML projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
-                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_html`)
+                            $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_html`)
                         }
                         else if(dir_type == "py")
                         {
@@ -112,7 +127,7 @@ $(document).ready(function(){
                             for (x = 0; x < py_names.length; x++)
                                 galery("py", py_names[x])
                             window.alert("Nem lehetett a Python projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
-                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_py`)
+                            $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_py`)
                         }
                         else if(dir_type == "java")
                         {
@@ -120,7 +135,7 @@ $(document).ready(function(){
                             for (x = 0; x < java_names.length; x++)
                                 galery("java", java_names[x])
                             window.alert("Nem lehetett a Java projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
-                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_java`)
+                            $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_java`)
                         }
                     }
                 }
@@ -128,6 +143,89 @@ $(document).ready(function(){
             }
         }
         xmlhttp.send();
+    }
+
+
+    function get_gits()
+    {
+        //get array from file
+        let git_files = null;
+        let git_xmlhttp = new XMLHttpRequest();
+        git_xmlhttp.open("get", `links/github.txt`, true);
+        git_xmlhttp.onload = function()
+        {
+            if (git_xmlhttp.readyState == 4 && git_xmlhttp.status == 200)
+            {
+                //seperate projects + run galery()
+                let git_files = git_xmlhttp.responseText;
+                git_files = git_files.split("\n")
+                for (x = 0; x < git_files.length; x++)
+                {
+                    git_file_stuff = git_files[x].split("||")
+                    if(git_file_stuff[0] == "html")
+                        galery("html", git_file_stuff[1], `https://kalandor01.github.io/${git_file_stuff[2]}/`, true)
+                    else if(git_file_stuff[0] == "html_p")
+                        galery("html", git_file_stuff[1], `https://github.com/Kalandor01/${git_file_stuff[2]}`, true, true)
+                    else
+                        galery(git_file_stuff[0], git_file_stuff[1], `https://github.com/Kalandor01/${git_file_stuff[2]}`, true, true)
+                }
+            }
+            //gits error backup
+            else if(git_xmlhttp.readyState == 4 && git_xmlhttp.status != 200)
+            {
+                window.alert("Nem lehetett a GitHub projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nMásolat letöltése a GitHub API segítségével...")
+                //get names from api
+                let answers = null;
+                let apireq = new XMLHttpRequest();
+                apireq.open("get", "https://api.github.com/users/Kalandor01/repos", true);
+                apireq.onload = function()
+                {
+                    if (apireq.readyState == 4 && apireq.status == 200)
+                    {
+                        //get project names
+                        answers = apireq.responseText;
+                        let ans_lis = answers.split(`"name": "`);
+                        //window.alert(ans_lis);
+                        for (x = 0; x < ans_lis.length - 1; x++)
+                        {
+                            let git_name = ans_lis[x+1].split(`",`)[0]
+                            if(git_name != "Kalandor01" && git_name != "Portfolio")
+                            {
+                                //get type from api
+                                let type_ans = null;
+                                let apireq_type = new XMLHttpRequest();
+                                apireq_type.open("get", `https://api.github.com/repos/Kalandor01/${git_name}/languages`, true);
+                                apireq_type.onload = function()
+                                {
+                                    if (apireq_type.readyState == 4 && apireq_type.status == 200)
+                                    {
+                                        let git_type = null;
+                                        //get project type
+                                        type_ans = apireq_type.responseText;
+                                        let ans = type_ans.split(`"`)[1];
+                                        if(ans == "HTML")
+                                            galery("html", git_name, `https://kalandor01.github.io/${git_name}/`, true)
+                                        else if(ans == "Python")
+                                            galery("py", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
+                                        else if(ans == "Java")
+                                            galery("java", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
+                                    }
+                                    //(github) error backup
+                                    else if(apireq_type.readyState == 4 && apireq_type.status != 200)
+                                        window.alert("Nem lehetett megszerezni a projekt típusát a GitHup API-ból!")
+                                }
+                                apireq_type.send();
+                            }
+                        }
+                    }
+                    //(github) error backup
+                    else if(apireq.readyState == 4 && apireq.status != 200)
+                        window.alert("Nem lehetett hozzáférni a GitHub API-hoz!")
+                }
+                apireq.send();
+            }
+        }
+        git_xmlhttp.send();
     }
     
 
@@ -137,7 +235,6 @@ $(document).ready(function(){
     var order_num = 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>HTML</h2></div>`).insertBefore(`.galery_html`)
     get_filenames("html");
-    galery("html", "Téli versek", "https://kalandor01.github.io/teli_versek/", true)
 
     //python
     order_num += 1
@@ -149,6 +246,8 @@ $(document).ready(function(){
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Java</h2></div>`).insertBefore(`.galery_java`)
     get_filenames("java");
 
+    //github
+    get_gits();
     
     /*  nodejs try
     var galery_type = []
