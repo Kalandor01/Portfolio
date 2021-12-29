@@ -152,6 +152,7 @@ $(document).ready(function(){
         let git_files = null;
         let git_xmlhttp = new XMLHttpRequest();
         git_xmlhttp.open("get", `links/github.txt`, true);
+        git_xmlhttp.overrideMimeType('text/xml; charset=iso-8859-2');
         git_xmlhttp.onload = function()
         {
             if (git_xmlhttp.readyState == 4 && git_xmlhttp.status == 200)
