@@ -123,7 +123,7 @@ def git_get(aut=False, user="", password=""):
                 git_pre_left.remove(pre_project)
                 git_raw.remove(raw_project)
                 break
-    f = open("links/github.txt", "w")
+    f = open("links/github.txt", "w", encoding="UTF-8")
     for x in range(len(git_good)):
         if x > 0:
             f.write("\n")

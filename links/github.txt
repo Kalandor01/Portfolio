@@ -1,2 +1,2 @@
-html||Téli versek||teli_versek
-py||Totó||toto
+html||TÃ©li versek||teli_versek
+py||TotÃ³||toto
