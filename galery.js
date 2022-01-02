@@ -1,6 +1,15 @@
 
 $(document).ready(function(){
     //GALERY
+
+    function table()
+    {
+        //write to table
+        let sum_project_num = git_project_num + html_project_num + py_project_num + java_project_num;
+        $("aside>table>tbody").empty();
+        $("aside>table>tbody").append(`<tr><th colspan="2">Projektek száma</th></tr><tr><th>GitHub</th><td>${git_project_num}</td></tr><tr><th>HTML</th><td>${html_project_num}</td></tr><tr><th>Python</th><td>${py_project_num}</td></tr><tr><th>Java</th><td>${java_project_num}</td></tr><tr><th>Összes</th><td>${sum_project_num}</td></tr>`);
+    }
+
     function galery(type = "html", name = "null", link = 0, full_link = false, git = false)
     {
         order_num += 1;
@@ -57,6 +66,7 @@ $(document).ready(function(){
                 $(`.galery_java>.current`).append(`<a target="_blank" href="links/file/java/${link}" class="link_type_download"><img src="img/download.png" alt="Download"></a>`);
         }
         $(`.galery_${type}>.current`).removeClass(`current`)
+        table();
     }
 
     function get_filenames(dir_type)
@@ -80,6 +90,12 @@ $(document).ready(function(){
                 let files_as = files_lis.split(`<span class="name">`)
                 for (x = 0; x < files_as.length - 1; x++)
                 {
+                    if(dir_type == "html")
+                        html_project_num += 1;
+                    else if(dir_type == "py")
+                        py_project_num += 1;
+                    else if(dir_type == "java")
+                        java_project_num += 1;
                     file = files_as[x+1].split(`</span><span class="size">`)[0]
                     galery(dir_type, file)
                 }
@@ -106,6 +122,12 @@ $(document).ready(function(){
                         //seperate file names + run galery()
                         files_bak = xmlhttp_bak.responseText;
                         let file_bak = files_bak.split("\n")
+                        if(dir_type == "html")
+                            html_project_num += file_bak.length - 1;
+                        else if(dir_type == "py")
+                            py_project_num += file_bak.length - 1;
+                        else if(dir_type == "java")
+                            java_project_num += file_bak.length - 1;
                         for (x = 0; x < file_bak.length - 1; x++)
                             galery(dir_type, file_bak[x])
                     }
@@ -117,7 +139,10 @@ $(document).ready(function(){
                         {
                             let html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
                             for (x = 0; x < html_names.length; x++)
+                            {
+                                html_project_num += 1;
                                 galery("html", html_names[x])
+                            }
                             window.alert("Nem lehetett a HTML projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
                             $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_html`)
                         }
@@ -125,7 +150,10 @@ $(document).ready(function(){
                         {
                             let py_names = ["Béka.zip", "Black Jack.zip", "File Explorer.zip", "Kalandkönyv.zip", "Kémcső.zip"]
                             for (x = 0; x < py_names.length; x++)
+                            {
+                                py_project_num += 1;
                                 galery("py", py_names[x])
+                            }
                             window.alert("Nem lehetett a Python projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
                             $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_py`)
                         }
@@ -133,7 +161,10 @@ $(document).ready(function(){
                         {
                             let java_names = ["Amőba.zip", "Harc.zip", "Itt a piros.zip", "Nyugta.zip"]
                             for (x = 0; x < java_names.length; x++)
+                            {
+                                java_project_num += 1;
                                 galery("java", java_names[x])
+                            }
                             window.alert("Nem lehetett a Java projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
                             $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_java`)
                         }
@@ -143,6 +174,7 @@ $(document).ready(function(){
             }
         }
         xmlhttp.send();
+        table();
     }
 
 
@@ -162,13 +194,26 @@ $(document).ready(function(){
                 git_files = git_files.split("\n")
                 for (x = 0; x < git_files.length; x++)
                 {
+                    git_project_num += 1;
                     git_file_stuff = git_files[x].split("||")
                     if(git_file_stuff[0] == "html")
+                    {
+                        html_project_num += 1;
                         galery("html", git_file_stuff[1], `https://kalandor01.github.io/${git_file_stuff[2]}/`, true)
+                    }
                     else if(git_file_stuff[0] == "html_p")
+                    {
+                        html_project_num += 1;
                         galery("html", git_file_stuff[1], `https://github.com/Kalandor01/${git_file_stuff[2]}`, true, true)
+                    }
                     else
+                    {
+                        if(git_file_stuff[0] == "py")
+                            py_project_num += 1;
+                        else if(git_file_stuff[0] == "java")
+                            java_project_num += 1;
                         galery(git_file_stuff[0], git_file_stuff[1], `https://github.com/Kalandor01/${git_file_stuff[2]}`, true, true)
+                    }
                 }
             }
             //gits error backup
@@ -204,12 +249,22 @@ $(document).ready(function(){
                                         //get project type
                                         type_ans = apireq_type.responseText;
                                         let ans = type_ans.split(`"`)[1];
+                                        git_project_num += 1;
                                         if(ans == "HTML")
+                                        {
+                                            html_project_num += 1;
                                             galery("html", git_name, `https://kalandor01.github.io/${git_name}/`, true)
+                                        }
                                         else if(ans == "Python")
+                                        {
+                                            py_project_num += 1;
                                             galery("py", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
+                                        }
                                         else if(ans == "Java")
+                                        {
+                                            java_project_num += 1;
                                             galery("java", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
+                                        }
                                     }
                                     //(github) error backup
                                     else if(apireq_type.readyState == 4 && apireq_type.status != 200)
@@ -227,11 +282,13 @@ $(document).ready(function(){
             }
         }
         git_xmlhttp.send();
+        table();
     }
     
 
     //galery projects
     var file_error = false
+    var git_project_num = 0, html_project_num = 0, py_project_num = 0, java_project_num = 0;
     //html
     var order_num = 1
     $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>HTML</h2></div>`).insertBefore(`.galery_html`)
@@ -249,6 +306,29 @@ $(document).ready(function(){
 
     //github
     get_gits();
+    table();
+
+    /*      table unpacked
+                <tr>
+                    <th>Projekt számok</th>
+                </tr>
+                <tr>
+                    <th>Github</th>
+                    <td>x</td>
+                </tr>
+                <tr>
+                    <th>HTML</th>
+                    <td>y</td>
+                </tr>
+                <tr>
+                    <th>Python</th>
+                    <td>z</td>
+                </tr>
+                <tr>
+                    <th>Java</th>
+                    <td>f</td>
+                </tr>
+    */
     
     /*  nodejs try
     var galery_type = []

@@ -5,39 +5,39 @@ header, article, aside, footer {
 
 :root,
 :root.light {
-    --c_back: rgb(32, 32, 60);
-    --c_main: rgb(226, 226, 226);
-    --c_head: rgb(31, 99, 155);
-    --c_nav: rgb(105, 172, 243);
-    --c_li: rgb(45, 138, 237);
-    --c_li_h: rgb(19, 96, 179);
-    --c_white: rgb(255, 255, 255);
-    --c_black: rgb(0, 0, 0);
-    --c_div: rgb(175, 175, 175);
-    --s_sh: rgb(0, 0, 0);
-    --s_sp: 5px;
-    --c_footer: rgb(22, 76, 121);
-}
-
-:root.dark {
     --c_back: rgb(20, 20, 37);
     --c_main: rgb(35, 35, 35);
     --c_head: rgb(3, 53, 94);
     --c_nav: rgb(32, 95, 163);
     --c_li: rgb(23, 77, 136);
     --c_li_h: rgb(23, 100, 182);
-    --c_white: rgb(0, 0, 0);
-    --c_black: rgb(255, 255, 255);
+    --c_white: rgb(255, 255, 255);
+    --c_black: rgb(0, 0, 0);
     --c_div: rgb(25, 25, 25);
     --s_sh: rgba(255, 255, 255, 0.5);
     --s_sp: -5px;
     --c_footer: rgb(0, 28, 51);
 }
 
+:root.dark {
+    --c_back: rgb(32, 32, 60);
+    --c_main: rgb(226, 226, 226);
+    --c_head: rgb(31, 99, 155);
+    --c_nav: rgb(105, 172, 243);
+    --c_li: rgb(45, 138, 237);
+    --c_li_h: rgb(19, 96, 179);
+    --c_white: rgb(0, 0, 0);
+    --c_black: rgb(255, 255, 255);
+    --c_div: rgb(175, 175, 175);
+    --s_sh: rgb(0, 0, 0);
+    --s_sp: 5px;
+    --c_footer: rgb(22, 76, 121);
+}
+
 html, body {
     background-color: var(--c_back);
     margin: 0;
-    color: var(--c_black);
+    color: var(--c_white);
     font-family: 'Roboto', sans-serif;
 }
 
@@ -64,55 +64,58 @@ main {
 
 header {
     grid-area: h;
-    text-align: center;
-    color: rgb(218, 218, 218);
     background-color: var(--c_head);
-    /*position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 99;*/
+    z-index: 99;
 }
 
-.themes {
-    position: absolute;
-    top: 0%;
+.header:after {
+    clear: both;
+}
+
+header>h1 {
+    float: left;
+    margin: auto;
+    text-align: center;
+    color: rgb(218, 218, 218);
+    grid-area: h_h1;
+    width: 70%;
+    margin-top: 5px;
+}
+
+.theme {
+    grid-area: h_th;
+    width: 50px;
+    margin: auto;
+    margin-top: 5px;
+    float: right;
+}
+
+.theme_bal {
+    grid-area: h_th_b;
+    width: 15%;
+    float: left;
 }
   
-.theme {
-    width: 60px;
-    margin: 20px;
+.theme>.theme_button {
+    width: 100%;
     cursor: pointer;
     border: none;
     background-color: transparent;
 }
   
-.theme img {
+.theme>.theme_button>img {
     height: 100%;
     width: 100%;
-    object-fit: cover;
-}
-
-.theme.light {
-    display: none;
-}
-
-.dark .theme.dark {
-    display: none;
-}
-
-.dark .theme.light {
-    display: block;
 }
 
 nav {
     grid-area: n;
     background-color: var(--c_nav);
-    /*position: fixed;
-    top: 93px;
-    left: 0;
-    width: 100%;
-    z-index: 99;*/
+    position: sticky;
+    top: 63px;
+    z-index: 98;
 }
 
 nav>ul {
@@ -141,7 +144,7 @@ nav>ul>.empty:hover {
 }
 
 nav>ul>li>a {
-    color: var(--c_black);
+    color: var(--c_white);
     text-decoration: none;
     display: inline-block;
     width: 100%;
@@ -149,12 +152,48 @@ nav>ul>li>a {
 }
 
 nav>ul>li>a:hover {
-    color: var(--c_white);
+    color: var(--c_black);
 }
 
 article {
     grid-area: a;
     text-align: justify;
+}
+
+article>h2 {
+    text-align: center;
+}
+
+article>.links {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+article>.links>div {
+    max-width: 100%;
+    margin: 5px;
+    background-color: var(--c_div);
+    border-radius: 5px;
+    text-align: center;
+}
+
+article>.links>div>h3 {
+    margin: 5px;
+}
+
+article>.links>div>a>img {
+    max-width: 95%;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+article>.links>div>a>img:hover {
+    animation: grow 0.2s linear 0s forwards;
+}
+
+@keyframes grow {
+    from {transform: scale(100%, 100%);}
+    to {transform: scale(120%, 120%);}
 }
 
 article>.html_gen_input {
@@ -176,7 +215,7 @@ article>.gen_button {
 }
 
 article>.gen_button>.gen {
-    color: var(--c_black);
+    color: var(--c_white);
     background-color: var(--c_li);
     font-weight: 600;
     font-size: larger;
@@ -185,7 +224,7 @@ article>.gen_button>.gen {
 }
 
 article>.gen_button>.gen:hover {
-    color: var(--c_white);
+    color: var(--c_black);
     background-color: var(--c_li_h);
     cursor: pointer;
 }
@@ -204,6 +243,7 @@ article>.gen_button>.gen:hover {
     text-align: center;
     background-color: var(--c_div);
     max-width: 300px;
+    border-radius: 5px;
 }
 
 .galery>div>img {
@@ -243,6 +283,24 @@ aside {
     text-align: justify;
 }
 
+aside>table {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+aside>table>tbody>tr>th, aside>table>tbody>tr>td {
+    border: 1px black solid;
+    padding: 3px;
+}
+
+aside>table>tbody>tr:first-child {
+    text-align: center;
+}
+
+aside>table>tbody>tr>td {
+    text-align: center;
+}
+
 aside>.play_area {
     margin: auto;
     background-color: var(--c_div);
@@ -258,6 +316,7 @@ aside>.play_area {
 aside>.video{
     aspect-ratio: 16/9;
     width: 100%;
+    max-width: 500px;
     border: none;
 }
 
@@ -271,7 +330,6 @@ footer {
 @media screen and (max-width:1200px) {
 
     .galery {
-        display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
     
@@ -284,7 +342,6 @@ footer {
     }
 
     .galery {
-        display: grid;
         grid-template-columns: 1fr 1fr 1fr;
     }
     
@@ -303,8 +360,11 @@ footer {
         border-bottom: solid black 1px;
     }
 
+    article>.links {
+        grid-template-columns: 1fr;
+    }
+
     .galery {
-        display: grid;
         grid-template-columns: 1fr 1fr;
     }
 
@@ -316,19 +376,28 @@ footer {
 
 @media screen and (max-width:380px) {
 
-    .themes {
-        position: relative;
+    header {
+        grid-template-areas: "h_th_b"
+                             "h_h1"
+                             "h_th";
     }
 
-    .theme {
-        margin: 0;
-        width: 50px;
+    header>div {
+        clear: both;
     }
 
-    .theme.light {
-        position: relative;
-        left: 50%;
-        transform: translate(-50%, 0);
+    header>.theme {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+
+    header>.theme>.theme_button {
+        width: 40px;
+    }
+
+    nav {
+        top: 87px;
     }
     
     .galery {
