@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="js.js"></script>
-    <script src="galery.js"></script>
+    <script src="html.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet"> 
@@ -17,22 +17,20 @@
 <body>
     <main>
         <header>
-            <h1>Projektek</h1>
+            <h1>HTML készítő</h1>
         </header>
         <nav>
         </nav>
         <article>
-            <div class="galery galery_html">
-                <div class="html">
-                    <h2>Kutya</h2>
-                    <img src="img/html.png" alt="">
-                    <a href="links/web/Csapatmunka/index.html" class="link_type_link"><img src="img/link.png" alt="NEM"></a>
-                </div>
+            <div class="html_gen_input">
+                <textarea id="input_html" cols="30" rows="30"></textarea>
             </div>
-            <div class="galery galery_py"></div>
-            <div class="galery galery_java"></div>
+            <div class="gen_button">
+                <button class="gen" onclick="gen_html()">HTML generálás</button>
+            </div>
         </article>
         <aside>
+            <div class="play_area"></div>
         </aside>
         <footer>
         </footer>

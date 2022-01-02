@@ -3,8 +3,8 @@ import os
 import requests
 
 
+# local projects
 def local_get():
-    # local projects
     # html
     f = open("links/html.txt", "w")
     root = "./links/web"
@@ -70,21 +70,24 @@ def conflicts(added_lis, removed_lis):
     return extra
 
 
+# github projects
 def git_get(aut=False, user="", password=""):
-    print("Fetching and comparing github projects", end="")
-    # github projects
-    # reading old file
+    # reading old project data from file
     git_pre = []
     git_pre_left = []
     git_raw = []
-    f = open("links/github.txt", "r")
-    lines = f.read().split("\n")
-    for line in lines:
-        git_pre.append(line.split("||"))
-        git_pre_left.append(line.split("||"))
-    f.close()
+    try:
+        f = open("links/github.txt", "r")
+        lines = f.read().split("\n")
+        for line in lines:
+            git_pre.append(line.split("||"))
+            git_pre_left.append(line.split("||"))
+        f.close()
+    except FileNotFoundError:
+        print("No github.txt found!")
 
     # fetching project names from github api
+    print("Fetching and comparing github projects", end="")
     if aut:
         gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos", auth=(user, password)).text
     else:

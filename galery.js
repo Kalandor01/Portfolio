@@ -14,7 +14,7 @@ $(document).ready(function(){
             else if(type == "py" && name.includes(".py"))
                 name = name.split(".py")[0]
         //name
-        $(`.galery_${type}>.current`).append(`<h1>${name}</h1>`);
+        $(`.galery_${type}>.current`).append(`<h2>${name}</h2>`);
         //image
         $(`.galery_${type}>.current`).append(`<img src="img/${type}.png" alt="${type}">`);
         //html
@@ -23,12 +23,12 @@ $(document).ready(function(){
             if(full_link == true)
             {
                 if(git)
-                    $(`.galery_html>.current`).append(`<a target="_blank" href="${link}"><img src="img/git.png" alt="GitHub"></a>`);
+                    $(`.galery_html>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git.png" alt="GitHub"></a>`);
                 else
-                    $(`.galery_html>.current`).append(`<a target="_blank" href="${link}"><img src="img/link.png" alt="Link"></a>`);
+                    $(`.galery_html>.current`).append(`<a target="_blank" href="${link}" class="link_type_link"><img src="img/link.png" alt="Link"></a>`);
             }
             else
-                $(`.galery_html>.current`).append(`<a target="_blank" href="links/web/${link}/index.html"><img src="img/link.png" alt="Link"></a>`);
+                $(`.galery_html>.current`).append(`<a target="_blank" href="links/web/${link}/index.html" class="link_type_link"><img src="img/link.png" alt="Link"></a>`);
         }
         //python
         else if(type == "py")
@@ -36,12 +36,12 @@ $(document).ready(function(){
             if(full_link == true)
             {
                 if(git)
-                    $(`.galery_py>.current`).append(`<a target="_blank" href="${link}"><img src="img/git.png" alt="GitHub"></a>`);
+                    $(`.galery_py>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git.png" alt="GitHub"></a>`);
                 else
-                    $(`.galery_py>.current`).append(`<a target="_blank" href="${link}"><img src="img/download.png" alt="Download"></a>`);
+                    $(`.galery_py>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download.png" alt="Download"></a>`);
             }
             else
-                $(`.galery_py>.current`).append(`<a target="_blank" href="links/file/py/${link}"><img src="img/download.png" alt="Download"></a>`);
+                $(`.galery_py>.current`).append(`<a target="_blank" href="links/file/py/${link}" class="link_type_download"><img src="img/download.png" alt="Download"></a>`);
         }
         //java
         else if(type == "java")
@@ -49,12 +49,12 @@ $(document).ready(function(){
             if(full_link == true)
             {
                 if(git)
-                    $(`.galery_java>.current`).append(`<a target="_blank" href="${link}"><img src="img/git.png" alt="GitHub"></a>`);
+                    $(`.galery_java>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git.png" alt="GitHub"></a>`);
                 else
-                    $(`.galery_java>.current`).append(`<a target="_blank" href="${link}"><img src="img/download.png" alt="Download"></a>`);
+                    $(`.galery_java>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download.png" alt="Download"></a>`);
             }
             else
-                $(`.galery_java>.current`).append(`<a target="_blank" href="links/file/java/${link}"><img src="img/download.png" alt="Download"></a>`);
+                $(`.galery_java>.current`).append(`<a target="_blank" href="links/file/java/${link}" class="link_type_download"><img src="img/download.png" alt="Download"></a>`);
         }
         $(`.galery_${type}>.current`).removeClass(`current`)
     }
