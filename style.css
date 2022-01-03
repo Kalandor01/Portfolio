@@ -62,6 +62,8 @@ main {
     margin: auto;
 }
 
+/*HEADER*/
+
 header {
     grid-area: h;
     background-color: var(--c_head);
@@ -110,11 +112,13 @@ header>h1 {
     width: 100%;
 }
 
+/*NAV*/
+
 nav {
     grid-area: n;
     background-color: var(--c_nav);
     position: sticky;
-    top: 63px;
+    top: 60px;
     z-index: 98;
 }
 
@@ -154,6 +158,8 @@ nav>ul>li>a {
 nav>ul>li>a:hover {
     color: var(--c_black);
 }
+
+/*ARTICLE*/
 
 article {
     grid-area: a;
@@ -236,6 +242,15 @@ article>.gen_button>.gen:hover {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
+.galery>.html>img:hover {
+    animation: grow 0.5s linear 0s forwards;
+}
+
+@keyframes grow {
+    from {transform: scale(100%, 100%);}
+    to {transform: scale(150%, 150%);}
+}
+
 .galery>div {
     margin: 10px;
     padding: 10px;
@@ -248,7 +263,8 @@ article>.gen_button>.gen:hover {
 
 .galery>div>img {
     padding: 5px;
-    width: 100%;
+    width: 95%;
+    margin: auto;
 }
 
 .galery>div>a>img {
@@ -278,6 +294,8 @@ article>.gen_button>.gen:hover {
     text-align: center;
 }
 
+/*ASIDE*/
+
 aside {
     grid-area: s;
     text-align: justify;
@@ -286,11 +304,19 @@ aside {
 aside>table {
     margin: auto;
     border-collapse: collapse;
+    background-color: var(--c_div);
+    border: solid 3px black;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 aside>table>tbody>tr>th, aside>table>tbody>tr>td {
-    border: 1px black solid;
+    border: solid 1px black;
     padding: 3px;
+}
+
+aside>table>tbody>tr:hover {
+    background-color: var(--c_main);
 }
 
 aside>table>tbody>tr:first-child {
@@ -320,12 +346,16 @@ aside>.video{
     border: none;
 }
 
+/*FOOTER*/
+
 footer {
     grid-area: f;
     text-align: center;
     color: rgb(201, 201, 201);
     background-color: var(--c_footer);
 }
+
+/*MEDIA SCREENS*/
 
 @media screen and (max-width:1200px) {
 

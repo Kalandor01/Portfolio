@@ -15,7 +15,7 @@ $(document).ready(function(){
         order_num += 1;
         //div
         $(`.galery_${type}`).append(`<div class="${type} fadeIn current" style="--order: ${order_num}"></div>`);
-        //link
+        //get link/name
         if(link == 0)
             link = name;
             if(type != "html" && name.includes(".zip"))
@@ -25,7 +25,32 @@ $(document).ready(function(){
         //name
         $(`.galery_${type}>.current`).append(`<h2>${name}</h2>`);
         //image
-        $(`.galery_${type}>.current`).append(`<img src="img/${type}.png" alt="${type}">`);
+        if(type=="html")
+            $(`.galery_${type}>.current`).append(`<img src="links/web/${name}.png" alt="${type}" onerror="javascript:this.src='img/${type}.png'">`);
+        else
+            $(`.galery_${type}>.current`).append(`<img src="links/file/${type}/${name}.png" alt="${type}" onerror="javascript:this.src='img/${type}.png'">`);
+        /*//get description
+        let desc = null;
+        let desc_req = new XMLHttpRequest();
+        if(type == "html")
+            desc_req.open("get", `links/web/${name}.txt`, true);
+        else
+            desc_req.open("get", `links/file/${type}/${name}.txt`, true);
+        desc_req.overrideMimeType('text/xml; charset=iso-8859-2');
+        desc_req.onload = function()
+        {
+            if (desc_req.readyState == 4 && desc_req.status == 200)
+            {
+                desc = desc_req.responseText;
+                $(`.galery_${type}>.current`).append(`<p>${desc}</p>`);
+                window.alert(desc)
+            }
+            //backup
+            else if(desc_req.readyState == 4 && desc_req.status != 200)
+                window.alert("no desc: " + name)
+        }
+        desc_req.send();*/
+        //link
         //html
         if(type == "html")
         {
@@ -90,14 +115,17 @@ $(document).ready(function(){
                 let files_as = files_lis.split(`<span class="name">`)
                 for (x = 0; x < files_as.length - 1; x++)
                 {
-                    if(dir_type == "html")
-                        html_project_num += 1;
-                    else if(dir_type == "py")
-                        py_project_num += 1;
-                    else if(dir_type == "java")
-                        java_project_num += 1;
                     file = files_as[x+1].split(`</span><span class="size">`)[0]
-                    galery(dir_type, file)
+                    if(file.includes(".txt") == false && file.includes(".png") == false)
+                    {
+                        if(dir_type == "html")
+                            html_project_num += 1;
+                        else if(dir_type == "py")
+                            py_project_num += 1;
+                        else if(dir_type == "java")
+                            java_project_num += 1;
+                        galery(dir_type, file)
+                    }
                 }
             }
             //(github) error backup
