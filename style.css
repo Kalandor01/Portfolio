@@ -166,10 +166,6 @@ article {
     text-align: justify;
 }
 
-article>h2 {
-    text-align: center;
-}
-
 article>.links {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -271,13 +267,36 @@ article>.gen_button>.gen:hover {
     width: 30px;
 }
 
+.portfolio {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 10px;
+    background-color: var(--c_div);
+    border-radius: 10px;
+}
+
+.portfolio>p {
+    margin: 5px;
+}
+
 .fadeIn {
     opacity: 0%;
-    animation: dropIn 1s ease forwards;
+    animation: FadeIn 1s ease forwards;
     animation-delay: calc(var(--order) * 100ms);
 }
 
-@keyframes dropIn {
+.fadeIn>.me {
+    float: right;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.fadeIn>.me::after {
+    clear: both;
+}
+
+@keyframes FadeIn {
     from {opacity: 0%;}
     to {opacity: 100%;}
 }
