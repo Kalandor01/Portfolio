@@ -262,6 +262,7 @@ article>.gen_button>.gen:hover {
     padding: 5px;
     width: 95%;
     margin: auto;
+    aspect-ratio: 1/1;
 }
 
 .galery>div>a>img {
