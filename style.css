@@ -48,6 +48,7 @@ main, header, nav, article, aside, footer {
 a {
     text-decoration: none;
     text-align: center;
+    color: brown;
 }
 
 main {
@@ -358,7 +359,12 @@ aside>.play_area {
     word-break:break-all;
 }
 
-aside>.video{
+aside>.video_con {
+    margin: auto;
+    text-align: center;
+}
+
+.video{
     aspect-ratio: 16/9;
     width: 100%;
     max-width: 500px;
@@ -372,6 +378,28 @@ footer {
     text-align: center;
     color: rgb(201, 201, 201);
     background-color: var(--c_footer);
+}
+
+footer>.gitlink {
+    margin: auto;
+    margin-top: 5px;
+    text-align: center;
+    width: 20%;
+}
+
+footer>.gitlink>a {
+    background-color: var(--c_li);
+    color: var(--c_white);
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+}
+
+footer>.gitlink>a:hover {
+    background-color: var(--c_li_h);
+    color: var(--c_black);
 }
 
 /*MEDIA SCREENS*/
@@ -420,7 +448,19 @@ footer {
     aside>.play_area {
         width: 100%;
     }
+
+    footer>.gitlink {
+        width: 40%;
+    }
     
+}
+
+@media screen and (max-width:300px) {
+
+    .fadeIn>.me {
+        width: 80%;
+    }
+
 }
 
 @media screen and (max-width:380px) {
