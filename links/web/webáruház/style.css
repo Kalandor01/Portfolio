@@ -1,0 +1,151 @@
+
+header, nav, footer, aside, article, main, .kosar, .haz{
+    padding: 5px;
+}
+
+main {
+    display: grid;
+    grid-template-areas:/* "h h h h h" */
+                        "n n n n n"
+                        "a a a a s"
+                        "f f f f f";
+    background-color: rgb(222, 135, 218);
+}
+
+body {
+    background-color: rgb(216, 166, 212);
+}
+
+/* header {
+    grid-area: h;
+    background-color: violet;
+    width: 100%;
+    margin: auto;
+} */
+
+nav {
+    grid-area: n;
+}
+
+aside {
+    grid-area: s;
+    background-color: white;
+}
+
+aside ul li {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+ul {
+    padding: 0;
+}
+
+aside ul {
+    margin: 10px;
+}
+
+.haz {
+    grid-areas: h;
+    background-color: white;
+    margin: 5px;
+    max-width: 200px;
+    position: relative;
+    padding-bottom: 30px;
+}
+
+button {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+
+.haz span {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.haz p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.haz h3 {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+aside div {
+    border-bottom: 1px solid black;
+}
+
+aside p {
+    text-align: center;
+    color: red;
+}
+
+article {
+    grid-area: a;
+    display: grid;
+    grid-template-areas: "h h h h"
+                         "h h h h";
+}
+
+aside {
+    position: relative;
+}
+
+footer {
+    grid-area: f;
+    margin: auto;
+}
+
+nav ul {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    background-color: rgb(148, 104, 167);
+    padding: 5px;
+}
+
+a:hover {
+    background-color: rgb(146, 84, 173);
+}
+
+img {
+    width: 100%;
+    max-width: 200px;
+    grid-areas: i;
+    padding-bottom: 5px;
+}
+
+@media screen and (max-width: 800px){
+    article {
+        display: inline;
+    }
+
+    main {
+        grid-template-areas:/* "h" */
+                            "n"
+                            "a"
+                            "s"
+                            "f";
+        background-color: rgb(222, 135, 218);
+    }
+
+    .haz {
+        max-width: none;
+    }
+
+    img {
+        max-width: none;
+    }
+}
