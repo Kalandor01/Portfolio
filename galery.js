@@ -30,7 +30,11 @@ $(document).ready(function(){
             name = name.charAt(0).toUpperCase() + name.slice(1);
         }
         else
+        {
             linkname = name.replace(/ /g, "_");
+            name = name.replace(/_/g, " ");
+            name = name.charAt(0).toUpperCase() + name.slice(1);
+        }
         console.log(name, linkname);
         //name
         $(`.galery_${type}>.current`).append(`<h2>${name}</h2>`);

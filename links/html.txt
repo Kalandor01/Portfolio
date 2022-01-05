@@ -1,7 +1,7 @@
-Csapatmunka
-Gaming oldal
-Kutyákról
-Oldalalakitás
-Reszponziv
-Sakkör
-Webáruház
+csapatmunka
+gaming_oldal
+kutyákról
+oldalalakitás
+reszponziv
+sakkör
+webáruház
