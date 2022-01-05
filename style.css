@@ -69,6 +69,7 @@ header {
     grid-area: h;
     background-color: var(--c_head);
     position: sticky;
+    height: 50px;
     top: 0;
     z-index: 99;
 }
@@ -98,6 +99,7 @@ header>h1 {
 .theme_bal {
     grid-area: h_th_b;
     width: 15%;
+    height: 40px;
     float: left;
 }
   
@@ -460,20 +462,13 @@ footer>.gitlink>a:hover {
     
 }
 
-@media screen and (max-width:300px) {
-
-    .fadeIn>.me {
-        width: 80%;
-    }
-
-}
-
-@media screen and (max-width:380px) {
+@media screen and (max-width:400px) {
 
     header {
         grid-template-areas: "h_th_b"
                              "h_h1"
                              "h_th";
+        height: 80px;
     }
 
     header>div {
@@ -483,6 +478,7 @@ footer>.gitlink>a:hover {
     header>.theme {
         width: 100%;
         margin: auto;
+        margin-top: 5px;
         text-align: center;
     }
 
@@ -499,4 +495,12 @@ footer>.gitlink>a:hover {
         grid-template-columns: 1fr;
     }
     
+}
+
+@media screen and (max-width:300px) {
+
+    .fadeIn>.me {
+        width: 80%;
+    }
+
 }
