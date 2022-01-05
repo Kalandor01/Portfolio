@@ -62,7 +62,7 @@ $(document).ready(function(){
                     $(`.galery_html>.current`).append(`<a target="_blank" href="${link}" class="link_type_link"><img src="img/link_dark.png" alt="Link"></a>`);
             }
             else
-                $(`.galery_html>.current`).append(`<a target="_blank" href="links/web/${link}/index.html" class="link_type_link"><img src="img/link_dark.png" alt="Link"></a>`);
+                $(`.galery_html>.current`).append(`<a target="_blank" href="links/web/${link}" class="link_type_link"><img src="img/link_dark.png" alt="Link"></a>`);
         }
         //python
         else if(type == "py")

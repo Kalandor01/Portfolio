@@ -419,6 +419,10 @@ footer>.gitlink>a:hover {
         width: 100%;
     }
 
+    article {
+        width: 100%;
+    }
+
     .galery {
         grid-template-columns: 1fr 1fr 1fr;
     }
