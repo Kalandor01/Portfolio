@@ -133,7 +133,8 @@ $(document).ready(function(){
             {
                 if(file_error == false)
                 {
-                    $("header").append("<h4>(GitHub verzió)</h4>");
+                    $("header>theme_bal").empty();
+                    $("header>theme_bal").append("<h4>(GitHub verzió)</h4>");
                     file_error = true;
                 }
                 //backup directory name
