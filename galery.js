@@ -5,7 +5,7 @@ $(document).ready(function(){
     function table()
     {
         //write to table
-        let sum_project_num = git_project_num + html_project_num + py_project_num + java_project_num;
+        let sum_project_num = html_project_num + py_project_num + java_project_num;
         $("aside>table>tbody").empty();
         $("aside>table>tbody").append(`<tr><th colspan="2">Projektek száma</th></tr><tr><th>GitHub</th><td>${git_project_num}</td></tr><tr><th>HTML</th><td>${html_project_num}</td></tr><tr><th>Python</th><td>${py_project_num}</td></tr><tr><th>Java</th><td>${java_project_num}</td></tr><tr><th>Összes</th><td>${sum_project_num}</td></tr>`);
     }
