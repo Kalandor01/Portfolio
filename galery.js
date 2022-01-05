@@ -16,19 +16,29 @@ $(document).ready(function(){
         //div
         $(`.galery_${type}`).append(`<div class="${type} fadeIn current" style="--order: ${order_num}"></div>`);
         //get link/name
+        let linkname = "";
         if(link == 0)
+        {
             link = name;
+            //name processing
             if(type != "html" && name.includes(".zip"))
                 name = name.split(".zip")[0]
             else if(type == "py" && name.includes(".py"))
                 name = name.split(".py")[0]
+            linkname = name;
+            name = name.replace(/_/g, " ");
+            name = name.charAt(0).toUpperCase() + name.slice(1);
+        }
+        else
+            linkname = name.replace(/ /g, "_");
+        console.log(name, linkname);
         //name
         $(`.galery_${type}>.current`).append(`<h2>${name}</h2>`);
         //image
         if(type=="html")
-            $(`.galery_${type}>.current`).append(`<img src="links/web/${name}.png" alt="${type}" onerror="javascript:this.src='img/${type}.png'">`);
+            $(`.galery_${type}>.current`).append(`<img src="links/web/${linkname}.png" alt="${type}" onerror="javascript:this.src='img/${type}.png'">`);
         else
-            $(`.galery_${type}>.current`).append(`<img src="links/file/${type}/${name}.png" alt="${type}" onerror="javascript:this.src='img/${type}.png'">`);
+            $(`.galery_${type}>.current`).append(`<img src="links/file/${type}/${linkname}.png" alt="${type}" onerror="javascript:this.src='img/${type}.png'">`);
         /*//get description
         let desc = null;
         let desc_req = new XMLHttpRequest();
@@ -133,8 +143,7 @@ $(document).ready(function(){
             {
                 if(file_error == false)
                 {
-                    $("header>.theme_bal").empty();
-                    $("header>.theme_bal").append("<h4>(GitHub verzió)</h4>");
+                    $("article").prepend(`<div class="no"><h4>(GitHub verzió)</h4></div>`);
                     file_error = true;
                 }
                 //backup directory name
