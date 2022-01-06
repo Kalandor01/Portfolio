@@ -77,7 +77,7 @@ def git_get(aut=False, user="", password=""):
     git_pre_left = []
     git_raw = []
     try:
-        f = open("links/github.txt", "r")
+        f = open("links/github.txt", "r", encoding="utf-8")
         lines = f.read().split("\n")
         for line in lines:
             git_pre.append(line.split("||"))
@@ -126,14 +126,16 @@ def git_get(aut=False, user="", password=""):
                 git_pre_left.remove(pre_project)
                 git_raw.remove(raw_project)
                 break
-    f = open("links/github.txt", "w", encoding="UTF-8")
+    f = open("links/github.txt", "w", encoding="utf-8")
     for x in range(len(git_good)):
         if x > 0:
             f.write("\n")
         f.write(f"{git_good[x][0]}||{git_good[x][1]}||{git_good[x][2]}")
     extra_gits = conflicts(git_raw, git_pre_left)
     for x in range(len(extra_gits)):
-        f.write(f"\n{extra_gits[x][0]}||{extra_gits[x][1]}||{extra_gits[x][2]}")
+        if not(x == 0 and len(git_good) == 0):
+            f.write("\n")
+        f.write(f"{extra_gits[x][0]}||{extra_gits[x][1]}||{extra_gits[x][2]}")
     f.close()
 
 
