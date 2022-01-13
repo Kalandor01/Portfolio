@@ -40,9 +40,9 @@ $(document).ready(function(){
         $(`.galery_${type}>.current`).append(`<h2>${name}</h2>`);
         //image
         if(type=="html")
-            $(`.galery_${type}>.current`).append(`<img src="links/web/${linkname}.png" alt="${type}" onerror="javascript:this.src='img/${type}.png'">`);
+            $(`.galery_${type}>.current`).append(`<img src="links/web/${linkname}.png" alt="${type}" class="good_img" onerror="javascript:this.src='img/${type}.png'; this.className=''">`);
         else
-            $(`.galery_${type}>.current`).append(`<img src="links/file/${type}/${linkname}.png" alt="${type}" onerror="javascript:this.src='img/${type}.png'">`);
+            $(`.galery_${type}>.current`).append(`<img src="links/file/${type}/${linkname}.png" alt="${type}" class="good_img" onerror="javascript:this.src='img/${type}.png'; this.className=''">`);
         /*//get description
         let desc = null;
         let desc_req = new XMLHttpRequest();
@@ -292,7 +292,7 @@ $(document).ready(function(){
                                         type_ans = apireq_type.responseText;
                                         let ans = type_ans.split(`"`)[1];
                                         git_project_num += 1;
-                                        if(ans == "HTML")
+                                        if(ans == "HTML" || ans == "CSS" || ans == "JavaScript")
                                         {
                                             html_project_num += 1;
                                             galery("html", git_name, `https://kalandor01.github.io/${git_name}/`, true)

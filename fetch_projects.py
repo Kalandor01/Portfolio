@@ -108,8 +108,13 @@ def git_get(aut=False, user="", password=""):
                 print("\nREQUEST LIMIT EXCEDED!!!")
                 return True
             gitp_type = gitp_type.split("{\"")[1].split("\":")[0]
+            # python
             if gitp_type == "Python":
                 gitp_type = "py"
+            # js and css = html
+            elif gitp_type == "CSS" or gitp_type == "JavaScript":
+                gitp_type = "html"
+            # html, java
             else:
                 gitp_type = gitp_type.lower()
             git_raw.append([git_name, gitp_type])

@@ -241,7 +241,7 @@ article>.gen_button>.gen:hover {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-.galery>.html>img:hover {
+.galery>div>.good_img:hover {
     animation: grow 0.5s linear 0s forwards;
 }
 
