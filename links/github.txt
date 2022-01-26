@@ -1,3 +1,6 @@
 py||Totó||toto
 html||Téli versek||teli_versek
 html||Bootstrap||Bootstrap
+html||Kaktuszok||kaktuszok
+html||Régi autók||regi_autok
+html||Régi autók (Bootstrap)||regi_autok_bootstrap
