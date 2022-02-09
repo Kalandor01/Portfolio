@@ -4,3 +4,5 @@ html||Bootstrap||Bootstrap
 html||Kaktuszok||kaktuszok
 html||Régi autók||regi_autok
 html||Régi autók (Bootstrap)||regi_autok_bootstrap
+html||Ágazati HTML||Agazati_vizsga
+html||Position||position
