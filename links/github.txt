@@ -1,4 +1,4 @@
-py||Totó||toto
+﻿py||Totó||toto
 html||Téli versek||teli_versek
 html||Bootstrap||Bootstrap
 html||Kaktuszok||kaktuszok
@@ -6,3 +6,6 @@ html||Régi autók||regi_autok
 html||Régi autók (Bootstrap)||regi_autok_bootstrap
 html||Ágazati HTML||Agazati_vizsga
 html||Position||position
+py||Random_Sentance(python)||Random_sentance_py
+py||Save_File_Manager||Save_File_Manager
+py||Progress_Adventure||Progress_Adventure

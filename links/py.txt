@@ -1,5 +1,7 @@
 Black_Jack.zip
 Béka.zip
-File_Explorer.zip
+directory_explorer.zip
+fetch_projects.zip
 Kalandkönyv.zip
 Kémcsõ.zip
+submask_calculator.zip

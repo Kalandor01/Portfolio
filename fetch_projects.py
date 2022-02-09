@@ -71,7 +71,7 @@ def conflicts(added_lis, removed_lis):
 
 
 # github projects
-def git_get(aut=False, user="", password=""):
+def git_get(git_tok=""):
     # reading old project data from file
     git_pre = []
     git_pre_left = []
@@ -87,27 +87,30 @@ def git_get(aut=False, user="", password=""):
         print("No github.txt found!")
 
     # fetching project names from github api
-    print("Fetching and comparing github projects", end="")
-    if aut:
-        gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos", auth=(user, password)).text
+    print("Fetching and comparing github projects:")
+    if git_tok != "":
+        gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos", headers={"Authorization": git_tok}).text
     else:
         gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos").text
-    if gitprojects.find("(Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting\"}") != -1:
-        print("\nREQUEST LIMIT EXCEDED!!!")
+    if gitprojects.find("API rate limit exceeded for") != -1:
+        print("\nAPI REQUEST LIMIT EXCEDED!!!")
         return True
-    names_split = gitprojects.split("\"name\":\"")
+    names_split = gitprojects.split("\",\"full_name\":\"")
     for x in range(len(names_split) - 1):
-        git_name = names_split[x + 1].split("\",")[0]
+        git_name = names_split[x + 1].split("\",\"")[0].split("/")[1]
         if git_name != "Kalandor01" and git_name != "Portfolio":
             # fetching project type
-            if aut:
-                gitp_type = requests.get(f"https://api.github.com/repos/Kalandor01/{git_name}/languages", auth=(user, password)).text
+            if git_tok != "":
+                gitp_type = requests.get(f"https://api.github.com/repos/Kalandor01/{git_name}/languages", headers={"Authorization": git_tok}).text
             else:
                 gitp_type = requests.get(f"https://api.github.com/repos/Kalandor01/{git_name}/languages").text
-            if gitp_type.find("(Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting\"}") != -1:
-                print("\nREQUEST LIMIT EXCEDED!!!")
+            if gitp_type.find("API rate limit exceeded for") != -1:
+                print("\nAPI REQUEST LIMIT EXCEDED!!!")
                 return True
-            gitp_type = gitp_type.split("{\"")[1].split("\":")[0]
+            try:
+                gitp_type = gitp_type.split("{\"")[1].split("\":")[0]
+            except IndexError:
+                gitp_type = "NONE"
             # python
             if gitp_type == "Python":
                 gitp_type = "py"
@@ -118,7 +121,7 @@ def git_get(aut=False, user="", password=""):
             else:
                 gitp_type = gitp_type.lower()
             git_raw.append([git_name, gitp_type])
-            print(".", end="")
+            print(f"{git_name}({gitp_type})")
     print("\n")
 
     # comparing
@@ -146,16 +149,25 @@ def git_get(aut=False, user="", password=""):
 
 # print(requests.get("https://api.github.com/users/Kalandor01/repos").text)
 
-local = input("Refresh local projects?(y/n): ")
-if local.lower() == "y":
+local = input("Refresh local projects?(Y/N): ")
+if local.upper() == "Y":
     local_get()
 
-git = input("Refresh github repositories?(this will make 1 get request per repository, and you can only make 60 of those per hour)(y/n): ")
-if git.lower() == "y":
+git = input("Refresh github repositories?(this will make 1 get request per repository, and you can only make 60 of those per hour)(Y/N): ")
+if git.upper() == "Y":
     if git_get():
-        authent = input("Do you want to try again with an authentication key?(y/n): ")
-        if authent.lower() == "y":
-            client = input("Please input the client ID: ")
-            sec = input("Please input the client secret key: ")
+        authent = input('Do you want to try again with a personal access token (put into "token.txt")?(Y/N): ')
+        if authent.upper() == "Y":
+            try:
+                tok = open("token.txt", "r")
+            except FileNotFoundError:
+                print('"token.txt" not dound!')
+            else:
+                git_token = tok.readline().replace("\n", "")
+                tok.close()
+                if len(git_token) < 5:
+                    print("The git token is not this short!")
+                else:
+                    git_get(git_token)
 
 ff = input("\nDONE!")
