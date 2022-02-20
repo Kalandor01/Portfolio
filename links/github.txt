@@ -1,4 +1,3 @@
-﻿html||Téli versek||teli_versek
 html||Bootstrap||Bootstrap
 html||Kaktuszok||kaktuszok
 html||Régi autók||regi_autok
@@ -9,3 +8,6 @@ py||Random Sentance||random_sentance
 py||Save_File_Manager||Save_File_Manager
 py||Totó||toto
 py||Progress Adventure||Progress_Adventure
+html||Flexbox alapok||flexAlap
+html||Képregény||kepregeny
+html||Téli versek||teli_versek
