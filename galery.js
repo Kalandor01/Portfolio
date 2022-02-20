@@ -179,7 +179,7 @@ $(document).ready(function(){
                         //manual method final backup
                         if(dir_type == "html")
                         {
-                            let html_names = ["Csapatmunka", "Gaming oldal", "Kutyákról", "Oldalalakítás", "Reszponzív", "Sakkör", "Webáruház"]
+                            let html_names = ["Csapatmunka", "gaming_oldal", "Kutyákról", "oldalalakítás", "reszponzív", "Sakkör", "Webáruház"]
                             for (x = 0; x < html_names.length; x++)
                             {
                                 html_project_num += 1;
@@ -190,7 +190,7 @@ $(document).ready(function(){
                         }
                         else if(dir_type == "py")
                         {
-                            let py_names = ["Béka.zip", "Black Jack.zip", "File Explorer.zip", "Kalandkönyv.zip", "Kémcső.zip"]
+                            let py_names = ["Béka.zip", "Black_Jack.zip", "fetch_projects.zip", "Kalandkönyv.zip", "Kémcső.zip"]
                             for (x = 0; x < py_names.length; x++)
                             {
                                 py_project_num += 1;
@@ -201,7 +201,7 @@ $(document).ready(function(){
                         }
                         else if(dir_type == "java")
                         {
-                            let java_names = ["Amőba.zip", "Harc.zip", "Itt a piros.zip", "Nyugta.zip"]
+                            let java_names = ["Amőba.zip", "Harc.zip", "Itt_a_piros.zip", "Nyugta.zip"]
                             for (x = 0; x < java_names.length; x++)
                             {
                                 java_project_num += 1;
