@@ -147,7 +147,7 @@ $(document).ready(function(){
             {
                 if(file_error == false)
                 {
-                    $("article").prepend(`<div class="no"><h4>(GitHub verzió)</h4></div>`);
+                    $("article").prepend(`<div class="no"><h4 id="3">(GitHub version)</h4></div>`);
                     file_error = true;
                 }
                 //backup directory name
@@ -186,7 +186,7 @@ $(document).ready(function(){
                                 galery("html", html_names[x])
                             }
                             window.alert("Couldn't load HTML projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
-                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_html`)
+                            $(`<div class="no"><h4 id="4">(backup)</h4></div>`).insertBefore(`.galery_html`)
                         }
                         else if(dir_type == "py")
                         {
@@ -197,7 +197,7 @@ $(document).ready(function(){
                                 galery("py", py_names[x])
                             }
                             window.alert("Couldn't load Pythin projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
-                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_py`)
+                            $(`<div class="no"><h4 id="5">(backup)</h4></div>`).insertBefore(`.galery_py`)
                         }
                         else if(dir_type == "java")
                         {
@@ -208,7 +208,7 @@ $(document).ready(function(){
                                 galery("java", java_names[x])
                             }
                             window.alert("Couldn't load Java projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
-                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_java`)
+                            $(`<div class="no"><h4 id="6">(backup)</h4></div>`).insertBefore(`.galery_java`)
                         }
                     }
                 }
