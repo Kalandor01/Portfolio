@@ -72,47 +72,43 @@ header {
     height: 50px;
     top: 0;
     z-index: 99;
+    display: flex;
+    justify-content: space-between;
 }
 
-.header:after {
-    clear: both;
-}
 
 header>h1 {
     float: left;
-    margin: auto;
     text-align: center;
-    color: rgb(218, 218, 218);
-    grid-area: h_h1;
-    width: 70%;
+    margin: 0;
     margin-top: 5px;
+    color: rgb(218, 218, 218);
+    width: 70%;
+}
+
+.theme, .language {
+    height: 100%;
+    width: 20%;
+}
+
+.language {
+    text-align: left;
 }
 
 .theme {
-    grid-area: h_th;
-    width: 50px;
-    margin: auto;
-    margin-top: 5px;
-    float: right;
-}
-
-.theme_bal {
-    grid-area: h_th_b;
-    width: 15%;
-    height: 40px;
-    float: left;
+    text-align: right;
 }
   
-.theme>.theme_button {
-    width: 100%;
+.theme>.theme_button, .language>.lang_button {
+    height: 100%;
     cursor: pointer;
     border: none;
     background-color: transparent;
 }
   
-.theme>.theme_button>img {
+.theme>.theme_button>img, .language>.lang_button>img {
     height: 100%;
-    width: 100%;
+    max-height: 50px;
 }
 
 /*NAV*/
@@ -465,29 +461,17 @@ footer>.gitlink>a:hover {
 @media screen and (max-width:400px) {
 
     header {
-        grid-template-areas: "h_th_b"
-                             "h_h1"
-                             "h_th";
-        height: 80px;
+        flex-direction: column;
+        height: 150px;
     }
 
-    header>div {
-        clear: both;
-    }
-
-    header>.theme {
+    header>.language, header>.theme, header>h1 {
         width: 100%;
-        margin: auto;
-        margin-top: 5px;
         text-align: center;
     }
 
-    header>.theme>.theme_button {
-        width: 40px;
-    }
-
     nav {
-        top: 87px;
+        top: 157px;
     }
     
     .galery {

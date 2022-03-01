@@ -1,0 +1,4 @@
+Portfolio
+About myself
+My name is Ákos Rohovszky, and I am studying Software Development and Testing at Számalk Szalezi technical and vocational school. I like to program, mostly in Python and C#.
+Inspirations

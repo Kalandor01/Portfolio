@@ -7,7 +7,7 @@ $(document).ready(function(){
         //write to table
         let sum_project_num = html_project_num + py_project_num + java_project_num;
         $("aside>table>tbody").empty();
-        $("aside>table>tbody").append(`<tr><th colspan="2">Projektek száma</th></tr><tr><th>GitHub</th><td>${git_project_num}</td></tr><tr><th>HTML</th><td>${html_project_num}</td></tr><tr><th>Python</th><td>${py_project_num}</td></tr><tr><th>Java</th><td>${java_project_num}</td></tr><tr><th>Összes</th><td>${sum_project_num}</td></tr>`);
+        $("aside>table>tbody").append(`<tr><th colspan="2" id="1">Number of projects</th></tr><tr><th>GitHub</th><td>${git_project_num}</td></tr><tr><th>HTML</th><td>${html_project_num}</td></tr><tr><th>Python</th><td>${py_project_num}</td></tr><tr><th>Java</th><td>${java_project_num}</td></tr><tr><th  id="2">Total</th><td>${sum_project_num}</td></tr>`);
     }
 
     function galery(type = "html", name = "null", link = 0, full_link = false, git = false)
@@ -185,8 +185,8 @@ $(document).ready(function(){
                                 html_project_num += 1;
                                 galery("html", html_names[x])
                             }
-                            window.alert("Nem lehetett a HTML projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
-                            $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_html`)
+                            window.alert("Couldn't load HTML projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
+                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_html`)
                         }
                         else if(dir_type == "py")
                         {
@@ -196,8 +196,8 @@ $(document).ready(function(){
                                 py_project_num += 1;
                                 galery("py", py_names[x])
                             }
-                            window.alert("Nem lehetett a Python projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
-                            $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_py`)
+                            window.alert("Couldn't load Pythin projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
+                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_py`)
                         }
                         else if(dir_type == "java")
                         {
@@ -207,8 +207,8 @@ $(document).ready(function(){
                                 java_project_num += 1;
                                 galery("java", java_names[x])
                             }
-                            window.alert("Nem lehetett a Java projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nBiztonsági mentés betöltése...");
-                            $(`<div class="no"><h4>(biztonsági mentés)</h4></div>`).insertBefore(`.galery_java`)
+                            window.alert("Couldn't load Java projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
+                            $(`<div class="no"><h4>(backup)</h4></div>`).insertBefore(`.galery_java`)
                         }
                     }
                 }
@@ -261,7 +261,7 @@ $(document).ready(function(){
             //gits error backup
             else if(git_xmlhttp.readyState == 4 && git_xmlhttp.status != 200)
             {
-                window.alert("Nem lehetett a GitHub projekteket dimamikusan betölteni. Töltsd újra az oldalt az ujrapróbáláshoz.\n(Github Sucks!)\nMásolat letöltése a GitHub API segítségével...")
+                window.alert("Couldn't load GitHub projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nDownloading backup with the help of the GitHub API...")
                 //get names from api
                 let answers = null;
                 let apireq = new XMLHttpRequest();
@@ -310,7 +310,7 @@ $(document).ready(function(){
                                     }
                                     //(github) error backup
                                     else if(apireq_type.readyState == 4 && apireq_type.status != 200)
-                                        window.alert("Nem lehetett megszerezni a projekt típusát a GitHup API-ból!")
+                                        window.alert("Couldn't load the project's type from the GitHub API!")
                                 }
                                 apireq_type.send();
                             }
@@ -318,7 +318,7 @@ $(document).ready(function(){
                     }
                     //(github) error backup
                     else if(apireq.readyState == 4 && apireq.status != 200)
-                        window.alert("Nem lehetett hozzáférni a GitHub API-hoz!")
+                        window.alert("Couldn't access the GitHub API!")
                 }
                 apireq.send();
             }
