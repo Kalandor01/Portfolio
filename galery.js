@@ -57,11 +57,11 @@ $(document).ready(function(){
             {
                 desc = desc_req.responseText;
                 $(`.galery_${type}>.current`).append(`<p>${desc}</p>`);
-                window.alert(desc)
+                alert(desc)
             }
             //backup
             else if(desc_req.readyState == 4 && desc_req.status != 200)
-                window.alert("no desc: " + name)
+                alert("no desc: " + name)
         }
         desc_req.send();*/
         //link
@@ -116,106 +116,97 @@ $(document).ready(function(){
         else
             dir_name = `links/file/${dir_type}/`;
         //get... file array?
-        let files = null;
-        let xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("get", dir_name, true);
-        xmlhttp.onload = function()
-        {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-            {
-                //get file names + run galery()
-                files = xmlhttp.responseText;
-                let files_lis = files.split(">..<")[1];
-                let files_as = files_lis.split(`<span class="name">`)
-                for (x = 0; x < files_as.length - 1; x++)
-                {
-                    file = files_as[x+1].split(`</span><span class="size">`)[0]
-                    if(file.includes(".txt") == false && file.includes(".png") == false)
-                    {
-                        if(dir_type == "html")
-                            html_project_num += 1;
-                        else if(dir_type == "py")
-                            py_project_num += 1;
-                        else if(dir_type == "java")
-                            java_project_num += 1;
-                        galery(dir_type, file)
-                    }
-                }
-            }
-            //(github) error backup
-            else if(xmlhttp.readyState == 4 && xmlhttp.status != 200)
-            {
-                if(file_error == false)
-                {
-                    $("article").prepend(`<div class="no"><h4 id="3">(GitHub version)</h4></div>`);
-                    file_error = true;
-                }
-                //backup directory name
-                var dir_name_bak = `links/${dir_type}.txt`;
-                //get array from file
-                let files_bak = null;
-                let xmlhttp_bak = new XMLHttpRequest();
-                xmlhttp_bak.open("get", dir_name_bak, true);
-                xmlhttp_bak.overrideMimeType('text/xml; charset=iso-8859-2');
-                xmlhttp_bak.onload = function()
-                {
-                    if (xmlhttp_bak.readyState == 4 && xmlhttp_bak.status == 200)
-                    {
-                        //seperate file names + run galery()
-                        files_bak = xmlhttp_bak.responseText;
-                        let file_bak = files_bak.split("\n")
-                        if(dir_type == "html")
-                            html_project_num += file_bak.length - 1;
-                        else if(dir_type == "py")
-                            py_project_num += file_bak.length - 1;
-                        else if(dir_type == "java")
-                            java_project_num += file_bak.length - 1;
-                        for (x = 0; x < file_bak.length - 1; x++)
-                            galery(dir_type, file_bak[x])
-                    }
-                    //secondary error backup
-                    else if(xmlhttp_bak.readyState == 4 && xmlhttp_bak.status != 200)
-                    {
-                        //manual method final backup
-                        if(dir_type == "html")
-                        {
-                            let html_names = ["Csapatmunka", "gaming_oldal", "Kutyákról", "oldalalakítás", "reszponzív", "Sakkör", "Webáruház"]
-                            for (x = 0; x < html_names.length; x++)
-                            {
-                                html_project_num += 1;
-                                galery("html", html_names[x])
-                            }
-                            window.alert("Couldn't load HTML projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
-                            $(`<div class="no"><h4 id="4">(backup)</h4></div>`).insertBefore(`.galery_html`)
-                        }
-                        else if(dir_type == "py")
-                        {
-                            let py_names = ["Béka.zip", "Black_Jack.zip", "fetch_projects.zip", "Kalandkönyv.zip", "Kémcső.zip"]
-                            for (x = 0; x < py_names.length; x++)
-                            {
-                                py_project_num += 1;
-                                galery("py", py_names[x])
-                            }
-                            window.alert("Couldn't load Pythin projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
-                            $(`<div class="no"><h4 id="5">(backup)</h4></div>`).insertBefore(`.galery_py`)
-                        }
-                        else if(dir_type == "java")
-                        {
-                            let java_names = ["Amőba.zip", "Harc.zip", "Itt_a_piros.zip", "Nyugta.zip"]
-                            for (x = 0; x < java_names.length; x++)
-                            {
-                                java_project_num += 1;
-                                galery("java", java_names[x])
-                            }
-                            window.alert("Couldn't load Java projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nLoading backup...");
-                            $(`<div class="no"><h4 id="6">(backup)</h4></div>`).insertBefore(`.galery_java`)
-                        }
-                    }
-                }
-                xmlhttp_bak.send();
-            }
+        $.ajax({
+        url: dir_name,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=utf-8");
         }
-        xmlhttp.send();
+        })
+        .done(function(files) {
+            //get file names + run galery()
+            let files_lis = files.split(">..<")[1];
+            let files_as = files_lis.split(`<span class="name">`)
+            for (x = 0; x < files_as.length - 1; x++)
+            {
+                file = files_as[x+1].split(`</span><span class="size">`)[0]
+                if(file.includes(".txt") == false && file.includes(".png") == false)
+                {
+                    if(dir_type == "html")
+                        html_project_num += 1;
+                    else if(dir_type == "py")
+                        py_project_num += 1;
+                    else if(dir_type == "java")
+                        java_project_num += 1;
+                    galery(dir_type, file);
+                }
+            }
+        })
+        .fail(function() {
+            if(file_error == false)
+            {
+                $("article").prepend(`<div class="no"><h4 id="3">(GitHub version)</h4></div>`);
+                file_error = true;
+            }
+            //backup directory name
+            var dir_name_bak = `links/${dir_type}.txt`;
+            //get array from file
+
+            $.ajax({
+            url: dir_name_bak,
+            beforeSend: function(xhr) {
+                xhr.overrideMimeType("text/plain; charset=iso-8859-2");
+            }
+            })
+            .done(function(files_bak) {
+                //seperate file names + run galery()
+                let file_bak = files_bak.split("\n");
+                if(dir_type == "html")
+                    html_project_num += file_bak.length - 1;
+                else if(dir_type == "py")
+                    py_project_num += file_bak.length - 1;
+                else if(dir_type == "java")
+                    java_project_num += file_bak.length - 1;
+                for (x = 0; x < file_bak.length - 1; x++)
+                    galery(dir_type, file_bak[x]);
+            })
+            .fail(function() {
+                //manual method final backup
+                if(dir_type == "html")
+                {
+                    let html_names = ["Csapatmunka", "gaming_oldal", "Kutyákról", "oldalalakítás", "reszponzív", "Sakkör", "Webáruház"]
+                    for (x = 0; x < html_names.length; x++)
+                    {
+                        html_project_num += 1;
+                        galery("html", html_names[x])
+                    }
+                    alert("Couldn't load HTML projects dynamicly. Reload the page\nLoading backup...");
+                    $(`<div class="no"><h4 id="4">(backup)</h4></div>`).insertBefore(`.galery_html`)
+                }
+                else if(dir_type == "py")
+                {
+                    let py_names = ["Béka.zip", "Black_Jack.zip", "fetch_projects.zip", "Kalandkönyv.zip", "Kémcső.zip"]
+                    for (x = 0; x < py_names.length; x++)
+                    {
+                        py_project_num += 1;
+                        galery("py", py_names[x])
+                    }
+                    alert("Couldn't load Pythin projects dynamicly. Reload the page\nLoading backup...");
+                    $(`<div class="no"><h4 id="5">(backup)</h4></div>`).insertBefore(`.galery_py`)
+                }
+                else if(dir_type == "java")
+                {
+                    let java_names = ["Amőba.zip", "Harc.zip", "Itt_a_piros.zip", "Nyugta.zip"]
+                    for (x = 0; x < java_names.length; x++)
+                    {
+                        java_project_num += 1;
+                        galery("java", java_names[x])
+                    }
+                    alert("Couldn't load Java projects dynamicly. Reload the page\nLoading backup...");
+                    $(`<div class="no"><h4 id="6">(backup)</h4></div>`).insertBefore(`.galery_java`)
+                }
+            });
+        });
+        //generate table
         table();
     }
 
@@ -223,107 +214,97 @@ $(document).ready(function(){
     function get_gits()
     {
         //get array from file
-        let git_files = null;
-        let git_xmlhttp = new XMLHttpRequest();
-        git_xmlhttp.open("get", `links/github.txt`, true);
-        git_xmlhttp.overrideMimeType('text/xml; charset=utf-8');
-        git_xmlhttp.onload = function()
-        {
-            if (git_xmlhttp.readyState == 4 && git_xmlhttp.status == 200)
-            {
-                //seperate projects + run galery()
-                let git_files = git_xmlhttp.responseText;
-                git_files = git_files.split("\n")
-                for (x = 0; x < git_files.length; x++)
-                {
-                    git_project_num += 1;
-                    git_file_stuff = git_files[x].split("||")
-                    if(git_file_stuff[0] == "html")
-                    {
-                        html_project_num += 1;
-                        galery("html", git_file_stuff[1], `https://kalandor01.github.io/${git_file_stuff[2]}/`, true)
-                    }
-                    else if(git_file_stuff[0] == "html_p")
-                    {
-                        html_project_num += 1;
-                        galery("html", git_file_stuff[1], `https://github.com/Kalandor01/${git_file_stuff[2]}`, true, true)
-                    }
-                    else
-                    {
-                        if(git_file_stuff[0] == "py")
-                            py_project_num += 1;
-                        else if(git_file_stuff[0] == "java")
-                            java_project_num += 1;
-                        galery(git_file_stuff[0], git_file_stuff[1], `https://github.com/Kalandor01/${git_file_stuff[2]}`, true, true)
-                    }
-                }
-            }
-            //gits error backup
-            else if(git_xmlhttp.readyState == 4 && git_xmlhttp.status != 200)
-            {
-                window.alert("Couldn't load GitHub projects dynamicly. Reload the page to try again.\n(Github Sucks!)\nDownloading backup with the help of the GitHub API...")
-                //get names from api
-                let answers = null;
-                let apireq = new XMLHttpRequest();
-                apireq.open("get", "https://api.github.com/users/Kalandor01/repos", true);
-                apireq.onload = function()
-                {
-                    if (apireq.readyState == 4 && apireq.status == 200)
-                    {
-                        //get project names
-                        answers = apireq.responseText;
-                        let ans_lis = answers.split(`"name": "`);
-                        //window.alert(ans_lis);
-                        for (x = 0; x < ans_lis.length - 1; x++)
-                        {
-                            let git_name = ans_lis[x+1].split(`",`)[0]
-                            if(git_name != "Kalandor01" && git_name != "Portfolio")
-                            {
-                                //get type from api
-                                let type_ans = null;
-                                let apireq_type = new XMLHttpRequest();
-                                apireq_type.open("get", `https://api.github.com/repos/Kalandor01/${git_name}/languages`, true);
-                                apireq_type.onload = function()
-                                {
-                                    if (apireq_type.readyState == 4 && apireq_type.status == 200)
-                                    {
-                                        let git_type = null;
-                                        //get project type
-                                        type_ans = apireq_type.responseText;
-                                        let ans = type_ans.split(`"`)[1];
-                                        git_project_num += 1;
-                                        if(ans == "HTML" || ans == "CSS" || ans == "JavaScript")
-                                        {
-                                            html_project_num += 1;
-                                            galery("html", git_name, `https://kalandor01.github.io/${git_name}/`, true)
-                                        }
-                                        else if(ans == "Python")
-                                        {
-                                            py_project_num += 1;
-                                            galery("py", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
-                                        }
-                                        else if(ans == "Java")
-                                        {
-                                            java_project_num += 1;
-                                            galery("java", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
-                                        }
-                                    }
-                                    //(github) error backup
-                                    else if(apireq_type.readyState == 4 && apireq_type.status != 200)
-                                        window.alert("Couldn't load the project's type from the GitHub API!")
-                                }
-                                apireq_type.send();
-                            }
-                        }
-                    }
-                    //(github) error backup
-                    else if(apireq.readyState == 4 && apireq.status != 200)
-                        window.alert("Couldn't access the GitHub API!")
-                }
-                apireq.send();
-            }
+        $.ajax({
+        url: `links/github.txt`,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=utf-8");
         }
-        git_xmlhttp.send();
+        })
+        .done(function(git_files) {
+            //seperate projects + run galery()
+            git_files = git_files.split("\n")
+            for (x = 0; x < git_files.length; x++)
+            {
+                git_project_num += 1;
+                git_file_stuff = git_files[x].split("||")
+                if(git_file_stuff[0] == "html")
+                {
+                    html_project_num += 1;
+                    galery("html", git_file_stuff[1], `https://kalandor01.github.io/${git_file_stuff[2]}/`, true)
+                }
+                else if(git_file_stuff[0] == "html_p")
+                {
+                    html_project_num += 1;
+                    galery("html", git_file_stuff[1], `https://github.com/Kalandor01/${git_file_stuff[2]}`, true, true)
+                }
+                else
+                {
+                    if(git_file_stuff[0] == "py")
+                        py_project_num += 1;
+                    else if(git_file_stuff[0] == "java")
+                        java_project_num += 1;
+                    galery(git_file_stuff[0], git_file_stuff[1], `https://github.com/Kalandor01/${git_file_stuff[2]}`, true, true)
+                }
+            }
+        })
+        //gits error backup
+        .fail(function() {
+            alert("Couldn't load GitHub projects dynamicly. Reload the page to try again.\nDownloading backup with the help of the GitHub API...")
+            //get names from api
+            $.ajax({
+            url: "https://api.github.com/users/Kalandor01/repos",
+            beforeSend: function(xhr) {
+                xhr.overrideMimeType("text/plain; charset=utf-8");
+            }
+            })
+            .done(function(answers) {
+                //get project names
+                let ans_lis = answers.split(`"name": "`);
+                //alert(ans_lis);
+                for (x = 0; x < ans_lis.length - 1; x++)
+                {
+                    let git_name = ans_lis[x+1].split(`",`)[0]
+                    if(git_name != "Kalandor01" && git_name != "Portfolio")
+                    {
+                        //get type from api
+                        $.ajax({
+                        url: `https://api.github.com/repos/Kalandor01/${git_name}/languages`,
+                        beforeSend: function(xhr) {
+                            xhr.overrideMimeType("text/plain; charset=utf-8");
+                        }
+                        })
+                        .done(function(type_ans) {
+                            //get project type
+                            let ans = type_ans.split(`"`)[1];
+                            git_project_num += 1;
+                            if(ans == "HTML" || ans == "CSS" || ans == "JavaScript")
+                            {
+                                html_project_num += 1;
+                                galery("html", git_name, `https://kalandor01.github.io/${git_name}/`, true)
+                            }
+                            else if(ans == "Python")
+                            {
+                                py_project_num += 1;
+                                galery("py", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
+                            }
+                            else if(ans == "Java")
+                            {
+                                java_project_num += 1;
+                                galery("java", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
+                            }
+                        })
+                        .fail(function() {
+                            alert("Couldn't load the project's type from the GitHub API!");
+                        });
+                    }
+                }
+            })
+            //github backup error
+            .fail(function() {
+                alert("Couldn't access the GitHub API!")
+            });
+        });
+        //update table
         table();
     }
     
@@ -376,13 +357,13 @@ $(document).ready(function(){
     var galery_type = []
     var galery_name = []
     var galery_link = []
-    window.alert(6);
+    alert(6);
     var fs = require('fs');
     var html_files = fs.readdir('/web/');
-    window.alert(5);
+    alert(5);
     for (file in html_files) {
         galery("html", file);
-        window.alert(file);
+        alert(file);
     }
     var py_files = fs.readdirSync('/file/py/');
     for (file in py_files) {
