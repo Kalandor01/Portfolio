@@ -11,3 +11,11 @@ py||Progress Adventure||Progress_Adventure
 html||Flexbox alapok||flexAlap
 html||Képregény||kepregeny
 html||Téli versek||teli_versek
+html||Bootstrap forms||bootstrap_forms
+java||Alapműveletek gyakorlása csoprtmunka||Csapatmunka_java_project
+java||Csapatmunka test||csapat_java
+html||Növények flexbox||flex_novenyek
+java||Git conflict test||git_conflict
+html||JS alapok||JS_alapok
+html||JS képgaléria||js_img
+java||Java gyakorlás||metodusok
