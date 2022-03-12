@@ -1,10 +1,10 @@
-DE Language switch
-German
-DE Theme change
-DE Home page
-DE Portfolio
-DE Projects
-DE HTML creator
-DE No translation file found for this page!
-DE Couldn't get the name of this page!
-DE No translation file found for the next language!
+Sprachumschaltung
+Deutsch
+Themenwechsel
+Startseite
+Portfolio
+Projekte
+HTML-Ersteller
+Keine Übersetzungsdatei für diese Seite gefunden!
+Der Name dieser Seite konnte nicht abgerufen werden!
+Keine Übersetzungsdatei für die nächste Sprache gefunden!

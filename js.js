@@ -68,100 +68,106 @@ function setLang()
     lang_num++;
     if(lang_num >= langs.length)
         lang_num = 0;
+    
     //get current lang
-    var dir_name_lang_main = `translations/main_${langs[lang_num]}.txt`;
-    //get array from file
-    let lang_lines_main = null;
-    let xmlhttp_lang_main = new XMLHttpRequest();
-    xmlhttp_lang_main.open("get", dir_name_lang_main, true);
-    xmlhttp_lang_main.overrideMimeType('text/xml; charset=iso-8859-2');
-    xmlhttp_lang_main.onload = function()
-    {
-        if (xmlhttp_lang_main.readyState == 4 && xmlhttp_lang_main.status == 200)
-        {
-            //seperate lines
-            lang_lines_main = xmlhttp_lang_main.responseText;
-            let lines_main = lang_lines_main.split("\n")
-            //theme change
-            $("header>.theme>.theme_button").attr("title", lines_main[2]);
-            //nav
-            $("nav").empty();
-            $("nav").append(`<ul><li class="empty"></li><li><a href="index.html">${lines_main[3]}</a></li><li><a href="portfolio.html">${lines_main[4]}</a></li><li><a href="projects.html">${lines_main[5]}</a></li><li><a href="html_playground.html">${lines_main[6]}</a></li></ul>`);
-            error_page_translation = lines_main[7];
-            error_page_name = lines_main[8];
-            error_next_translation_file = lines_main[9];
-        }
-        //error message
-        else if(xmlhttp_lang_main.readyState == 4 && xmlhttp_lang_main.status != 200)
-            alert("No translation file found for this language!")
+    $.ajax({
+    url: `translations/main_${langs[lang_num]}.txt`,
+    beforeSend: function(xhr) {
+        xhr.overrideMimeType("text/plain; charset=iso-8859-2");
     }
-    xmlhttp_lang_main.send();
+    })
+    .done(function(lang_main) {
+        //seperate lines
+        let lines_main = lang_main.split("\n");
+        //theme change
+        $("header>.theme>.theme_button").attr("title", lines_main[2]);
+        //nav
+        $("nav").empty();
+        $("nav").append(`<ul><li class="empty"></li><li><a href="index.html">${lines_main[3]}</a></li><li><a href="portfolio.html">${lines_main[4]}</a></li><li><a href="projects.html">${lines_main[5]}</a></li><li><a href="html_playground.html">${lines_main[6]}</a></li></ul>`);
+        error_page_translation = lines_main[7];
+        error_page_name = lines_main[8];
+        error_next_translation_file = lines_main[9];
+    })
+    //error message
+    .fail(function() {
+        alert("No translation file found for this language!");
+    });
 
     //get pagename + page translation
     var pagename = $("html").attr("id");
     if(pagename!=undefined)
     {
         //translation directory name
-        var dir_name_lang = `translations/${pagename}_${langs[lang_num]}.txt`;
-        //get array from file
-        let lang_lines = null;
-        let xmlhttp_lang = new XMLHttpRequest();
-        xmlhttp_lang.open("get", dir_name_lang, true);
-        xmlhttp_lang.overrideMimeType('text/xml; charset=iso-8859-2');
-        xmlhttp_lang.onload = function()
-        {
-            if (xmlhttp_lang.readyState == 4 && xmlhttp_lang.status == 200)
-            {
-                //seperate lines
-                lang_lines = xmlhttp_lang.responseText;
-                let lines = lang_lines.split("\n")
-                //header
-                $("header>h1").empty();
-                $("header>h1").append(lines[0]);
-                //others
-                for (x = 0; x < lines.length; x++)
-                {
-                    $(`#${x}`).empty();
-                    $(`#${x}`).append(lines[x]);
-                }
-            }
-            //error message
-            else if(xmlhttp_lang.readyState == 4 && xmlhttp_lang.status != 200)
-                alert(error_page_translation)
+        $.ajax({
+        url: `translations/${pagename}_${langs[lang_num]}.txt`,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=iso-8859-2");
         }
-        xmlhttp_lang.send();
+        })
+        .done(function(lang_lines) {
+            //seperate lines
+            let lines = lang_lines.split("\n");
+            //header
+            $("header>h1").empty();
+            $("header>h1").append(lines[0]);
+            //others
+            for (x = 0; x < lines.length; x++)
+            {
+                $(`#${x}`).empty();
+                $(`#${x}`).append(lines[x]);
+            }
+        })
+        //error message
+        .fail(function() {
+            alert(error_page_translation);
+        });
     }
     else
-        alert(error_page_name)
+        alert(error_page_name);
     
     //get next lang
     //name
     let next_lang_num = lang_num+1;
     if(next_lang_num >= langs.length)
         next_lang_num = 0;
-    var dir_name_lang_main_next = `translations/main_${langs[next_lang_num]}.txt`;
-    //get array from file
-    let lang_lines_main_next = null;
-    let xmlhttp_lang_main_next = new XMLHttpRequest();
-    xmlhttp_lang_main_next.open("get", dir_name_lang_main_next, true);
-    xmlhttp_lang_main_next.overrideMimeType('text/xml; charset=iso-8859-2');
-    xmlhttp_lang_main_next.onload = function()
-    {
-        if (xmlhttp_lang_main_next.readyState == 4 && xmlhttp_lang_main_next.status == 200)
-        {
-            //seperate lines
-            lang_lines_main_next = xmlhttp_lang_main_next.responseText;
-            let lines_main_next = lang_lines_main_next.split("\n")
-            //next lang flag text
-            $("header>.language").empty();
-            $("header>.language").append(`<button class="lang_button" onclick="setLang()" title="${lines_main_next[0]}"><img src="img/lang_${langs[next_lang_num]}.png" alt="${lines_main_next[1]}"></button>`);
-        }
-        //error message
-        else if(xmlhttp_lang_main_next.readyState == 4 && xmlhttp_lang_main_next.status != 200)
-            alert(error_next_translation_file)
+    
+    $.ajax({
+    url: `translations/main_${langs[next_lang_num]}.txt`,
+    beforeSend: function(xhr) {
+        xhr.overrideMimeType("text/plain; charset=iso-8859-2");
     }
-    xmlhttp_lang_main_next.send();
+    })
+    .done(function(data_main_next) {
+        //seperate lines
+        let lines_main_next = data_main_next.split("\n");
+        //next lang flag text
+        $("header>.language").empty();
+        $("header>.language").append(`<button class="lang_button" onclick="setLang()" title="${lines_main_next[0]}"><img src="img/lang_${langs[next_lang_num]}.png" alt="${lines_main_next[1]}"></button>`);
+    })
+    //error message
+    .fail(function() {
+        alert(error_next_translation_file);
+    });
 }
+
+
+/*ajax template
+function testAjax()
+{
+    $.ajax({
+    url: "translations/html_playground_en.txt",
+    beforeSend: function(xhr) {
+        xhr.overrideMimeType("text/plain; charset=iso-8859-2");
+    }
+    })
+    .done(function(data) {
+        alert(data);
+        $(".testt>p").append(data);
+    })
+    .fail(function() {
+        alert("error");
+    });
+}*/
 
 /*      header unpacked
             <div class="language">

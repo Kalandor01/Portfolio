@@ -465,6 +465,14 @@ footer>.gitlink>a:hover {
         height: 150px;
     }
 
+    header>.language {
+        order: 1;
+    }
+
+    header>.theme {
+        order: 2;
+    }
+
     header>.language, header>.theme, header>h1 {
         width: 100%;
         text-align: center;
