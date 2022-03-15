@@ -4,7 +4,7 @@ header, article, aside, footer {
 }
 
 :root,
-:root.light {
+:root.dark {
     --c_back: rgb(20, 20, 37);
     --c_main: rgb(35, 35, 35);
     --c_head: rgb(3, 53, 94);
@@ -19,7 +19,7 @@ header, article, aside, footer {
     --c_footer: rgb(0, 28, 51);
 }
 
-:root.dark {
+:root.light {
     --c_back: rgb(32, 32, 60);
     --c_main: rgb(226, 226, 226);
     --c_head: rgb(31, 99, 155);
@@ -86,28 +86,64 @@ header>h1 {
     width: 70%;
 }
 
-.theme, .language {
-    height: 100%;
+.languages {
+    text-align: left;
     width: 20%;
+    height: 100%;
 }
 
-.language {
+.langs {
+    position: relative;
+    display: inline-block;
     text-align: left;
+    width: 50px;
+    height: 100%;
+}
+
+.languages>.langs>img {
+    width: 50px;
+}
+
+.langs_container {
+    display: none;
+    position: absolute;
+    width: 50px;
+    text-align: center;
+}
+
+.langs_container>button {
+    background-color: var(--c_div);
+    border: none;
+    width: 200%;
+}
+
+.langs>.langs_container>button>img {
+    width: 100%;
+}
+
+.langs:hover .langs_container {
+    display: block;
+    cursor: pointer;
+}
+
+.langs_container:hover .langs_container {
+    display: block;
 }
 
 .theme {
     text-align: right;
+    height: 100%;
+    width: 20%;
 }
   
-.theme>.theme_button, .language>.lang_button {
+.theme>.theme_button, .languages>img {
     height: 100%;
     cursor: pointer;
     border: none;
     background-color: transparent;
 }
   
-.theme>.theme_button>img, .language>.lang_button>img {
-    height: 100%;
+.theme>.theme_button>img, .languages>img {
     max-height: 50px;
 }
 
@@ -465,7 +501,7 @@ footer>.gitlink>a:hover {
         height: 150px;
     }
 
-    header>.language {
+    header>.languages {
         order: 1;
     }
 
@@ -473,7 +509,7 @@ footer>.gitlink>a:hover {
         order: 2;
     }
 
-    header>.language, header>.theme, header>h1 {
+    header>.languages, header>.theme, header>h1 {
         width: 100%;
         text-align: center;
     }

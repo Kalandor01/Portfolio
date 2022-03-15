@@ -1,23 +1,47 @@
 
 $(document).ready(function(){
     //append to header
-    $('<div class="language"><button class="lang_button" onclick="setLang()" title="Nyelv váltás"><img src="img/lang_hu.png" alt="Magyar"></button></div>').insertBefore("header>h1")
+    $('<div class="languages"><div class="langs"><img src="img/link.png" alt="Language switch"><div class="langs_container"></div></div></div>').insertBefore("header>h1");
+    getLangs();
     $("header").append(`<div class="theme"><button class="theme_button" onclick="setTheme()" title="Theme change"><img src="img/sun.png" alt="Light mode"></button></div>`);
     //append to nav
     $("nav").append('<ul><li class="empty"></li><li><a href="index.html">Home page</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="projects.html">Projects</a></li><li><a href="html_playground.html">HTML creator</a></li></ul>')
     //append to footer
     $("footer").append("<h1>© BETA™</h1>");
 
-    //cookies?
-    document.cookie = "accept=1; expires=Thu, 1 Jan 2025 12:00:00 UTC";
-    let x = document.cookie;
-    alert(x)
+    //cookies (automaticly in alphabetic order?)     theme, lang
+    //document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    //document.cookie = "lang=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+    let cookies = document.cookie;
+    if(cookies=="")
+    {
+        alert("This page uses (2) cookies to remember your theme and language settings!")
+        document.cookie = "lang=0; expires=Tue, 1 Jan 2030 12:00:00 UTC; SameSite=Strict";
+        document.cookie = "theme=0; expires=Tue, 1 Jan 2030 12:00:00 UTC; SameSite=Strict";
+    }
+    cookies = cookies.split("; ")
+    var site_settings = [];
+    cookies.forEach(cookie => {
+        let cookie_part = cookie.split("=");
+        if(cookie_part[0] == "theme")
+            site_settings[0] = cookie_part[1];
+        else
+            site_settings[1] = cookie_part[1];
+    });
+    //alert(site_settings)
+
+    //set defaults
+    if(site_settings[0] == 1)
+        setTheme(false);
+    if(site_settings[1] != 0)
+        setLang(site_settings[1]);
+    //alert(site_settings);
 });
 
 
-var theme = "light";
+var theme = "dark";
 
-function setTheme(){
+function setTheme(set_cookie=true){
     //empty
     $("header>.theme>.theme_button").empty();
     $(".link_type_github").empty();
@@ -27,9 +51,11 @@ function setTheme(){
     $(".pre_projects").empty();
     $(".pre_html_playground").empty();
 
-    if(theme=="light")
+    if(theme=="dark")
     {
-        //replace light images with dark
+        //replace dark images with light
+        //lang
+        document.querySelector("header>.languages>.langs>img").src = "img/link_dark.png";
         //theme
         $("header>.theme>.theme_button").append(`<img src="img/moon.png" alt="Dark mode">`);
         //galery
@@ -40,11 +66,15 @@ function setTheme(){
         $(".pre_portfolio").append(`<img src="img/preview/portfolio.png" alt="Portfolio">`);
         $(".pre_projects").append(`<img src="img/preview/projects.png" alt="Projektek">`);
         $(".pre_html_playground").append(`<img src="img/preview/html_playground.png" alt="HTML készítő">`);
-        theme = "dark";
+        theme = "light";
+        if(set_cookie)
+            document.cookie = "theme=1; expires=Tue, 1 Jan 2030 12:00:00 UTC; SameSite=Strict";
     }
     else
     {
-        //replace dark images with light
+        //replace light images with dark
+        //lang
+        document.querySelector("header>.languages>.langs>img").src = "img/link.png";
         //theme
         $("header>.theme>.theme_button").append(`<img src="img/sun.png" alt="Light mode">`);
         //galery
@@ -55,7 +85,9 @@ function setTheme(){
         $(".pre_portfolio").append(`<img src="img/preview/portfolio_dark.png" alt="Portfolio">`);
         $(".pre_projects").append(`<img src="img/preview/projects_dark.png" alt="Projektek">`);
         $(".pre_html_playground").append(`<img src="img/preview/html_playground_dark.png" alt="HTML készítő">`);
-        theme = "light";
+        theme = "dark";
+        if(set_cookie)
+            document.cookie = "theme=0; expires=Tue, 1 Jan 2030 12:00:00 UTC; SameSite=Strict";
     }
     //set html class for color
     document.documentElement.className = theme;
@@ -67,13 +99,15 @@ var error_page_translation = "No translation file found for this page!";
 var error_page_name = "Couldn't get the name of this page!";
 var error_next_translation_file = "No translation file found for the next language!";
 
-function setLang()
+function getLangs()
 {
-    //increase lang num
-    lang_num++;
-    if(lang_num >= langs.length)
-        lang_num = 0;
-    
+    $("header>.languages>.langs>.langs_container").empty();
+    for (let x = 0; x < langs.length; x++)
+        $("header>.languages>.langs>.langs_container").append(`<button onclick="setLang(${x})"><img src="img/lang_${langs[x]}.png" alt="${langs[x]}"></button>`);
+}
+
+function setLang(lang_num=0)
+{
     //get current lang
     $.ajax({
     url: `translations/main_${langs[lang_num]}.txt`,
@@ -84,6 +118,8 @@ function setLang()
     .done(function(lang_main) {
         //seperate lines
         let lines_main = lang_main.split("\n");
+        //lang change
+        document.querySelector("header>.languages>.langs>img").alt = `${lines_main[0]}`;
         //theme change
         $("header>.theme>.theme_button").attr("title", lines_main[2]);
         //nav
@@ -130,29 +166,8 @@ function setLang()
     else
         alert(error_page_name);
     
-    //get next lang
-    //name
-    let next_lang_num = lang_num+1;
-    if(next_lang_num >= langs.length)
-        next_lang_num = 0;
-    
-    $.ajax({
-    url: `translations/main_${langs[next_lang_num]}.txt`,
-    beforeSend: function(xhr) {
-        xhr.overrideMimeType("text/plain; charset=iso-8859-2");
-    }
-    })
-    .done(function(data_main_next) {
-        //seperate lines
-        let lines_main_next = data_main_next.split("\n");
-        //next lang flag text
-        $("header>.language").empty();
-        $("header>.language").append(`<button class="lang_button" onclick="setLang()" title="${lines_main_next[0]}"><img src="img/lang_${langs[next_lang_num]}.png" alt="${lines_main_next[1]}"></button>`);
-    })
-    //error message
-    .fail(function() {
-        alert(error_next_translation_file);
-    });
+    //cookie
+    document.cookie = `lang=${lang_num}; expires=Tue, 1 Jan 2030 12:00:00 UTC; SameSite=Strict`;
 }
 
 
