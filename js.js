@@ -7,6 +7,11 @@ $(document).ready(function(){
     $("nav").append('<ul><li class="empty"></li><li><a href="index.html">Home page</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="projects.html">Projects</a></li><li><a href="html_playground.html">HTML creator</a></li></ul>')
     //append to footer
     $("footer").append("<h1>© BETA™</h1>");
+
+    //cookies?
+    document.cookie = "accept=1; expires=Thu, 1 Jan 2025 12:00:00 UTC";
+    let x = document.cookie;
+    alert(x)
 });
 
 
