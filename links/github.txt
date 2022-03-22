@@ -19,3 +19,6 @@ java||Git conflict test||git_conflict
 html||JS alapok||JS_alapok
 html||JS képgaléria||js_img
 java||Java gyakorlás||metodusok
+py||Fetch repositories||fetch_repos
+java||Refactoring exercise||NyugtaVerziokFork
+html||Tic Tak Toe||tic_tac_toe

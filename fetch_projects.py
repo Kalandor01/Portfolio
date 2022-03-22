@@ -1,6 +1,6 @@
 import os
 import requests
-
+from save_file_manager import list_ui
 
 # local projects
 def local_get():
@@ -23,7 +23,7 @@ def local_get():
                 except UnicodeEncodeError:
                     print("\r[UnicodeEncodeError]")
         f.close()
-    print("Local HTML, Python and Java project list updated.\n")
+    input("\nLocal HTML, Python and Java project list updated.\n")
 
 
 def conflicts(added_lis, removed_lis):
@@ -148,12 +148,11 @@ def git_get(git_tok=""):
 
 # print(requests.get("https://api.github.com/users/Kalandor01/repos").text)
 
-local = input("Refresh local projects?(Y/N): ")
-if local.upper() == "Y":
+if list_ui(["Yes", "No"], "Refresh local projects?") == 0:
     local_get()
-
-git = input("Refresh github repositories?(this will make 1 get request per repository, and you can only make 60 of those per hour)(Y/N): ")
-if git.upper() == "Y":
+git_action = list_ui(["Yes", "No", "Edit project names", "Delete projects"], "Refresh github repositories?(this will make 1 get request per repository, and you can only make 60 of those per hour)")
+# refresh
+if git_action == 0:
     if git_get():
         authent = input('Do you want to try again with a personal access token (put into "token.txt")?(Y/N): ')
         if authent.upper() == "Y":
@@ -168,5 +167,38 @@ if git.upper() == "Y":
                     print("The git token is not this short!")
                 else:
                     git_get(git_token)
-
-ff = input("\nDONE!")
+# edit/delete
+elif git_action == 2 or  git_action == 3:
+    # reading old project data from file
+    git_projects = []
+    git_projects_display = []
+    try:
+        f = open("links/github.txt", "r", encoding="utf-8")
+        lines = f.read().split("\n")
+        for line in lines:
+            git_projects_display.append(line)
+            git_projects.append(line.split("||"))
+        f.close()
+        # file empty
+        if len(git_projects_display) == 1 and git_projects_display[0] == "":
+            raise FileExistsError
+    except FileNotFoundError:
+        print("\nNo github.txt found!")
+    except FileExistsError:
+        print("\nThe github.txt is empty!")
+    else:
+        # edit
+        if git_action == 2:
+            rename_num = list_ui(git_projects_display, "Chose a project to rename?")
+            git_projects[rename_num][1] = input(f'\nRename "{git_projects[rename_num][1]}" to: ')
+        # delete
+        elif git_action == 3:
+            git_projects.pop(list_ui(git_projects_display, "Chose a project to delete?", "x ", "  "))
+        # replace
+        f = open("links/github.txt", "w", encoding="utf-8")
+        for x in range(len(git_projects)):
+            f.write(f"{git_projects[x][0]}||{git_projects[x][1]}||{git_projects[x][2]}")
+            if x < len(git_projects) - 1:
+                f.write("\n")
+        f.close()
+input("\nDONE!")
