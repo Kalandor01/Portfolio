@@ -88,9 +88,9 @@ def git_get(git_tok=""):
     # fetching project names from github api
     print("Fetching and comparing github projects:")
     if git_tok != "":
-        gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos", headers={"Authorization": git_tok}).text
+        gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos?per_page=100&page=1", headers={"Authorization": git_tok}).text
     else:
-        gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos").text
+        gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos?per_page=100&page=1").text
     if gitprojects.find("API rate limit exceeded for") != -1:
         print("\nAPI REQUEST LIMIT EXCEDED!!!")
         return True
