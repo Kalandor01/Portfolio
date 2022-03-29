@@ -86,7 +86,7 @@ def git_get(git_tok=""):
         print("No github.txt found!")
 
     # fetching project names from github api
-    print("Fetching and comparing github projects:")
+    print("\nFetching and comparing github projects:\n")
     if git_tok != "":
         gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos?per_page=100&page=1", headers={"Authorization": git_tok}).text
     else:
@@ -133,6 +133,8 @@ def git_get(git_tok=""):
                 git_pre_left.remove(pre_project)
                 git_raw.remove(raw_project)
                 break
+    if git_pre_left == [[""]]:
+        git_pre_left = []
     f = open("links/github.txt", "w", encoding="utf-8")
     for x in range(len(git_good)):
         if x > 0:
@@ -169,36 +171,40 @@ if git_action == 0:
                     git_get(git_token)
 # edit/delete
 elif git_action == 2 or  git_action == 3:
-    # reading old project data from file
-    git_projects = []
-    git_projects_display = []
-    try:
-        f = open("links/github.txt", "r", encoding="utf-8")
-        lines = f.read().split("\n")
-        for line in lines:
-            git_projects_display.append(line)
-            git_projects.append(line.split("||"))
-        f.close()
-        # file empty
-        if len(git_projects_display) == 1 and git_projects_display[0] == "":
-            raise FileExistsError
-    except FileNotFoundError:
-        print("\nNo github.txt found!")
-    except FileExistsError:
-        print("\nThe github.txt is empty!")
-    else:
-        # edit
-        if git_action == 2:
-            rename_num = UI_list(git_projects_display, "Chose a project to rename?").display()
-            git_projects[rename_num][1] = input(f'\nRename "{git_projects[rename_num][1]}" to: ')
-        # delete
-        elif git_action == 3:
-            git_projects.pop(UI_list(git_projects_display, "Chose a project to delete?", "x ", "  ").display())
-        # replace
-        f = open("links/github.txt", "w", encoding="utf-8")
-        for x in range(len(git_projects)):
-            f.write(f"{git_projects[x][0]}||{git_projects[x][1]}||{git_projects[x][2]}")
-            if x < len(git_projects) - 1:
-                f.write("\n")
-        f.close()
+    while True:
+        # reading old project data from file
+        git_projects = []
+        git_projects_display = []
+        try:
+            f = open("links/github.txt", "r", encoding="utf-8")
+            lines = f.read().split("\n")
+            for line in lines:
+                git_projects_display.append(line)
+                git_projects.append(line.split("||"))
+            f.close()
+            # file empty
+            if len(git_projects_display) == 1 and git_projects_display[0] == "":
+                raise FileExistsError
+        except FileNotFoundError:
+            print("\nNo github.txt found!")
+            break
+        except FileExistsError:
+            print("\nThe github.txt is empty!")
+            break
+        else:
+            # edit
+            if git_action == 2:
+                rename_num = UI_list(git_projects_display, "Chose a project to rename?").display()
+                git_projects[rename_num][1] = input(f'\nRename "{git_projects[rename_num][1]}" to: ')
+            # delete
+            elif git_action == 3:
+                git_projects.pop(UI_list(git_projects_display, "Chose a project to delete?", "x ", "  ").display())
+            # replace
+            f = open("links/github.txt", "w", encoding="utf-8")
+            for x in range(len(git_projects)):
+                f.write(f"{git_projects[x][0]}||{git_projects[x][1]}||{git_projects[x][2]}")
+                if x < len(git_projects) - 1:
+                    f.write("\n")
+            f.close()
+            input("\nYou can close this program NOW!")
 input("\nDONE!")
