@@ -1,6 +1,6 @@
 import os
 import requests
-from save_file_manager import list_ui
+from save_file_manager import UI_list
 
 # local projects
 def local_get():
@@ -148,9 +148,9 @@ def git_get(git_tok=""):
 
 # print(requests.get("https://api.github.com/users/Kalandor01/repos").text)
 
-if list_ui(["Yes", "No"], "Refresh local projects?") == 0:
+if UI_list(["Yes", "No"], "Refresh local projects?").display() == 0:
     local_get()
-git_action = list_ui(["Yes", "No", "Edit project names", "Delete projects"], "Refresh github repositories?(this will make 1 get request per repository, and you can only make 60 of those per hour)")
+git_action = UI_list(["Yes", "No", "Edit project names", "Delete projects"], "Refresh github repositories?(this will make 1 get request per repository, and you can only make 60 of those per hour)").display()
 # refresh
 if git_action == 0:
     if git_get():
@@ -189,11 +189,11 @@ elif git_action == 2 or  git_action == 3:
     else:
         # edit
         if git_action == 2:
-            rename_num = list_ui(git_projects_display, "Chose a project to rename?")
+            rename_num = UI_list(git_projects_display, "Chose a project to rename?").display()
             git_projects[rename_num][1] = input(f'\nRename "{git_projects[rename_num][1]}" to: ')
         # delete
         elif git_action == 3:
-            git_projects.pop(list_ui(git_projects_display, "Chose a project to delete?", "x ", "  "))
+            git_projects.pop(UI_list(git_projects_display, "Chose a project to delete?", "x ", "  ").display())
         # replace
         f = open("links/github.txt", "w", encoding="utf-8")
         for x in range(len(git_projects)):

@@ -22,3 +22,5 @@ java||Java gyakorlás||metodusok
 py||Fetch repositories||fetch_repos
 java||Refactoring exercise||NyugtaVerziokFork
 html||Tic Tak Toe||tic_tac_toe
+html||JS Chess||JS_chess
+py||Kalandor utils||kalandor_utils
