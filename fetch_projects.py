@@ -51,7 +51,7 @@ def conflicts(added_lis, removed_lis):
     # conflict resolving
     # added
     if len(added_lis) > 0:
-        print("Resolve added project conflicts:\nnothing = add to list with current name, . = don't add to list, text = add to list with this name\n")
+        print("\nResolve added project conflicts:\nnothing = add to list with current name, . = don't add to list, text = add to list with this name\n")
         for ad in added_lis:
             ans = input(f"{ad[0]}({ad[1]}): ")
             if ans == "":
@@ -59,7 +59,7 @@ def conflicts(added_lis, removed_lis):
             if ans != "." and ans != "":
                 extra.append([ad[1], ans, ad[0]])
     if len(removed_lis) > 0:
-        print("Resolve removed project conflicts:\nnothing = don't add to list, . = add to list with original name anyways, text = add to list with different name anyways\n")
+        print("\nResolve removed project conflicts:\nnothing = don't add to list, . = add to list with original name anyways, text = add to list with different name anyways\n")
         for re in removed_lis:
             ans = input(f"{re[1]}({re[0]}) git name:\"{re[2]}\": ")
             if ans == ".":
@@ -72,6 +72,7 @@ def conflicts(added_lis, removed_lis):
 # github projects
 def git_get(git_tok=""):
     # reading old project data from file
+    u_name = "Kalandor01"
     git_pre = []
     git_pre_left = []
     git_raw = []
@@ -88,21 +89,21 @@ def git_get(git_tok=""):
     # fetching project names from github api
     print("\nFetching and comparing github projects:\n")
     if git_tok != "":
-        gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos?per_page=100&page=1", headers={"Authorization": git_tok}).text
+        gitprojects = requests.get(f"https://api.github.com/users/{u_name}/repos?per_page=100&page=1", headers={"Authorization": git_tok}).text
     else:
-        gitprojects = requests.get("https://api.github.com/users/Kalandor01/repos?per_page=100&page=1").text
+        gitprojects = requests.get(f"https://api.github.com/users/{u_name}/repos?per_page=100&page=1").text
     if gitprojects.find("API rate limit exceeded for") != -1:
         print("\nAPI REQUEST LIMIT EXCEDED!!!")
         return True
     names_split = gitprojects.split("\",\"full_name\":\"")
     for x in range(len(names_split) - 1):
         git_name = names_split[x + 1].split("\",\"")[0].split("/")[1]
-        if git_name != "Kalandor01" and git_name != "Portfolio":
+        if git_name != u_name and git_name != "Portfolio":
             # fetching project type
             if git_tok != "":
-                gitp_type = requests.get(f"https://api.github.com/repos/Kalandor01/{git_name}/languages", headers={"Authorization": git_tok}).text
+                gitp_type = requests.get(f"https://api.github.com/repos/{u_name}/{git_name}/languages", headers={"Authorization": git_tok}).text
             else:
-                gitp_type = requests.get(f"https://api.github.com/repos/Kalandor01/{git_name}/languages").text
+                gitp_type = requests.get(f"https://api.github.com/repos/{u_name}/{git_name}/languages").text
             if gitp_type.find("API rate limit exceeded for") != -1:
                 print("\nAPI REQUEST LIMIT EXCEDED!!!")
                 return True
@@ -153,7 +154,7 @@ def git_get(git_tok=""):
 if UI_list(["Yes", "No"], "Refresh local projects?").display() == 0:
     local_get()
 git_action = UI_list(["Yes", "No", "Edit project names", "Delete projects"], "Refresh github repositories?(this will make 1 get request per repository, and you can only make 60 of those per hour)").display()
-# refresh
+# refresh git
 if git_action == 0:
     if git_get():
         authent = input('Do you want to try again with a personal access token (put into "token.txt")?(Y/N): ')
