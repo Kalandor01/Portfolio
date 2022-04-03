@@ -1,5 +1,7 @@
 Projekte
+Andere
 Anzahl der Projekte
+Andere
 Gesamt
 (GitHub version)
 (Sicherung)

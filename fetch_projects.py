@@ -57,15 +57,15 @@ def conflicts(added_lis, removed_lis):
             if ans == "":
                 extra.append([ad[1], ad[0], ad[0]])
             if ans != "." and ans != "":
-                extra.append([ad[1], ans, ad[0]])
+                extra.append([ad[1], ad[0], ans])
     if len(removed_lis) > 0:
         print("\nResolve removed project conflicts:\nnothing = don't add to list, . = add to list with original name anyways, text = add to list with different name anyways\n")
         for re in removed_lis:
-            ans = input(f"{re[1]}({re[0]}) git name:\"{re[2]}\": ")
+            ans = input(f"{re[2]}({re[0]}) git name:\"{re[1]}\": ")
             if ans == ".":
                 extra.append(re)
             if ans != "." and ans != "":
-                extra.append([re[0], ans, re[2]])
+                extra.append([re[0], re[1], ans])
     return extra
 
 
@@ -128,8 +128,8 @@ def git_get(git_tok=""):
     git_good = []
     for pre_project in git_pre:
         for raw_project in git_raw:
-            if raw_project[1] == pre_project[0] and raw_project[0] == pre_project[2]:
-                print(raw_project[0] + " is " + pre_project[1])
+            if raw_project[1] == pre_project[0] and raw_project[0] == pre_project[1]:
+                print(raw_project[0] + " is " + pre_project[2])
                 git_good.append(pre_project)
                 git_pre_left.remove(pre_project)
                 git_raw.remove(raw_project)
@@ -141,7 +141,9 @@ def git_get(git_tok=""):
         if x > 0:
             f.write("\n")
         f.write(f"{git_good[x][0]}||{git_good[x][1]}||{git_good[x][2]}")
+    f.close()
     extra_gits = conflicts(git_raw, git_pre_left)
+    f = open("links/github.txt", "a", encoding="utf-8")
     for x in range(len(extra_gits)):
         if not(x == 0 and len(git_good) == 0):
             f.write("\n")
@@ -162,12 +164,14 @@ if git_action == 0:
             try:
                 tok = open("token.txt", "r")
             except FileNotFoundError:
-                print('"token.txt" not dound!')
+                print('"token.txt" not found!')
             else:
                 git_token = tok.readline().replace("\n", "")
                 tok.close()
                 if len(git_token) < 5:
                     print("The git token is not this short!")
+                if len(git_token) > 100:
+                    print("The git token is not this long!")
                 else:
                     git_get(git_token)
 # edit/delete
@@ -196,7 +200,7 @@ elif git_action == 2 or  git_action == 3:
             # edit
             if git_action == 2:
                 rename_num = UI_list(git_projects_display, "Chose a project to rename?").display()
-                git_projects[rename_num][1] = input(f'\nRename "{git_projects[rename_num][1]}" to: ')
+                git_projects[rename_num][2] = input(f'\nRename "{git_projects[rename_num][2]}" to: ')
             # delete
             elif git_action == 3:
                 git_projects.pop(UI_list(git_projects_display, "Chose a project to delete?", "x ", "  ").display())

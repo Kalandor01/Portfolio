@@ -273,15 +273,6 @@ article>.gen_button>.gen:hover {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-.galery>div>.good_img:hover {
-    animation: grow 0.5s linear 0s forwards;
-}
-
-@keyframes grow {
-    from {transform: scale(100%, 100%);}
-    to {transform: scale(150%, 150%);}
-}
-
 .galery>div {
     margin: 10px;
     padding: 10px;
@@ -292,11 +283,24 @@ article>.gen_button>.gen:hover {
     border-radius: 5px;
 }
 
-.galery>div>img {
+.galery>div>.img_container {
+    width: 100%;
+    display: flex;
+}
+
+.galery>div>.img_container>img {
     padding: 5px;
     width: 95%;
     margin: auto;
-    aspect-ratio: 1/1;
+}
+
+.galery>div>.img_container>.good_img:hover {
+    animation: grow 0.5s linear 0s forwards;
+}
+
+@keyframes grow {
+    from {transform: scale(100%, 100%);}
+    to {transform: scale(150%, 150%);}
 }
 
 .galery>div>a>img {

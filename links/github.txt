@@ -1,27 +1,27 @@
 html||Bootstrap||Bootstrap
-html||Kaktuszok||kaktuszok
-html||Régi autók||regi_autok
-html||Régi autók (Bootstrap)||regi_autok_bootstrap
-html||Ágazati HTML||Agazati_vizsga
-html||Position||position
-py||Random Sentance||random_sentance
+html||kaktuszok||Kaktuszok
+html||regi_autok||Régi autók
+html||regi_autok_bootstrap||Régi autók (Bootstrap)
+html||Agazati_vizsga||Ágazati HTML
+html||position||Position
+py||random_sentance||Random Sentance
 py||Save_File_Manager||Save_File_Manager
-py||Totó||toto
-py||Progress Adventure||Progress_Adventure
-html||Flexbox alapok||flexAlap
-html||Képregény||kepregeny
-html||Téli versek||teli_versek
-html||Bootstrap forms||bootstrap_forms
-java||Alapműveletek gyakorlása csoprtmunka||Csapatmunka_java_project
-java||Csapatmunka test||csapat_java
-html||Növények flexbox||flex_novenyek
-java||Git conflict test||git_conflict
-html||JS alapok||JS_alapok
-html||JS képgaléria||js_img
-java||Java gyakorlás||metodusok
-py||Fetch repositories||fetch_repos
-java||Refactoring exercise||NyugtaVerziokFork
-html||Tic Tak Toe||tic_tac_toe
-html||JS Chess||JS_chess
-py||Kalandor utils||kalandor_utils
-html||Kecske, Farkas, Káposzta||kecske_farkas_kaposzta
+py||toto||Totó
+py||Progress_Adventure||Progress Adventure
+html||flexAlap||Flexbox alapok
+html||kepregeny||Képregény
+html||teli_versek||Téli versek
+html||bootstrap_forms||Bootstrap forms
+java||Csapatmunka_java_project||Alapműveletek gyakorlása csoprtmunka
+java||csapat_java||Csapatmunka test
+html||flex_novenyek||Növények flexbox
+java||git_conflict||Git conflict test
+html||JS_alapok||JS alapok
+html||js_img||JS képgaléria
+java||metodusok||Java gyakorlás
+py||fetch_repos||Fetch repositories
+java||NyugtaVerziokFork||Refactoring exercise
+html||tic_tac_toe||Tic Tak Toe
+html||JS_chess||JS Chess
+py||kalandor_utils||Kalandor utils
+html||kecske_farkas_kaposzta||Kecske, Farkas, Káposzta
