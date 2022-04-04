@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
     //append to header
-    $('<div class="languages"><div class="langs"><img src="img/link.png" alt="Language switch"><div class="langs_container"></div></div></div>').insertBefore("header>h1");
+    $('<div class="languages"><button class="langs" title="Language switch"><img src="img/link.png" alt="Language switch"><div class="langs_container"></div></button></div>').insertBefore("header>h1");
     getLangs();
     $("header").append(`<div class="theme"><button class="theme_button" onclick="setTheme()" title="Theme change"><img src="img/sun.png" alt="Light mode"></button></div>`);
     //append to nav
@@ -119,7 +119,8 @@ function setLang(lang_num=0)
         //seperate lines
         let lines_main = lang_main.split("\n");
         //lang change
-        document.querySelector("header>.languages>.langs>img").alt = `${lines_main[0]}`;
+        $("header>.languages>.langs").attr("title", lines_main[0]);
+        $("header>.languages>.langs>img").attr("alt", lines_main[0]);
         //theme change
         $("header>.theme>.theme_button").attr("title", lines_main[2]);
         //nav
