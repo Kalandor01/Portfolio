@@ -99,20 +99,13 @@ def git_get(git_tok=""):
     for x in range(len(names_split) - 1):
         git_name = names_split[x + 1].split("\",\"")[0].split("/")[1]
         if git_name != u_name and git_name != "Portfolio":
-            # fetching project type
-            if git_tok != "":
-                gitp_type = requests.get(f"https://api.github.com/repos/{u_name}/{git_name}/languages", headers={"Authorization": git_tok}).text
-            else:
-                gitp_type = requests.get(f"https://api.github.com/repos/{u_name}/{git_name}/languages").text
-            if gitp_type.find("API rate limit exceeded for") != -1:
-                print("\nAPI REQUEST LIMIT EXCEDED!!!")
-                return True
-            try:
-                gitp_type = gitp_type.split("{\"")[1].split("\":")[0]
-            except IndexError:
-                gitp_type = "NONE"
+            # get language
+            gitp_type = ((names_split[x+1].split('"language":')[1]).split(",")[0]).replace('"', "")
+            # none
+            if gitp_type == "null":
+                gitp_type = "none"
             # python
-            if gitp_type == "Python":
+            elif gitp_type == "Python":
                 gitp_type = "py"
             # js and css = html
             elif gitp_type == "CSS" or gitp_type == "JavaScript":
@@ -155,7 +148,7 @@ def git_get(git_tok=""):
 
 if UI_list(["Yes", "No"], "Refresh local projects?").display() == 0:
     local_get()
-git_action = UI_list(["Yes", "No", "Edit project names", "Delete projects"], "Refresh github repositories?(this will make 1 get request per repository, and you can only make 60 of those per hour)").display()
+git_action = UI_list(["Yes", "No", "Edit project names", "Delete projects"], "Refresh github repositories?").display()
 # refresh git
 if git_action == 0:
     if git_get():

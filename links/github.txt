@@ -25,3 +25,6 @@ html||tic_tac_toe||Tic Tak Toe
 html||JS_chess||JS Chess
 py||kalandor_utils||Kalandor utils
 html||kecske_farkas_kaposzta||Kecske, Farkas, Káposzta
+html||forgalomiranyitas_lampaval||JS Forgalomirányítás
+html||js_szamologep||Számológép
+html||memoriajatek||Memóriajáték
