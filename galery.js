@@ -25,7 +25,12 @@ $(document).ready(function(){
 
     //github
     get_gits();
+    //extra
+    galery("html", "Fenntarthatósági témahét 2022", link = "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", full_link = true, git = false);
+    //table
     table();
+
+
 
     /*      table unpacked
                 <tr>
@@ -93,6 +98,10 @@ function table()
 
 function galery(type = "html", name = "null", link = 0, full_link = false, git = false)
 {
+    if(type == "html_p")
+    {
+        type == "html";
+    }
     order_num += 1;
     //div
     if(type=="html" || type=="py" || type=="java")
@@ -164,6 +173,7 @@ function galery(type = "html", name = "null", link = 0, full_link = false, git =
     //html
     if(type == "html")
     {
+        html_project_num++;
         if(full_link == true)
         {
             if(git)
@@ -177,6 +187,7 @@ function galery(type = "html", name = "null", link = 0, full_link = false, git =
     //python
     else if(type == "py")
     {
+        py_project_num++;
         if(full_link == true)
         {
             if(git)
@@ -190,6 +201,7 @@ function galery(type = "html", name = "null", link = 0, full_link = false, git =
     //java
     else if(type == "java")
     {
+        java_project_num++;
         if(full_link == true)
         {
             if(git)
@@ -203,6 +215,7 @@ function galery(type = "html", name = "null", link = 0, full_link = false, git =
     //other
     else
     {
+        other_project_num++;
         if(full_link == true)
         {
             if(git)
@@ -241,14 +254,6 @@ function get_filenames(dir_type)
             file = files_as[x+1].split(`</span><span class="size">`)[0]
             if(file.includes(".txt") == false && file.includes(".png") == false)
             {
-                if(dir_type == "html")
-                    html_project_num += 1;
-                else if(dir_type == "py")
-                    py_project_num += 1;
-                else if(dir_type == "java")
-                    java_project_num += 1;
-                else
-                    other_project_num += 1;
                 galery(dir_type, file);
             }
         }
@@ -272,14 +277,6 @@ function get_filenames(dir_type)
         .done(function(files_bak) {
             //seperate file names + run galery()
             let file_bak = files_bak.split("\n");
-            if(dir_type == "html")
-                html_project_num += file_bak.length - 1;
-            else if(dir_type == "py")
-                py_project_num += file_bak.length - 1;
-            else if(dir_type == "java")
-                java_project_num += file_bak.length - 1;
-            else
-                other_project_num += file_bak.length - 1;
             for (x = 0; x < file_bak.length - 1; x++)
                 galery(dir_type, file_bak[x]);
         })
@@ -290,7 +287,6 @@ function get_filenames(dir_type)
                 let html_names = ["Csapatmunka", "gaming_oldal", "Kutyákról", "oldalalakítás", "reszponzív", "Sakkör", "Webáruház"]
                 for (x = 0; x < html_names.length; x++)
                 {
-                    html_project_num += 1;
                     galery("html", html_names[x])
                 }
                 alert("Couldn't load HTML projects dynamicly. Reload the page\nLoading backup...");
@@ -301,7 +297,6 @@ function get_filenames(dir_type)
                 let py_names = ["Béka.zip", "Black_Jack.zip", "fetch_projects.zip", "Kalandkönyv.zip", "Kémcső.zip"]
                 for (x = 0; x < py_names.length; x++)
                 {
-                    py_project_num += 1;
                     galery("py", py_names[x])
                 }
                 alert("Couldn't load Pythin projects dynamicly. Reload the page\nLoading backup...");
@@ -312,7 +307,6 @@ function get_filenames(dir_type)
                 let java_names = ["Amőba.zip", "Harc.zip", "Itt_a_piros.zip", "Nyugta.zip"]
                 for (x = 0; x < java_names.length; x++)
                 {
-                    java_project_num += 1;
                     galery("java", java_names[x])
                 }
                 alert("Couldn't load Java projects dynamicly. Reload the page\nLoading backup...");
@@ -343,22 +337,10 @@ function get_gits()
             git_file_stuff = git_files[x].split("||")
             if(git_file_stuff[0] == "html")
             {
-                html_project_num += 1;
                 galery("html", git_file_stuff[2], `https://kalandor01.github.io/${git_file_stuff[1]}/`, true)
-            }
-            else if(git_file_stuff[0] == "html_p")
-            {
-                html_project_num += 1;
-                galery("html", git_file_stuff[2], `https://github.com/Kalandor01/${git_file_stuff[1]}`, true, true)
             }
             else
             {
-                if(git_file_stuff[0] == "py")
-                    py_project_num += 1;
-                else if(git_file_stuff[0] == "java")
-                    java_project_num += 1;
-                else
-                    other_project_num += 1;
                 galery(git_file_stuff[0], git_file_stuff[2], `https://github.com/Kalandor01/${git_file_stuff[1]}`, true, true)
             }
         }
@@ -395,22 +377,18 @@ function get_gits()
                         git_project_num += 1;
                         if(ans == "HTML" || ans == "CSS" || ans == "JavaScript")
                         {
-                            html_project_num += 1;
                             galery("html", git_name, `https://kalandor01.github.io/${git_name}/`, true)
                         }
                         else if(ans == "Python")
                         {
-                            py_project_num += 1;
                             galery("py", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
                         }
                         else if(ans == "Java")
                         {
-                            java_project_num += 1;
                             galery("java", git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
                         }
                         else
                         {
-                            other_project_num += 1;
                             galery(ans, git_name, `https://github.com/Kalandor01/${git_name}`, true, true)
                         }
                     })
