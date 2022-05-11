@@ -26,6 +26,7 @@ $(document).ready(function(){
     //github
     get_gits();
     //extra
+    git_project_num += 1;
     galery("html", "Fenntarthatósági témahét 2022", link = "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", full_link = true, git = false);
     //table
     table();
