@@ -25,9 +25,12 @@ $(document).ready(function(){
 
     //github
     get_gits();
+
     //extra
     git_project_num += 1;
     galery("html", "Fenntarthatósági témahét 2022", link = "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", full_link = true, git = false);
+    galery("html", "Farsang forms", link = "http://tanulo10.szf1b.oktatas.szamalk-szalezi.hu/farsangi_buli/", full_link = true, git = false);
+    
     //table
     table();
 
