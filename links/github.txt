@@ -28,3 +28,7 @@ html||kecske_farkas_kaposzta||Kecske, Farkas, Káposzta
 html||forgalomiranyitas_lampaval||JS Forgalomirányítás
 html||js_szamologep||Számológép
 html||memoriajatek||Memóriajáték
+py||screen_display||Screen display
+java||TicTacToe_Java_GUI||Tic Tac Toe GUI
+java||Torpedo||Torpedo
+java||TorpedoTDDFork||Torpedo 2
