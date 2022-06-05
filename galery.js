@@ -138,7 +138,7 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
         $(`.galery_${type}>.current`).append(`<h2>${name}</h2>`);
     else
     {
-        if(other_project_num == 1)
+        if(other_project_num == 0)
         {
             order_num += 1
             $(`<div class="no fadeIn" style="--order: ${order_num}"><h2 id="1">Other</h2></div>`).insertBefore(`.galery_other`)
@@ -225,12 +225,13 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
             if(git_repo)
                 $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
             else
-                $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
+                $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_link-download"><img src="img/link-download_dark.png" alt="Download"></a>`);
         }
         else
             $(`.galery_other>.current`).append(`<a target="_blank" href="links/file/other/${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
+        $(`.galery_other>.current`).removeClass(`current`);
     }
-    $(`.galery_${type}>.current`).removeClass(`current`)
+    $(`.galery_${type}>.current`).removeClass(`current`);
     table();
 }
 
