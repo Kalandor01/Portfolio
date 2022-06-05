@@ -28,8 +28,8 @@ $(document).ready(function(){
 
     //extra
     git_project_num += 1;
-    galery("html", "Fenntarthatósági témahét 2022", link = "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", full_link = true, git = false);
-    galery("html", "Farsang forms", link = "http://tanulo10.szf1b.oktatas.szamalk-szalezi.hu/farsangi_buli/", full_link = true, git = false);
+    galery("html", "Fenntarthatósági témahét 2022", "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", true, false);
+    galery("html", "Farsang forms", "http://tanulo10.szf1b.oktatas.szamalk-szalezi.hu/farsangi_buli/", true, false);
     
     //table
     table();
@@ -100,7 +100,7 @@ function table()
     $("aside>table>tbody").append(`<tr><th  id="4">Total</th><td>${sum_project_num}</td></tr>`);
 }
 
-function galery(type = "html", name = "null", link = 0, full_link = false, git = false)
+function galery(type = "html", name = "null", link = 0, internet_link = false, git_repo = false)
 {
     if(type == "html_p")
     {
@@ -178,9 +178,9 @@ function galery(type = "html", name = "null", link = 0, full_link = false, git =
     if(type == "html")
     {
         html_project_num++;
-        if(full_link == true)
+        if(internet_link == true)
         {
-            if(git)
+            if(git_repo)
                 $(`.galery_html>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
             else
                 $(`.galery_html>.current`).append(`<a target="_blank" href="${link}" class="link_type_link"><img src="img/link_dark.png" alt="Link"></a>`);
@@ -192,9 +192,9 @@ function galery(type = "html", name = "null", link = 0, full_link = false, git =
     else if(type == "py")
     {
         py_project_num++;
-        if(full_link == true)
+        if(internet_link == true)
         {
-            if(git)
+            if(git_repo)
                 $(`.galery_py>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
             else
                 $(`.galery_py>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
@@ -206,9 +206,9 @@ function galery(type = "html", name = "null", link = 0, full_link = false, git =
     else if(type == "java")
     {
         java_project_num++;
-        if(full_link == true)
+        if(internet_link == true)
         {
-            if(git)
+            if(git_repo)
                 $(`.galery_java>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
             else
                 $(`.galery_java>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
@@ -220,9 +220,9 @@ function galery(type = "html", name = "null", link = 0, full_link = false, git =
     else
     {
         other_project_num++;
-        if(full_link == true)
+        if(internet_link == true)
         {
-            if(git)
+            if(git_repo)
                 $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
             else
                 $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
