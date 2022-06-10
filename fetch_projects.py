@@ -4,20 +4,11 @@ from save_file_manager import UI_list
 
 # local projects
 def local_get():
-    # html
-    f = open("links/html.txt", "w")
-    root = "./links/web"
-    for name in os.listdir(root):
-        if not os.path.isfile(os.path.join(root, name)):
-            f.write(name + "\n")
-    f.close()
-
-    # other
-    others = ["py", "java"]
-    for other in others:
-        f = open(f"links/{other}.txt", "w")
-        for _, _, files in os.walk(f"links\\file\{other}"):
-            for name in files:
+    types = ["html", "py", "java"]
+    for p_type in types:
+        f = open(f"links/{p_type}.txt", "w")
+        for name in os.listdir(f"links\\types\{p_type}"):
+            if ".png" not in name and ".txt" not in name:
                 try:
                     f.write(name + "\n")
                 except UnicodeEncodeError:
@@ -72,7 +63,6 @@ def conflicts(added_lis, removed_lis):
 # github projects
 def git_get(git_tok=""):
     # reading old project data from file
-    u_name = "Kalandor01"
     git_pre = []
     git_pre_left = []
     git_raw = []
@@ -97,9 +87,14 @@ def git_get(git_tok=""):
         return True
     names_split = gitprojects.split("\",\"full_name\":\"")
     for x in range(len(names_split) - 1):
+        print(names_split[x + 1].split("\",\"")[0])
         git_name = names_split[x + 1].split("\",\"")[0].split("/")[1]
         if git_name != u_name and git_name != "Portfolio":
             # get language
+            # this method very rarely doesn't work
+            # Example:
+            #   2022_02_17-FarsangGaleria language is none: https://api.github.com/users/Blaj3n/repos
+            #   this works: https://api.github.com/repos/Blaj3n/2022_02_17-FarsangGaleria/languages
             gitp_type = ((names_split[x+1].split('"language":')[1]).split(",")[0]).replace('"', "")
             # none
             if gitp_type == "null":
@@ -145,6 +140,8 @@ def git_get(git_tok=""):
 
 
 # print(requests.get("https://api.github.com/users/Kalandor01/repos").text)
+
+u_name = "Kalandor01"
 
 if UI_list(["Yes", "No"], "Refresh local projects?").display() == 0:
     local_get()

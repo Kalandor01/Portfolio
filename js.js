@@ -158,8 +158,8 @@ function setLang(lang_num=0)
             //others
             for (x = 0; x < lines.length; x++)
             {
-                $(`#${x}`).empty();
-                $(`#${x}`).append(lines[x]);
+                $(`.translation_key_${x}`).empty();
+                $(`.translation_key_${x}`).append(lines[x]);
             }
         })
         //error message
