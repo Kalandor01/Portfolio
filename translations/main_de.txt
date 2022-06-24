@@ -5,6 +5,11 @@ Startseite
 Portfolio
 Projekte
 HTML-Ersteller
+Keine Übersetzungsdatei für diese Sprache gefunden!
 Keine Übersetzungsdatei für diese Seite gefunden!
 Der Name dieser Seite konnte nicht abgerufen werden!
-Keine Übersetzungsdatei für die nächste Sprache gefunden!
+
+sonstiges
+-Projekte konnten nicht dynamisch geladen werden. Laden Sie die Seite neu, um es erneut zu versuchen.\nSicherung wird geladen...
+GitHub-Projekte konnten nicht dynamisch geladen werden. Laden Sie die Seite neu, um es erneut zu versuchen.\nBackup mit Hilfe der GitHub-API herunterladen...
+Auf die GitHub-API konnte nicht zugegriffen werden!

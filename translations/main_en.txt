@@ -5,6 +5,11 @@ Home page
 Portfolio
 Projects
 HTML creator
+No translation file found for this language!
 No translation file found for this page!
 Couldn't get the name of this page!
-No translation file found for the next language!
+Couldn't load 
+other
+ projects dynamically. Reload the page to try again.\nLoading backup...
+Couldn't load GitHub projects dynamically. Reload the page to try again.\nDownloading backup with the help of the GitHub API...
+Couldn't access the GitHub API!

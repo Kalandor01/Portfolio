@@ -3,33 +3,43 @@ setInterval(() => {
     $(".galery>div>.img_container").css("height", $(".galery>div>.img_container").css("width"));
 }, 1000);
 
-var git_user = "Kalandor01"
+var git_user = "Kalandor01";
 var portfolio_name = "Portfolio";
 
-var file_error = false
+var file_error = false;
 var git_project_num = 0, html_project_num = 0, py_project_num = 0, java_project_num = 0, php_project_num = 0, other_project_num = 0;
-var order_num = 1
+var order_num = 1;
+
+//ENABLE CACHE
+//TOO MUCH DATA FOR 1 COOKIE
+//SLIT INTO MULTIPLE COOKIES???
+var enable_cache = false;
 
 $(document).ready(function(){
-    //galery projects
-    get_filenames("html");
-    get_filenames("py");
-    get_filenames("java");
-    // get_filenames("php");
-    // get_filenames("lol");
+    if(!enable_cache || is_cache == false)
+    {
+        //galery projects
+        get_filenames("html");
+        get_filenames("py");
+        get_filenames("java");
+        // get_filenames("php");
+        // get_filenames("lol");
 
-    //github
-    get_gits();
+        //github
+        get_gits();
 
-    //extra
-    git_project_num += 1;
-    galery("html", "Fenntarthatósági témahét 2022", "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", true, false);
-    galery("html", "Farsang forms", "http://tanulo10.szf1b.oktatas.szamalk-szalezi.hu/farsangi_buli/", true, false);
+        //extra
+        git_project_num += 1;
+        galery("html", "Fenntarthatósági témahét 2022", "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", true, false);
+        galery("html", "Farsang forms", "http://tanulo10.szf1b.oktatas.szamalk-szalezi.hu/farsangi_buli/", true, false);
+        extra_done = true;
+        make_cache();
+    }
+    else
+        parse_cache();
     
     //table
     table();
-
-
 
     /*      table unpacked
                 <tr>
@@ -76,6 +86,22 @@ $(document).ready(function(){
     */
 });
 
+var local_done = false;
+var git_done = false;
+var extra_done = false;
+var cache_done = false;
+
+function make_cache()
+{
+    if(enable_cache && !cache_done && local_done && git_done && extra_done)
+    {
+        document.cookie = `cache=${raw_cache}; expires=${hours_from_now(cache_expire)}; SameSite=Strict`;
+        document.cookie = `is_cache=1; expires=${hours_from_now(cache_expire)}; SameSite=Strict`;
+        cache_done = true;
+        console.log(raw_cache);
+    }
+}
+
 function table()
 {
     //write to table
@@ -97,8 +123,14 @@ function table()
     $("aside>table>tbody").append(`<tr><th  class="translation_key_4">Total</th><td>${sum_project_num}</td></tr>`);
 }
 
+var raw_cache = "";
+
 function galery(type = "html", name = "null", link = 0, internet_link = false, git_repo = false)
 {
+    //make cache
+    if(is_cache == false)
+        raw_cache += `${type}&@${name}&@${link}&@${(internet_link?"1":"0")}&@${git_repo?"1":"0"}#&#`;
+
     if(type == "html_p")
     {
         type == "html";
@@ -246,6 +278,15 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
     table();
 }
 
+function parse_cache()
+{
+    let cache_list = cache.split("#&#");
+    cache_list.forEach(cache_line => {
+        let proj_args = cache_line.split("&@");
+        galery(proj_args[0], proj_args[1], proj_args[2], (proj_args[3] == "1"), (proj_args[4] == "1"))
+    });
+}
+
 function get_filenames(dir_type)
 {
     //directory name
@@ -269,6 +310,8 @@ function get_filenames(dir_type)
                 galery(dir_type, file);
             }
         }
+        local_done = true;
+        make_cache();
     })
     .fail(function() {
         if(file_error == false)
@@ -291,6 +334,8 @@ function get_filenames(dir_type)
             let file_bak = files_bak.split("\n");
             for (x = 0; x < file_bak.length - 1; x++)
                 galery(dir_type, file_bak[x]);
+            local_done = true;
+            make_cache();
         })
         .fail(function() {
             //manual method final backup
@@ -308,7 +353,7 @@ function get_filenames(dir_type)
                 {
                     galery(dir_type, projects[x])
                 }
-                alert(`Couldn't load ${dir_type} projects dynamicly. Reload the page\nLoading backup...`);
+                alert(error_dynamic_load_before + dir_type + error_dynamic_load_after);
                 $(`<div class="no"><h4 class="translation_key_6">(backup)</h4></div>`).insertBefore(`.galery_${dir_type}`)
             }
             else
@@ -318,9 +363,11 @@ function get_filenames(dir_type)
                 {
                     galery("other", projects[x])
                 }
-                alert("Couldn't load other projects dynamicly. Reload the page\nLoading backup...");
+                alert(error_dynamic_load_before + error_dynamic_load_other + error_dynamic_load_after);
                 $(`<div class="no"><h4 class="translation_key_6">(backup)</h4></div>`).insertBefore(`.galery_other`)
             }
+            local_done = true;
+            make_cache();
         });
     });
     //generate table
@@ -353,10 +400,12 @@ function get_gits()
                 galery(git_file_stuff[0], git_file_stuff[2], `https://github.com/${git_user}/${git_file_stuff[1]}`, true, true)
             }
         }
+        git_done = true;
+        make_cache();
     })
     //gits error backup
     .fail(function() {
-        alert("Couldn't load GitHub projects dynamicly. Reload the page to try again.\nDownloading backup with the help of the GitHub API...")
+        alert(error_github_dynamic)
         //get names from api
         $.ajax({
         url: `https://api.github.com/users/${git_user}/repos`,
@@ -390,10 +439,14 @@ function get_gits()
                     }
                 }
             }
+            git_done = true;
+            make_cache();
         })
         //github backup error
         .fail(function() {
-            alert("Couldn't access the GitHub API!")
+            alert(error_github_api)
+            git_done = true;
+            make_cache();
         });
     });
     //update table

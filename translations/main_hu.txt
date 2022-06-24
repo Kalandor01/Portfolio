@@ -5,6 +5,11 @@ Kezdõlap
 Portfólió
 Projektek
 HTML készítõ
+Nem található fordítási fájl ehez a nyelvhez!
 Nem található fordítási fájl ehez az oldalhoz!
 Nem található az oldal neve!
-Nem található fordítási fájl a következõ oldalhoz!
+Nem lehetett dinamikusan betölteni a(z) 
+egyéb
+ projekteket. Töltsd újra az oldalt az újrapróbálkozáshoz.\nBiztonsági mentés betöltése...
+Nem lehetett dinamikusan betölteni a GitHub projekteket. Töltsd újra az oldalt az újrapróbálkozáshoz.\nBiztonsági mentés betöltése a GitHub API használatával...
+Nem lehetett elérni a GitHub API-t!
