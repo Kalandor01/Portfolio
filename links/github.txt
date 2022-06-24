@@ -33,3 +33,4 @@ java||TicTacToe_Java_GUI||Tic Tac Toe GUI
 java||Torpedo||Torpedo
 java||TorpedoTDDFork||Torpedo 2
 java||talalos_kerdes||Kincskereső
+java||Kartyatrukk||Kártyatrükk
