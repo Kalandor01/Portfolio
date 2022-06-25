@@ -18,21 +18,22 @@ $(document).ready(function(){
         alert("This page uses a few cookies, mainly to remember your theme and language settings!")
         document.cookie = `theme=0; expires=${years_from_now(cookies_expire)}; SameSite=Strict`;
         document.cookie = `lang=0; expires=${years_from_now(cookies_expire)}; SameSite=Strict`;
+        document.cookie = `enabled_cache=1; expires=${years_from_now(cookies_expire)}; SameSite=Strict`;
         document.cookie = `is_cache=0; expires=${hours_from_now(cache_expire)}; SameSite=Strict`;
         cookies = document.cookie;
     }
     cookies = cookies.split("; ");
     //console.log(cookies);
-    var site_settings = [0, 0, 0, ""];
+    var site_settings = [0, 0, 1, 0];
     cookies.forEach(cookie => {
         let cookie_part = cookie.split("=");
         if(cookie_part[0] == "theme")
             site_settings[0] = cookie_part[1];
         else if(cookie_part[0] == "lang")
             site_settings[1] = cookie_part[1];
-        else if(cookie_part[0] == "is_cache")
+        else if(cookie_part[0] == "enabled_cache")
             site_settings[2] = cookie_part[1];
-        else if(cookie_part[0] == "cache")
+        else if(cookie_part[0] == "is_cache")
             site_settings[3] = cookie_part[1];
     });
     //console.log(site_settings);
@@ -43,16 +44,15 @@ $(document).ready(function(){
     if(site_settings[1] != 0)
         change_lang(site_settings[1]);
     if(site_settings[2] != 0)
-    {
+        enable_cache = true;
+    if(site_settings[3] != 0)
         is_cache = true;
-        cache = site_settings[3];
-    }
 });
 
 
 var theme = "dark";
 var is_cache = false;
-var cache = "";
+var enable_cache = false;
 
 function set_theme(set_cookie=true){
     //empty

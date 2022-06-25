@@ -5,3 +5,6 @@ Egyéb
 Összes
 (GitHub verzió)
 (biztonsági mentés)
+(Helyileg mentett)
+Az oldal tartalma 8 órán át helyileg mentve lett.
+Helyi mentés kikapcsolása ÖRÖKRE! (vagy ameddig nem törlöd ki a sütiket)

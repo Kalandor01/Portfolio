@@ -10,13 +10,8 @@ var file_error = false;
 var git_project_num = 0, html_project_num = 0, py_project_num = 0, java_project_num = 0, php_project_num = 0, other_project_num = 0;
 var order_num = 1;
 
-//ENABLE CACHE
-//TOO MUCH DATA FOR 1 COOKIE
-//SLIT INTO MULTIPLE COOKIES???
-var enable_cache = false;
-
 $(document).ready(function(){
-    if(!enable_cache || is_cache == false)
+    if(!enable_cache || !is_cache)
     {
         //galery projects
         get_filenames("html");
@@ -29,14 +24,18 @@ $(document).ready(function(){
         get_gits();
 
         //extra
-        git_project_num += 1;
-        galery("html", "Fenntarthatósági témahét 2022", "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", true, false);
+        galery("html", "Fenntarthatósági témahét 2022", "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", true, false, true);
         galery("html", "Farsang forms", "http://tanulo10.szf1b.oktatas.szamalk-szalezi.hu/farsangi_buli/", true, false);
         extra_done = true;
-        make_cache();
+        make_final_cache();
     }
     else
+    {
         parse_cache();
+        $("article").prepend(`<div class="no"><h4 class="translation_key_7">(Locally cached)</h4></div>`);
+        $("footer").append(`<p class="translation_key_8">The contents of this page were localy cached for 8 hours.</p>`);
+        $("footer").append(`<div class="gitlink"><a class="translation_key_9" onclick="caching_off()">Turn off caching PERMANENTLY! (or until you delete the cookies)</a></div>`);
+    }
     
     //table
     table();
@@ -86,19 +85,31 @@ $(document).ready(function(){
     */
 });
 
+function caching_off()
+{
+    document.cookie = `enabled_cache=0; expires=${years_from_now(cookies_expire)}; SameSite=Strict`;
+    location.reload();
+}
+
+var raw_cache = "";
 var local_done = false;
 var git_done = false;
 var extra_done = false;
 var cache_done = false;
+var cache_proj_sep = " #&# ";
+var cache_line_sep = "|&|";
 
-function make_cache()
+function make_final_cache()
 {
     if(enable_cache && !cache_done && local_done && git_done && extra_done)
     {
-        document.cookie = `cache=${raw_cache}; expires=${hours_from_now(cache_expire)}; SameSite=Strict`;
-        document.cookie = `is_cache=1; expires=${hours_from_now(cache_expire)}; SameSite=Strict`;
         cache_done = true;
-        console.log(raw_cache);
+        setTimeout(function(){
+            raw_cache = raw_cache.replace(/ #&# $/gm, "");
+            console.log(raw_cache);
+            window.localStorage.setItem("cache", raw_cache);
+            document.cookie = `is_cache=1; expires=${hours_from_now(cache_expire)}; SameSite=Strict`;
+        },3000);
     }
 }
 
@@ -123,19 +134,17 @@ function table()
     $("aside>table>tbody").append(`<tr><th  class="translation_key_4">Total</th><td>${sum_project_num}</td></tr>`);
 }
 
-var raw_cache = "";
-
-function galery(type = "html", name = "null", link = 0, internet_link = false, git_repo = false)
+function galery(type = "html", name = "null", link = 0, internet_link = false, git_icon = false, add_to_gits = false)
 {
     //make cache
-    if(is_cache == false)
-        raw_cache += `${type}&@${name}&@${link}&@${(internet_link?"1":"0")}&@${git_repo?"1":"0"}#&#`;
+    if(enable_cache && !is_cache)
+        raw_cache += `${type}${cache_line_sep}${name}${cache_line_sep}${link}${cache_line_sep}${(internet_link?"1":"0")}${cache_line_sep}${git_icon?"1":"0"}${cache_line_sep}${add_to_gits?"1":"0"}${cache_proj_sep}`;
 
     if(type == "html_p")
     {
         type == "html";
     }
-    order_num += 1;
+    order_num++;
     //div
     if(type=="html" || type=="py" || type=="java" || type=="php")
         $(`.galery_${type}`).append(`<div class="${type} fadeIn current" style="--order: ${order_num}"></div>`);
@@ -166,7 +175,7 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
     {
         if(other_project_num == 0)
         {
-            order_num += 1;
+            order_num++;
             $(`<div class="no fadeIn" style="--order: ${order_num}"><h2 class="translation_key_1">Other</h2></div>`).insertBefore(`.galery_other`);
         }
         $(`.galery_other>.current`).append(`<h2>${name}</h2>`);
@@ -174,22 +183,22 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
     //galery label
     if(type=="html" && html_project_num == 0)
     {
-        order_num += 1;
+        order_num++;
         $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>HTML</h2></div>`).insertBefore(`.galery_html`);
     }
     else if(type=="py" && py_project_num == 0)
     {
-        order_num += 1;
+        order_num++;
         $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Python</h2></div>`).insertBefore(`.galery_py`);
     }
     else if(type=="java" && java_project_num == 0)
     {
-        order_num += 1;
+        order_num++;
         $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>Java</h2></div>`).insertBefore(`.galery_java`);
     }
     else if(type=="php" && php_project_num == 0)
     {
-        order_num += 1;
+        order_num++;
         $(`<div class="no fadeIn" style="--order: ${order_num}"><h2>PHP</h2></div>`).insertBefore(`.galery_php`);
     }
 
@@ -220,15 +229,19 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
             alert("no desc: " + name)
     }
     desc_req.send();*/
+
+    //git project
+    if(add_to_gits)
+        git_project_num++;
     //link
-    //html
+    //normal
     if(type=="html" || type=="py" || type=="java" || type=="php")
     {
         if(type=="html")
         {
             if(internet_link == true)
             {
-                if(git_repo)
+                if(git_icon)
                     $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
                 else
                     $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_link"><img src="img/link_dark.png" alt="Link"></a>`);
@@ -240,7 +253,7 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
         {
             if(internet_link == true)
             {
-                if(git_repo)
+                if(git_icon)
                     $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
                 else
                     $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
@@ -264,7 +277,7 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
         other_project_num++;
         if(internet_link == true)
         {
-            if(git_repo)
+            if(git_icon)
                 $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
             else
                 $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_link-download"><img src="img/link-download_dark.png" alt="Download"></a>`);
@@ -280,10 +293,12 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
 
 function parse_cache()
 {
-    let cache_list = cache.split("#&#");
+    let local_cache = window.localStorage.getItem("cache");
+    console.log(local_cache);
+    let cache_list = local_cache.split(cache_proj_sep);
     cache_list.forEach(cache_line => {
-        let proj_args = cache_line.split("&@");
-        galery(proj_args[0], proj_args[1], proj_args[2], (proj_args[3] == "1"), (proj_args[4] == "1"))
+        let proj_args = cache_line.split(cache_line_sep);
+        galery(proj_args[0], proj_args[1], proj_args[2], (proj_args[3] == "1"), (proj_args[4] == "1"), (proj_args[5] == "1"))
     });
 }
 
@@ -311,7 +326,7 @@ function get_filenames(dir_type)
             }
         }
         local_done = true;
-        make_cache();
+        make_final_cache();
     })
     .fail(function() {
         if(file_error == false)
@@ -326,7 +341,7 @@ function get_filenames(dir_type)
         $.ajax({
         url: dir_name_bak,
         beforeSend: function(xhr) {
-            xhr.overrideMimeType("text/plain; charset=iso-8859-2");
+            xhr.overrideMimeType("text/plain; charset=Windows-1250");
         }
         })
         .done(function(files_bak) {
@@ -335,7 +350,7 @@ function get_filenames(dir_type)
             for (x = 0; x < file_bak.length - 1; x++)
                 galery(dir_type, file_bak[x]);
             local_done = true;
-            make_cache();
+            make_final_cache();
         })
         .fail(function() {
             //manual method final backup
@@ -367,7 +382,7 @@ function get_filenames(dir_type)
                 $(`<div class="no"><h4 class="translation_key_6">(backup)</h4></div>`).insertBefore(`.galery_other`)
             }
             local_done = true;
-            make_cache();
+            make_final_cache();
         });
     });
     //generate table
@@ -389,19 +404,18 @@ function get_gits()
         git_files = git_files.split("\n")
         for (x = 0; x < git_files.length; x++)
         {
-            git_project_num += 1;
             git_file_stuff = git_files[x].split("||")
             if(git_file_stuff[0] == "html")
             {
-                galery("html", git_file_stuff[2], `https://${git_user}.github.io/${git_file_stuff[1]}/`, true)
+                galery("html", git_file_stuff[2], `https://${git_user}.github.io/${git_file_stuff[1]}/`, true, false, true)
             }
             else
             {
-                galery(git_file_stuff[0], git_file_stuff[2], `https://github.com/${git_user}/${git_file_stuff[1]}`, true, true)
+                galery(git_file_stuff[0], git_file_stuff[2], `https://github.com/${git_user}/${git_file_stuff[1]}`, true, true, true)
             }
         }
         git_done = true;
-        make_cache();
+        make_final_cache();
     })
     //gits error backup
     .fail(function() {
@@ -424,29 +438,22 @@ function get_gits()
                     //get project language
                     let git_type = ((ans_lis[x+1].split("\"language\":")[1]).split(",")[0]).replace('"', "").replace('"', "").replace(" ", "");
                     console.log(git_name + ": " + git_type);
-                    git_project_num += 1;
                     if(git_type == "HTML" || git_type == "CSS" || git_type == "JavaScript")
-                    {
-                        galery("html", git_name, `https://github.com/${git_user}/${git_name}`, true, true)
-                    }
+                        galery("html", git_name, `https://github.com/${git_user}/${git_name}`, true, true, true);
                     else if(git_type == "Python")
-                    {
-                        galery("py", git_name, `https://github.com/${git_user}/${git_name}`, true, true)
-                    }
+                        galery("py", git_name, `https://github.com/${git_user}/${git_name}`, true, true, true);
                     else
-                    {
-                        galery(git_type.toLowerCase(), git_name, `https://github.com/${git_user}/${git_name}`, true, true)
-                    }
+                        galery(git_type.toLowerCase(), git_name, `https://github.com/${git_user}/${git_name}`, true, true, true);
                 }
             }
             git_done = true;
-            make_cache();
+            make_final_cache();
         })
         //github backup error
         .fail(function() {
             alert(error_github_api)
             git_done = true;
-            make_cache();
+            make_final_cache();
         });
     });
     //update table
