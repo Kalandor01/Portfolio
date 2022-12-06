@@ -1,13 +1,13 @@
 import os
 import requests
-from save_file_manager import UI_list
+from save_file_manager import UI_list, Cursor_icon
 
 # local projects
 def local_get():
     types = ["html", "py", "java"]
     for p_type in types:
         f = open(f"links/{p_type}.txt", "w")
-        for name in os.listdir(f"links\\types\{p_type}"):
+        for name in os.listdir(f"links\\types\\{p_type}"):
             if ".png" not in name and ".txt" not in name:
                 try:
                     f.write(name + "\n")
@@ -193,7 +193,7 @@ elif git_action == 2 or  git_action == 3:
                 git_projects[rename_num][2] = input(f'\nRename "{git_projects[rename_num][2]}" to: ')
             # delete
             elif git_action == 3:
-                git_projects.pop(UI_list(git_projects_display, "Chose a project to delete?", "x ", "  ").display())
+                git_projects.pop(UI_list(git_projects_display, "Chose a project to delete?", Cursor_icon("x ", "", "  ")).display())
             # replace
             f = open("links/github.txt", "w", encoding="utf-8")
             for x in range(len(git_projects)):

@@ -34,3 +34,18 @@ java||Torpedo||Torpedo
 java||TorpedoTDDFork||Torpedo 2
 java||talalos_kerdes||Kincskereső
 java||Kartyatrukk||Kártyatrükk
+php||book_store_backend||Book Store Backend
+html||book_store_MVC||Book Store MVC
+java||GuiOOPTest||GUI OOP test
+java||Harcos_varazslo||Harcos varázsló
+py||image_sheet_cutter||Image sheet cutter
+php||laravel_dolgozat||Laravel test
+php||laravel_library||Laravel library
+php||laravel_tasks||Laravel tasks
+html||light_on_OOP||Light on OOP
+java||MVC_Szamologep||Calculator MVC
+html_p||react_book_store||Book store React
+py||sfm_auto_decoder||Save file manager auto converter
+py||terminal_ui||Terminal UI
+html||tic_tac_toe_MVC||Tic Tac Toe MVC
+html||tic_tac_toe_OOP||Tic Tac Toe OOP

@@ -134,7 +134,7 @@ function table()
     $("aside>table>tbody").append(`<tr><th  class="translation_key_4">Total</th><td>${sum_project_num}</td></tr>`);
 }
 
-function galery(type = "html", name = "null", link = 0, internet_link = false, git_icon = false, add_to_gits = false)
+function galery(type = "html", name = "null", link = null, internet_link = false, git_icon = false, add_to_gits = false)
 {
     //make cache
     if(enable_cache && !is_cache)
@@ -142,7 +142,7 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
 
     if(type == "html_p")
     {
-        type == "html";
+        type = "html";
     }
     order_num++;
     //div
@@ -152,7 +152,7 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
         $(`.galery_other`).append(`<div class="other fadeIn current" style="--order: ${order_num}"></div>`);
     //get link/name
     let linkname = "";
-    if(link == 0)
+    if(link == null)
     {
         link = name;
         //name processing
@@ -166,7 +166,7 @@ function galery(type = "html", name = "null", link = 0, internet_link = false, g
         linkname = name.replace(/ /g, "_");
     name = name.replace(/_/g, " ");
     name = name.charAt(0).toUpperCase() + name.slice(1);
-    console.log(name, linkname);
+    console.log(name, linkname, type);
 
     //name
     if(type=="html" || type=="py" || type=="java" || type=="php")
