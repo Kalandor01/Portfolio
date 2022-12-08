@@ -8,7 +8,7 @@ def local_get():
     for p_type in types:
         f = open(f"links/{p_type}.txt", "w")
         for name in os.listdir(f"links\\types\\{p_type}"):
-            if ".png" not in name and ".txt" not in name:
+            if ".webp" not in name and ".txt" not in name:
                 try:
                     f.write(name + "\n")
                 except UnicodeEncodeError:

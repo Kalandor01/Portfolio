@@ -26,6 +26,7 @@ $(document).ready(function(){
         //extra
         galery("html", "Fenntarthatósági témahét 2022", "https://fenntarthatosagi.github.io/fenntarthatosagi_temahet_2022/", true, false, true);
         galery("html", "Farsang forms", "http://tanulo10.szf1b.oktatas.szamalk-szalezi.hu/farsangi_buli/", true, false);
+
         extra_done = true;
         make_final_cache();
     }
@@ -134,7 +135,7 @@ function table()
     $("aside>table>tbody").append(`<tr><th  class="translation_key_4">Total</th><td>${sum_project_num}</td></tr>`);
 }
 
-function galery(type = "html", name = "null", link = null, internet_link = false, git_icon = false, add_to_gits = false)
+function galery(type = "html", name = "null", link = 0, internet_link = false, git_icon = false, add_to_gits = false)
 {
     //make cache
     if(enable_cache && !is_cache)
@@ -152,7 +153,7 @@ function galery(type = "html", name = "null", link = null, internet_link = false
         $(`.galery_other`).append(`<div class="other fadeIn current" style="--order: ${order_num}"></div>`);
     //get link/name
     let linkname = "";
-    if(link == null)
+    if(link == 0)
     {
         link = name;
         //name processing
@@ -204,9 +205,9 @@ function galery(type = "html", name = "null", link = null, internet_link = false
 
     //image
     if(type=="html" || type=="py" || type=="java" || type=="php")
-        $(`.galery_${type}>.current`).append(`<div class="img_container"><img src="links/types/${type}/${linkname}.png" alt="${type}" class="good_img" onerror="javascript:this.src='img/${type}.png'; this.className=''"></div>`);
+        $(`.galery_${type}>.current`).append(`<div class="img_container"><img src="links/types/${type}/${linkname}.webp" alt="${type}" class="good_img" onerror="javascript:this.src='img/${type}.webp'; this.className=''"></div>`);
     else
-        $(`.galery_other>.current`).append(`<div class="img_container"><img src="links/types/${type}/${linkname}.png" alt="${type}" class="good_img" onerror="javascript:this.src='img/link.png'; this.className=''"></div>`);
+        $(`.galery_other>.current`).append(`<div class="img_container"><img src="links/types/${type}/${linkname}.webp" alt="${type}" class="good_img" onerror="javascript:this.src='img/link.webp'; this.className=''"></div>`);
     
         /*//get description
     let desc = null;
@@ -242,24 +243,24 @@ function galery(type = "html", name = "null", link = null, internet_link = false
             if(internet_link == true)
             {
                 if(git_icon)
-                    $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
+                    $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git.webp" alt="GitHub"></a>`);
                 else
-                    $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_link"><img src="img/link_dark.png" alt="Link"></a>`);
+                    $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_link"><img src="img/link.webp" alt="Link"></a>`);
             }
             else
-                $(`.galery_${type}>.current`).append(`<a target="_blank" href="links/types/${type}/${link}" class="link_type_link"><img src="img/link_dark.png" alt="Link"></a>`);
+                $(`.galery_${type}>.current`).append(`<a target="_blank" href="links/types/${type}/${link}" class="link_type_link"><img src="img/link.webp" alt="Link"></a>`);
         }
         else
         {
             if(internet_link == true)
             {
                 if(git_icon)
-                    $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
+                    $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git.webp" alt="GitHub"></a>`);
                 else
-                    $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
+                    $(`.galery_${type}>.current`).append(`<a target="_blank" href="${link}" class="link_type_download"><img src="img/download.webp" alt="Download"></a>`);
             }
             else
-                $(`.galery_${type}>.current`).append(`<a target="_blank" href="links/types/${type}/${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
+                $(`.galery_${type}>.current`).append(`<a target="_blank" href="links/types/${type}/${link}" class="link_type_download"><img src="img/download.webp" alt="Download"></a>`);
         }
 
         if(type == "html")
@@ -278,12 +279,12 @@ function galery(type = "html", name = "null", link = null, internet_link = false
         if(internet_link == true)
         {
             if(git_icon)
-                $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git_dark.png" alt="GitHub"></a>`);
+                $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_github"><img src="img/git.webp" alt="GitHub"></a>`);
             else
-                $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_link-download"><img src="img/link-download_dark.png" alt="Download"></a>`);
+                $(`.galery_other>.current`).append(`<a target="_blank" href="${link}" class="link_type_link-download"><img src="img/link-download.webp" alt="Download"></a>`);
         }
         else
-            $(`.galery_other>.current`).append(`<a target="_blank" href="links/types/other/${link}" class="link_type_download"><img src="img/download_dark.png" alt="Download"></a>`);
+            $(`.galery_other>.current`).append(`<a target="_blank" href="links/types/other/${link}" class="link_type_download"><img src="img/download.webp" alt="Download"></a>`);
         $(`.galery_other>.current`).removeClass(`current`);
     }
     $(`.galery_${type}>.current`).removeClass(`current`);
@@ -320,7 +321,7 @@ function get_filenames(dir_type)
         for (x = 0; x < files_as.length - 1; x++)
         {
             file = files_as[x+1].split(`</span><span class="size">`)[0]
-            if(file.includes(".txt") == false && file.includes(".png") == false)
+            if(file.includes(".txt") == false && file.includes(".webp") == false)
             {
                 galery(dir_type, file);
             }

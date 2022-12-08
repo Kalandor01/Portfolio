@@ -1,9 +1,9 @@
 
 $(document).ready(function(){
     //append to header
-    $('<div class="languages"><button class="langs" title="Language switch"><img src="img/link.png" alt="Language switch"><div class="langs_container"></div></button></div>').insertBefore("header>h1");
+    $('<div class="languages"><button class="langs" title="Language switch"><img src="img/link_dark.webp" alt="Language switch"><div class="langs_container"></div></button></div>').insertBefore("header>h1");
     get_langs();
-    $("header").append(`<div class="theme"><button class="theme_button" onclick="set_theme()" title="Theme change"><img src="img/sun.png" alt="Light mode"></button></div>`);
+    $("header").append(`<div class="theme"><button class="theme_button" onclick="set_theme()" title="Theme change"><img src="img/sun.webp" alt="Light mode"></button></div>`);
     //append to nav
     $("nav").append('<ul><li class="empty"></li><li><a href="index.html">Home page</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="projects.html">Projects</a></li><li><a href="html_playground.html">HTML creator</a></li></ul>')
     //append to footer
@@ -67,40 +67,40 @@ function set_theme(set_cookie=true){
 
     if(theme=="dark")
     {
-        //replace dark images with light
+        //switch to light mode
         //lang
-        document.querySelector("header>.languages>.langs>img").src = "img/link_dark.png";
+        document.querySelector("header>.languages>.langs>img").src = "img/link.webp";
         //theme
-        $("header>.theme>.theme_button").append(`<img src="img/moon.png" alt="Dark mode">`);
+        $("header>.theme>.theme_button").append(`<img src="img/moon.webp" alt="Dark mode">`);
         //galery
-        $(".link_type_github").append(`<img src="img/git.png" alt="GitHub">`);
-        $(".link_type_link").append(`<img src="img/link.png" alt="Link">`);
-        $(".link_type_download").append(`<img src="img/download.png" alt="Download">`);
-        $(".link_type_link-download").append(`<img src="img/link-download.png" alt="Linkd or download">`);
+        $(".link_type_github").append(`<img src="img/git_dark.webp" alt="GitHub">`);
+        $(".link_type_link").append(`<img src="img/link_dark.webp" alt="Link">`);
+        $(".link_type_download").append(`<img src="img/download_dark.webp" alt="Download">`);
+        $(".link_type_link-download").append(`<img src="img/link-download_dark.webp" alt="Linkd or download">`);
         //preview
-        $(".pre_portfolio").append(`<img src="img/preview/portfolio.png" alt="Portfolio">`);
-        $(".pre_projects").append(`<img src="img/preview/projects.png" alt="Projektek">`);
-        $(".pre_html_playground").append(`<img src="img/preview/html_playground.png" alt="HTML készítő">`);
+        $(".pre_portfolio").append(`<img src="img/preview/portfolio.webp" alt="Portfolio">`);
+        $(".pre_projects").append(`<img src="img/preview/projects.webp" alt="Projektek">`);
+        $(".pre_html_playground").append(`<img src="img/preview/html_playground.webp" alt="HTML készítő">`);
         theme = "light";
         if(set_cookie)
             document.cookie = `theme=1; expires=${years_from_now(cookies_expire)}; SameSite=Strict`;
     }
     else
     {
-        //replace light images with dark
+        //switch to dark mode
         //lang
-        document.querySelector("header>.languages>.langs>img").src = "img/link.png";
+        document.querySelector("header>.languages>.langs>img").src = "img/link_dark.webp";
         //theme
-        $("header>.theme>.theme_button").append(`<img src="img/sun.png" alt="Light mode">`);
+        $("header>.theme>.theme_button").append(`<img src="img/sun.webp" alt="Light mode">`);
         //galery
-        $(".link_type_github").append(`<img src="img/git_dark.png" alt="GitHub">`);
-        $(".link_type_link").append(`<img src="img/link_dark.png" alt="Link">`);
-        $(".link_type_download").append(`<img src="img/download_dark.png" alt="Download">`);
-        $(".link_type_link-download").append(`<img src="img/link-download_dark.png" alt="Link or download">`);
+        $(".link_type_github").append(`<img src="img/git.webp" alt="GitHub">`);
+        $(".link_type_link").append(`<img src="img/link.webp" alt="Link">`);
+        $(".link_type_download").append(`<img src="img/download.webp" alt="Download">`);
+        $(".link_type_link-download").append(`<img src="img/link-download.webp" alt="Link or download">`);
         //preview
-        $(".pre_portfolio").append(`<img src="img/preview/portfolio_dark.png" alt="Portfolio">`);
-        $(".pre_projects").append(`<img src="img/preview/projects_dark.png" alt="Projektek">`);
-        $(".pre_html_playground").append(`<img src="img/preview/html_playground_dark.png" alt="HTML készítő">`);
+        $(".pre_portfolio").append(`<img src="img/preview/portfolio_dark.webp" alt="Portfolio">`);
+        $(".pre_projects").append(`<img src="img/preview/projects_dark.webp" alt="Projektek">`);
+        $(".pre_html_playground").append(`<img src="img/preview/html_playground_dark.webp" alt="HTML készítő">`);
         theme = "dark";
         if(set_cookie)
             document.cookie = `theme=0; expires=${years_from_now(cookies_expire)}; SameSite=Strict`;
@@ -137,7 +137,7 @@ function get_langs()
 {
     $("header>.languages>.langs>.langs_container").empty();
     for (let x = 0; x < langs.length; x++)
-        $("header>.languages>.langs>.langs_container").append(`<button onclick="change_lang(${x})"><img src="img/lang_${langs[x]}.png" alt="${langs[x]}"></button>`);
+        $("header>.languages>.langs>.langs_container").append(`<button onclick="change_lang(${x})"><img src="img/lang_${langs[x]}.webp" alt="${langs[x]}"></button>`);
 }
 
 function change_lang(new_lang=0)
@@ -241,13 +241,13 @@ function testAjax()
 /*      header unpacked
             <div class="language">
                 <button class="lang_button" onclick="setLang()" title="Languague switch">
-                    <img src="img/lang_en.png" alt="English">
+                    <img src="img/lang_en.webp" alt="English">
                 </button>
             </div>
             H1 TAG
             <div class="theme">
                 <button class="theme_button" onclick="setTheme()" title="Color mode switch">
-                    <img src="img/sun.png" alt="Light mode">
+                    <img src="img/sun.webp" alt="Light mode">
                 </button>
             </div>
 */
