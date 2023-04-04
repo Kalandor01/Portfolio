@@ -34,7 +34,6 @@ java||Torpedo||Torpedo
 java||TorpedoTDDFork||Torpedo 2
 java||talalos_kerdes||Kincskereső
 java||Kartyatrukk||Kártyatrükk
-php||book_store_backend||Book Store Backend
 html||book_store_MVC||Book Store MVC
 java||GuiOOPTest||GUI OOP test
 java||Harcos_varazslo||Harcos varázsló
@@ -44,8 +43,19 @@ php||laravel_library||Laravel library
 php||laravel_tasks||Laravel tasks
 html||light_on_OOP||Light on OOP
 java||MVC_Szamologep||Calculator MVC
-html_p||react_book_store||Book store React
 py||sfm_auto_decoder||Save file manager auto converter
 py||terminal_ui||Terminal UI
 html||tic_tac_toe_MVC||Tic Tac Toe MVC
 html||tic_tac_toe_OOP||Tic Tac Toe OOP
+py||connect_x||Connect X
+java||Jarmu_UML||Jármű UML
+java||java_dolgozat_02.27||Java dolgozat 2023. 02. 27.
+java||java_dolgozat_GUI_0227||Java dolgozat GUI 2023. 02. 27.
+php||laravel_webstore||Laravel webstore
+c#||ProgressAdventure_CSharp||Progress Adventure C#
+c#||RandomSentence_Csharp||Random Sentence C#
+c#||SaveFileManager_CSharp||Save File Manager C#
+py||test_tube_game||Test tube game
+py||tkinter_proxy||Tkinter proxy
+php||book_store_backend||Book Store Backend
+html_p||react_book_store||Book store React

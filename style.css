@@ -327,7 +327,7 @@ article>.gen_button>.gen:hover {
 .fadeIn {
     opacity: 0%;
     animation: FadeIn 1s ease forwards;
-    animation-delay: calc(var(--order) * 100ms);
+    animation-delay: calc(var(--order) * 50ms);
 }
 
 .fadeIn>.me {

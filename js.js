@@ -1,3 +1,22 @@
+//general vars
+var cookies_expire = 2; //years
+var cache_expire = 8; //hours
+var langs = ["en", "hu", "de"];
+var lang_num = 0;
+var error_lang_translation = "No translation file found for this language!";
+var error_page_translation = "No translation file found for this page!";
+var error_page_name = "Couldn't get the name of this page!";
+//galery vars
+var error_dynamic_load_before = "Couldn't load ";
+var error_dynamic_load_other = "other";
+var error_dynamic_load_after = " projects dynamically. Reload the page to try again.\nLoading backup...";
+var error_github_dynamic = "Couldn't load GitHub projects dynamically. Reload the page to try again.\nDownloading backup with the help of the GitHub API...";
+var error_github_api = "Couldn't access the GitHub API!";
+//cookies
+var theme = "dark";
+var is_cache = false;
+var enable_cache = false;
+
 
 $(document).ready(function(){
     //append to header
@@ -49,10 +68,6 @@ $(document).ready(function(){
         is_cache = true;
 });
 
-
-var theme = "dark";
-var is_cache = false;
-var enable_cache = false;
 
 function set_theme(set_cookie=true){
     //empty
@@ -108,20 +123,6 @@ function set_theme(set_cookie=true){
     //set html class for color
     document.documentElement.className = theme;
 }
-
-var cookies_expire = 2; //years
-var cache_expire = 8; //hours
-var langs = ["en", "hu", "de"];
-var lang_num = 0;
-var error_lang_translation = "No translation file found for this language!";
-var error_page_translation = "No translation file found for this page!";
-var error_page_name = "Couldn't get the name of this page!";
-//galery vars
-var error_dynamic_load_before = "Couldn't load ";
-var error_dynamic_load_other = "other";
-var error_dynamic_load_after = " projects dynamically. Reload the page to try again.\nLoading backup...";
-var error_github_dynamic = "Couldn't load GitHub projects dynamically. Reload the page to try again.\nDownloading backup with the help of the GitHub API...";
-var error_github_api = "Couldn't access the GitHub API!";
 
 function years_from_now(add_years=2)
 {
@@ -218,54 +219,3 @@ function set_lang()
     //cookie
     document.cookie = `lang=${lang_num}; expires=${years_from_now(cookies_expire)}; SameSite=Strict`;
 }
-
-
-/*ajax template
-function testAjax()
-{
-    $.ajax({
-    url: "translations/html_playground_en.txt",
-    beforeSend: function(xhr) {
-        xhr.overrideMimeType("text/plain; charset=iso-8859-2");
-    }
-    })
-    .done(function(data) {
-        alert(data);
-        $(".testt>p").append(data);
-    })
-    .fail(function() {
-        alert("error");
-    });
-}*/
-
-/*      header unpacked
-            <div class="language">
-                <button class="lang_button" onclick="setLang()" title="Languague switch">
-                    <img src="img/lang_en.webp" alt="English">
-                </button>
-            </div>
-            H1 TAG
-            <div class="theme">
-                <button class="theme_button" onclick="setTheme()" title="Color mode switch">
-                    <img src="img/sun.webp" alt="Light mode">
-                </button>
-            </div>
-*/
-
-/*      nav unpacked
-            <ul>
-                <li class="empty"></li>
-                <li>
-                    <a href="index.html">Kezdőlap</a>
-                </li>
-                <li>
-                    <a href="portfolio.html">Portfólió</a>
-                </li>
-                <li>
-                    <a href="projects.html">Projektek</a>
-                </li>
-                <li>
-                    <a href="html_playground.html">HTML készítő</a>
-                </li>
-            </ul>
-*/
