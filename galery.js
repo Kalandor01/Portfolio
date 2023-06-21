@@ -328,11 +328,9 @@ function get_filenames(dir_type)
             bak_projects = {
                 "html": ["Csapatmunka", "gaming_oldal", "Kutyákról", "oldalalakítás", "reszponzív", "Sakkör", "Webáruház"],
                 "py": ["Béka.zip", "Black_Jack.zip", "fetch_projects.zip", "Kalandkönyv.zip", "Kémcső.zip"],
-                "java": ["Amőba.zip", "Harc.zip", "Itt_a_piros.zip", "Nyugta.zip"],
-                "php": [],
-                "other": []
+                "java": ["Amőba.zip", "Harc.zip", "Itt_a_piros.zip", "Nyugta.zip"]
             }
-            if(dir_type == "html" || dir_type == "py" || dir_type == "java" || dir_type == "php")
+            if(dir_type == "html" || dir_type == "py" || dir_type == "java")
             {
                 let projects = bak_projects[dir_type]
                 for (x = 0; x < projects.length; x++)
@@ -341,16 +339,6 @@ function get_filenames(dir_type)
                 }
                 alert(error_dynamic_load_before + dir_type + error_dynamic_load_after);
                 $(`<div class="no"><h4 class="translation_key_6">(backup)</h4></div>`).insertBefore(`#galery_${dir_type}`)
-            }
-            else
-            {
-                let projects = bak_projects["other"]
-                for (x = 0; x < projects.length; x++)
-                {
-                    galery("other", projects[x], null, true);
-                }
-                alert(error_dynamic_load_before + error_dynamic_load_other + error_dynamic_load_after);
-                $(`<div class="no"><h4 class="translation_key_6">(backup)</h4></div>`).insertBefore(`#galery_other`)
             }
             local_projects_loaded = true;
             make_final_cache();

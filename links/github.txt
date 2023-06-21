@@ -1,61 +1,67 @@
-html||Bootstrap||Bootstrap
-html||kaktuszok||Kaktuszok
-html||regi_autok||Régi autók
-html||regi_autok_bootstrap||Régi autók (Bootstrap)
 html||Agazati_vizsga||Ágazati HTML
-html||position||Position
-py||random_sentance||Random Sentance
-py||Save_File_Manager||Save_File_Manager
-py||toto||Totó
-py||Progress_Adventure||Progress Adventure
-html||flexAlap||Flexbox alapok
-html||kepregeny||Képregény
-html||teli_versek||Téli versek
+html||book_store_MVC||Book Store MVC
+html||Bootstrap||Bootstrap
 html||bootstrap_forms||Bootstrap forms
+py||connect_x||Connect X
 java||Csapatmunka_java_project||Alapműveletek gyakorlása csoprtmunka
 java||csapat_java||Csapatmunka test
-html||flex_novenyek||Növények flexbox
-java||git_conflict||Git conflict test
-html||JS_alapok||JS alapok
-html||js_img||JS képgaléria
-java||metodusok||Java gyakorlás
 py||fetch_repos||Fetch repositories
-java||NyugtaVerziokFork||Refactoring exercise
-html||tic_tac_toe||Tic Tak Toe
-html||JS_chess||JS Chess
-py||kalandor_utils||Kalandor utils
-html||kecske_farkas_kaposzta||Kecske, Farkas, Káposzta
+html||flexAlap||Flexbox alapok
+html||flex_novenyek||Növények flexbox
 html||forgalomiranyitas_lampaval||JS Forgalomirányítás
-html||js_szamologep||Számológép
-html||memoriajatek||Memóriajáték
-py||screen_display||Screen display
-java||TicTacToe_Java_GUI||Tic Tac Toe GUI
-java||Torpedo||Torpedo
-java||TorpedoTDDFork||Torpedo 2
-java||talalos_kerdes||Kincskereső
-java||Kartyatrukk||Kártyatrükk
-html||book_store_MVC||Book Store MVC
+java||git_conflict||Git conflict test
 java||GuiOOPTest||GUI OOP test
 java||Harcos_varazslo||Harcos varázsló
 py||image_sheet_cutter||Image sheet cutter
-php||laravel_dolgozat||Laravel test
-php||laravel_library||Laravel library
-php||laravel_tasks||Laravel tasks
-html||light_on_OOP||Light on OOP
-java||MVC_Szamologep||Calculator MVC
-py||sfm_auto_decoder||Save file manager auto converter
-py||terminal_ui||Terminal UI
-html||tic_tac_toe_MVC||Tic Tac Toe MVC
-html||tic_tac_toe_OOP||Tic Tac Toe OOP
-py||connect_x||Connect X
 java||Jarmu_UML||Jármű UML
 java||java_dolgozat_02.27||Java dolgozat 2023. 02. 27.
 java||java_dolgozat_GUI_0227||Java dolgozat GUI 2023. 02. 27.
+html||JS_alapok||JS alapok
+html||JS_chess||JS Chess
+html||js_img||JS képgaléria
+html||js_szamologep||Számológép
+html||kaktuszok||Kaktuszok
+py||kalandor_utils||Kalandor utils
+java||Kartyatrukk||Kártyatrükk
+html||kecske_farkas_kaposzta||Kecske, Farkas, Káposzta
+html||kepregeny||Képregény
+php||laravel_dolgozat||Laravel test
+php||laravel_library||Laravel library
+php||laravel_tasks||Laravel tasks
 php||laravel_webstore||Laravel webstore
+html||light_on_OOP||Light on OOP
+html||memoriajatek||Memóriajáték
+java||metodusok||Java gyakorlás
+java||MVC_Szamologep||Calculator MVC
+java||NyugtaVerziokFork||Refactoring exercise
+html||position||Position
 c#||ProgressAdventure_CSharp||Progress Adventure C#
+py||Progress_Adventure||Progress Adventure
 c#||RandomSentence_Csharp||Random Sentence C#
+py||random_sentance||Random Sentance
+html||regi_autok||Régi autók
+html||regi_autok_bootstrap||Régi autók (Bootstrap)
 c#||SaveFileManager_CSharp||Save File Manager C#
+py||Save_File_Manager||Save_File_Manager
+py||screen_display||Screen display
+py||sfm_auto_decoder||Save file manager auto converter
+java||talalos_kerdes||Kincskereső
+html||teli_versek||Téli versek
+py||terminal_ui||Terminal UI
 py||test_tube_game||Test tube game
+java||TicTacToe_Java_GUI||Tic Tac Toe GUI
+html||tic_tac_toe||Tic Tak Toe
+html||tic_tac_toe_MVC||Tic Tac Toe MVC
+html||tic_tac_toe_OOP||Tic Tac Toe OOP
 py||tkinter_proxy||Tkinter proxy
-php||book_store_backend||Book Store Backend
-html_p||react_book_store||Book store React
+java||Torpedo||Torpedo
+java||TorpedoTDDFork||Torpedo 2
+py||toto||Totó
+java||Game-of-Life||Game of Life
+php||laravel_doga_proba_ingatlanok||Ingatlanok laravel doga||               modified to be php type
+php||laravel_szotar||Szótár laravel
+c#||SFMAutoDecoder_Csharp||SFM Auto Decoder
+java||Shell_rendezes_algoritmizalas_doga||Shell sort
+html||wave_function_collapse_algorithm||Wave function collapse algorithm
+php||book_store_backend||Book Store Backend||                               modified to be php type
+html_p||react_book_store||Book store React||                                modified to be html_p type
