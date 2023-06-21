@@ -9,6 +9,7 @@ py||fetch_repos||Fetch repositories
 html||flexAlap||Flexbox alapok
 html||flex_novenyek||Növények flexbox
 html||forgalomiranyitas_lampaval||JS Forgalomirányítás
+java||Game-of-Life||Game of Life
 java||git_conflict||Git conflict test
 java||GuiOOPTest||GUI OOP test
 java||Harcos_varazslo||Harcos varázsló
@@ -27,6 +28,7 @@ html||kecske_farkas_kaposzta||Kecske, Farkas, Káposzta
 html||kepregeny||Képregény
 php||laravel_dolgozat||Laravel test
 php||laravel_library||Laravel library
+php||laravel_szotar||Szótár laravel
 php||laravel_tasks||Laravel tasks
 php||laravel_webstore||Laravel webstore
 html||light_on_OOP||Light on OOP
@@ -44,7 +46,9 @@ html||regi_autok_bootstrap||Régi autók (Bootstrap)
 c#||SaveFileManager_CSharp||Save File Manager C#
 py||Save_File_Manager||Save_File_Manager
 py||screen_display||Screen display
+c#||SFMAutoDecoder_Csharp||SFM Auto Decoder
 py||sfm_auto_decoder||Save file manager auto converter
+java||Shell_rendezes_algoritmizalas_doga||Shell sort
 java||talalos_kerdes||Kincskereső
 html||teli_versek||Téli versek
 py||terminal_ui||Terminal UI
@@ -57,11 +61,7 @@ py||tkinter_proxy||Tkinter proxy
 java||Torpedo||Torpedo
 java||TorpedoTDDFork||Torpedo 2
 py||toto||Totó
-java||Game-of-Life||Game of Life
-php||laravel_doga_proba_ingatlanok||Ingatlanok laravel doga||               modified to be php type
-php||laravel_szotar||Szótár laravel
-c#||SFMAutoDecoder_Csharp||SFM Auto Decoder
-java||Shell_rendezes_algoritmizalas_doga||Shell sort
 html||wave_function_collapse_algorithm||Wave function collapse algorithm
-php||book_store_backend||Book Store Backend||                               modified to be php type
-html_p||react_book_store||Book store React||                                modified to be html_p type
+php||laravel_doga_proba_ingatlanok||Ingatlanok laravel doga
+php||book_store_backend||Book Store Backend
+html_p||react_book_store||Book store React
